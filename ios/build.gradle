@@ -1,10 +1,10 @@
-sourceSets.main.java.srcDirs = [ "src/" ]
+sourceSets.main.java.srcDirs = ["src/"]
 
 sourceCompatibility = '1.7'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 ext {
-	mainClassName = "dev.wizrad.solarfare.IOSLauncher"
+  mainClassName = "dev.wizrad.solarfare.IOSLauncher"
 }
 
 launchIPhoneSimulator.dependsOn build
@@ -14,6 +14,6 @@ createIPA.dependsOn build
 
 
 eclipse.project {
-    name = appName + "-ios"
-    natures 'org.robovm.eclipse.RoboVMNature'
+  name = appName + "-ios"
+  natures 'org.robovm.eclipse.RoboVMNature'
 }
