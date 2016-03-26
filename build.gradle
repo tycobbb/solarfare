@@ -27,6 +27,7 @@ allprojects {
     box2DLightsVersion = '1.4'
     ashleyVersion = '1.7.0'
     aiVersion = '1.8.0'
+    daggerVersion = '2.0.2'
   }
 
   repositories {
@@ -42,6 +43,7 @@ project(":desktop") {
 
   dependencies {
     compile project(":core")
+
     compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
     compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
@@ -56,6 +58,7 @@ project(":android") {
 
   dependencies {
     compile project(":core")
+
     compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
     natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
     natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
@@ -78,6 +81,7 @@ project(":ios") {
 
   dependencies {
     compile project(":core")
+
     compile "org.robovm:robovm-rt:$roboVMVersion"
     compile "org.robovm:robovm-cocoatouch:$roboVMVersion"
     compile "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
@@ -91,9 +95,15 @@ project(":core") {
   apply plugin: "kotlin"
 
   dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     compile "com.badlogicgames.gdx:gdx:$gdxVersion"
     compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    compile "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+  }
+
+  kapt {
+    generateStubs = false
   }
 }
 
