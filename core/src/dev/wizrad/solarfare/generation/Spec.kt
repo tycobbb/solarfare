@@ -8,7 +8,7 @@ import java.util.*
 
 class Spec(
   val id: Identifier,
-  val elements: List<Element<Node>>) {
+  val elements: List<SpecElement<Node>>) {
 
   /** A pseudo-element that tracks when to stop node generation */
   private val stop = Stop()
@@ -27,19 +27,19 @@ class Spec(
       null
     }
 
-    return Node() // TODO
+    return node
   }
 
-  private fun generateNode(element: Element<Node>): Node? {
+  private fun generateNode(element: SpecElement<Node>): Node? {
     val result = element.generate()
 
-    // if we generated a node, increase the stop frequency appropriately
+    // if we generated a node, increase the stop weight appropriately
     if(result != null) {
-      stop.frequency += element.stopGrowth
+      stop.weight += element.stopGrowth
     }
 
     if(result != null) {
-      print("spec: $this generated child: $result frequency: ${element.frequency}") // TODO logger
+      print("spec: $this generated child: $result weight: ${element.weight}") // TODO logger
     } else {
       print("spec: $this failed to generate a child")
     }
@@ -54,48 +54,48 @@ class Spec(
 
   //
   // Sampling
-  private fun sampleElement(): Element<Node> {
+  private fun sampleElement(): SpecElement<Node> {
     // return first valid element searching by descending priority; the `stop` fallback shouldn't be
     // hit, as it's returned by the priority-based override
     return priorities.findMapped { sampleElement(it) } ?: stop
   }
 
-  private fun sampleElement(priority: Element.Priority): Element<Node>? {
-    var frequency = totalFrequency(priority)
+  private fun sampleElement(priority: SpecElement.Priority): SpecElement<Node>? {
+    var weight = totalWeight(priority)
 
-    // if no element has any frequency at this priority, short-circuit
-    if(frequency <= 0) {
+    // if no element has any weight at this priority, short-circuit
+    if(weight <= 0) {
       return null
     }
 
     print("spec: $this generating in priority: $priority") // TODO: logger
 
-    // fallback to `stop` instead of `null` for non-required priorities, and include its frequency
+    // fallback to `stop` instead of `null` for non-required priorities, and include its weight
     // when sampling
-    var fallback: Element<Node>? = null
-    if(priority != Element.Priority.Required) {
+    var fallback: SpecElement<Node>? = null
+    if(priority != SpecElement.Priority.Required) {
       fallback = stop
-      frequency += stop.frequency;
+      weight += stop.weight;
     }
 
-    // sample a value in the total frequency
-    var sample = rand().upto(frequency)
+    // sample a value in the total weight
+    var sample = rand().upto(weight)
     val result = elements
       .filter { it.priority == priority }
       .find {
-        sample -= it.frequency
+        sample -= it.weight
         sample <= 0
       }
 
     return result ?: fallback
   }
 
-  private fun totalFrequency(priority: Element.Priority): Int {
-    return elements.filter { it.priority == priority }.sumBy { it.frequency }
+  private fun totalWeight(priority: SpecElement.Priority): Int {
+    return elements.filter { it.priority == priority }.sumBy { it.weight }
   }
 
-  private val priorities: Array<Element.Priority>
-    get() = Element.Priority.values()
+  private val priorities: Array<SpecElement.Priority>
+    get() = SpecElement.Priority.values()
 
   //
   // Debugging
@@ -113,12 +113,12 @@ class Spec(
 
   class Builder(tag: String) {
     private val id: Identifier = Identifier.next(tag)
-    private val elements = ArrayList<Element<Node>>()
+    private val elements = ArrayList<SpecElement<Node>>()
 
     //
     // Elements
-    fun <N: Node> child(): Element<N> {
-      val element = Element<N>()
+    fun <N: Node> child(factory: () -> N): SpecElement<N> {
+      val element = SpecElement(factory)
       elements.add(element)
       return element
     }
@@ -128,7 +128,7 @@ class Spec(
     }
   }
 
-  private class Stop: Element<Node>() {
+  private class Stop: SpecElement<Node>(::Node) {
     var reached: Boolean = false
   }
 }

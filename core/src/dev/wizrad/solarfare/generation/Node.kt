@@ -75,5 +75,11 @@ open class Node {
     fun <N: Node> start(): N {
       return Node() as N // TODO
     }
+
+    fun <N: Node> generate(factory: () -> N): N {
+      val instance = factory()
+      instance.generate()
+      return instance
+    }
   }
 }
