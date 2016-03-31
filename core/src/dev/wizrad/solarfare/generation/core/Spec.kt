@@ -1,9 +1,8 @@
-package dev.wizrad.solarfare.generation
+package dev.wizrad.solarfare.generation.core
 
 import dev.wizrad.solarfare.extensions.findMapped
 import dev.wizrad.solarfare.extensions.rand
 import dev.wizrad.solarfare.extensions.upto
-import java.lang.annotation.ElementType
 import java.util.*
 
 class Spec(

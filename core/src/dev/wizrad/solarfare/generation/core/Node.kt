@@ -1,4 +1,4 @@
-package dev.wizrad.solarfare.generation
+package dev.wizrad.solarfare.generation.core
 
 import java.awt.Point
 import java.util.*
@@ -6,7 +6,7 @@ import java.util.*
 open class Node {
   // Configuration
   /** @property tag Name for for this node, attached to materialied object */
-  private var tag: String? = null
+  private var tag: String? = null // TODO: make immutable and non-null
   /** @property resource Name for the resource to generate from this node */
   private var resource: String? = null
 
@@ -21,7 +21,7 @@ open class Node {
   //
   // Relationships
   /** Adds a new child, removing it from its parent if necessary */
-  fun <N: Node> add(child: N): N {
+  private fun <N: Node> add(child: N): N {
     assert(!children.contains(child)) { "attempted to add existing child ${child.tag}" }
 
     if(child.parent != null) {
@@ -35,7 +35,7 @@ open class Node {
   }
 
   /** Removes a child, returning the removed node or null if none existed */
-  fun <N: Node> remove(child: N): N? {
+  private fun <N: Node> remove(child: N): N? {
     return if(children.remove(child)) child else null
   }
 
@@ -54,26 +54,55 @@ open class Node {
 
   //
   // Lifecycle
-  fun generate() {
-    // TODO
+  private fun generate() {
+    // run the spec builder and capture its id
+    val lspec = spec().end()
+    id = lspec.id
+
+    // generate children from the spec as long as its able
+    while(lspec.hasNext) {
+      val node = lspec.next()
+      if(node != null) {
+        add(node)
+      }
+    }
   }
 
-  fun materialize() {
-    // TODO
+  /** Realizes the node in the game world, each subclass should implement this */
+  protected fun <P: Node> materialize(parent: Materializable<P>?) {
+    print("node: $this materializing children: ${children.count()}") // TODO: logging
+    for(child in children) {
+      child.materialize(parent)
+    }
+  }
+
+  /** Quick access to the materializer; TODO: inject this */
+  protected val materializer: Materializer get() = object: Materializer {
+    override fun <N : Node, P : Node> materialize(node: N, parent: Materializable<P>?): Materializable<N> {
+      throw UnsupportedOperationException()
+    }
   }
 
   //
   // Spec
-  fun spec(spec: Spec.Builder): Spec.Builder {
+  protected fun spec(spec: Spec.Builder = Spec.start(tag ?: "")): Spec.Builder {
     return spec
   }
+
+  //
+  // Accessors
+  val name: String
+    get() = if(tag != null) tag!! else resource!!
 
   //
   // Bootstrapping
   companion object {
     /** Bootstraps generation from a root node of this type */
-    fun <N: Node> start(): N {
-      return Node() as N // TODO
+    fun <N: Node> start(factory: () -> N): N {
+      val root = generate(factory)
+      var parent: Materializable<Node>? = null
+      root.materialize(parent)
+      return root
     }
 
     fun <N: Node> generate(factory: () -> N): N {

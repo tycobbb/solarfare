@@ -1,4 +1,4 @@
-package dev.wizrad.solarfare.generation
+package dev.wizrad.solarfare.generation.core
 
 open class SpecElement<out N: Node>(
   val factory: () -> N) {

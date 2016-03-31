@@ -1,4 +1,4 @@
-package dev.wizrad.solarfare.generation
+package dev.wizrad.solarfare.generation.core
 
 import dev.wizrad.respek.graph.Respek
 import org.hamcrest.MatcherAssert.assertThat

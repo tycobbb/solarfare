@@ -1,4 +1,4 @@
-package dev.wizrad.solarfare.generation
+package dev.wizrad.solarfare.generation.core
 
 import java.util.HashMap
 
