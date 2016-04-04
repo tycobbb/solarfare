@@ -1,0 +1,12 @@
+#!/bin/sh
+
+LIBS=core/lib/test
+RESPEK=~/libraries/respek/respek/build/libs/
+JAR=respek.jar
+
+if [[ "$1" == "source" ]]; then
+  JAR=respek-source.jar
+fi
+
+rm $LIBS/respek*
+cp $RESPEK/$JAR $LIBS/

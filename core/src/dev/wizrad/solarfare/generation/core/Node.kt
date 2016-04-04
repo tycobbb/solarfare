@@ -39,19 +39,6 @@ open class Node {
     return if(children.remove(child)) child else null
   }
 
-  /** Traverses the tree to find all descendants of type `N` */
-  fun <N: Node> descendants(result: MutableList<N> = ArrayList<N>()): List<N> {
-    if(this as N != null) {
-      result.add(this)
-    }
-
-    for(child in children) {
-      child.descendants(result)
-    }
-
-    return result
-  }
-
   //
   // Lifecycle
   private fun generate() {
