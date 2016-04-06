@@ -1,0 +1,60 @@
+{
+  "seed": {
+    "value": 123659751,
+    "isEnabled": false
+  },
+  "space": {
+    "size": {
+      "available": 1.0,
+      "range": { "min": 1000.0, "max": 10000.0 }
+    }
+  },
+  "solarSystem": {
+    "radius": {
+      "available": 50.0,
+      "independent": 10.0,
+      "range": { "min": 30.0, "max": 80.0 }
+    }
+  },
+  "star": {
+    "sprite": {
+      "name": "star",
+      "variants": 1
+    },
+    "mass": {
+      "raw": 100000.0,
+      "range": { "min": 5.0, "max": 10.0 }
+    },
+    "radius": {
+      "independent": 10.0,
+      "range": { "min": 1.0, "max": 10.0 }
+    }
+  },
+  "planet": {
+    "sprite": {
+      "name": "planet",
+      "variants": 2
+    },
+    "mass": {
+      "raw":  10.0,
+      "range": { "min": 1.0, "max": 3.0 }
+    },
+    "radius": {
+      "independent": 10.0,
+      "range": { "min": 2.0, "max": 5.0 }
+    }
+  },
+  "ship": {
+
+  },
+  "camera": {
+    "height": 10
+  },
+  "keyBindings": {
+    "thrust": "w",
+    "leftBank": "a",
+    "rightBank": "d",
+    "reverse": "s",
+    "mouseTouch": "mouse0"
+  }
+}

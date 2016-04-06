@@ -1,18 +1,14 @@
 package dev.wizrad.solarfare.config
 
-import com.bluelinelabs.logansquare.annotation.JsonField
-import com.bluelinelabs.logansquare.annotation.JsonObject
-
-@JsonObject
 class Factor {
   /** @property range The range this factor generates over */
-  @JsonField lateinit var range: Range
+  lateinit var range: Range
   /** @property raw The scaling ratio fro the factor's raw value */
-  @JsonField var raw: Double = 1.0
+  var raw: Double = 1.0
   /** @property available The scaling ratio for the factor's available cost */
-  @JsonField var available: Double = 0.0
+  var available: Double = 0.0
   /** @property independent The scaling ratio for the factor's independent cost */
-  @JsonField var independent: Double = 0.0
+  var independent: Double = 0.0
 
   //
   // Sampling

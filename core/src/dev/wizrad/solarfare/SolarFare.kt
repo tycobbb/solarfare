@@ -11,7 +11,7 @@ class SolarFare : ApplicationAdapter() {
   lateinit var config: Config
 
   override fun create() {
-    config = Config.load()
+
   }
 
   override fun render() {

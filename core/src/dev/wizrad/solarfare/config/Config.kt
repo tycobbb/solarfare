@@ -1,34 +1,41 @@
 package dev.wizrad.solarfare.config
 
 import com.badlogic.gdx.Gdx
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import okio.Okio
 import java.io.InputStream
-import com.bluelinelabs.logansquare.LoganSquare
-import com.bluelinelabs.logansquare.annotation.JsonField
-import com.bluelinelabs.logansquare.annotation.JsonObject
 
-@JsonObject
 class Config {
   //
   // Fields
-  @JsonField lateinit var seed: Seed
-  @JsonField lateinit var space: Space
-  @JsonField lateinit var solarSystem: SolarSystem
-  @JsonField lateinit var star: Spheroid
-  @JsonField lateinit var planet: Spheroid
-  @JsonField lateinit var keys: Keys
-  @JsonField lateinit var camera: Camera
+  lateinit var seed: Seed
+  lateinit var space: Space
+  lateinit var solarSystem: SolarSystem
+  lateinit var star: Spheroid
+  lateinit var planet: Spheroid
+  lateinit var keys: Keys
+  lateinit var camera: Camera
 
   //
-  // Loading
+  // De/serialization
+  fun toJson(): String {
+    return adapter().toJson(this)
+  }
+
   companion object {
     fun load(): Config {
       return load(Gdx.files.internal("config.json").read())
     }
 
     fun load(stream: InputStream): Config {
-      val config = LoganSquare.parse(stream, Config::class.java)
+      val config = adapter().fromJson(Okio.buffer(Okio.source(stream)))
       stream.close()
       return config
+    }
+
+    private fun adapter(): JsonAdapter<Config> {
+       return Moshi.Builder().build().adapter(Config::class.java)
     }
   }
 }
