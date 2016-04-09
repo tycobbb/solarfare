@@ -5,7 +5,9 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import okio.Okio
 import java.io.InputStream
+import javax.inject.Singleton
 
+@Singleton
 class Config {
   //
   // Fields

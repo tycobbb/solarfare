@@ -18,11 +18,11 @@ class Spec(
     get() = !stop.reached
 
   fun next(): Node? {
-    val element = this.sampleElement()
-    var node = if(element == stop) {
+    val element = sampleElement()
+    var node = if(element !== stop) {
       generateNode(element)
     } else {
-      this.stopGenerating()
+      stopGenerating()
       null
     }
 
@@ -38,9 +38,9 @@ class Spec(
     }
 
     if(result != null) {
-      print("spec: $this generated child: $result weight: ${element.weight}") // TODO logger
+      println("spec: $this generated child: $result weight: ${element.weight}") // TODO logger
     } else {
-      print("spec: $this failed to generate a child")
+      println("spec: $this failed to generate a child")
     }
 
     return result
@@ -48,7 +48,7 @@ class Spec(
 
   private fun stopGenerating() {
     stop.reached = true
-    print("spec: $this did stop generating") // TODO: logger
+    println("spec: $this did stop generating") // TODO: logger
   }
 
   //
@@ -67,7 +67,7 @@ class Spec(
       return null
     }
 
-    print("spec: $this generating in priority: $priority") // TODO: logger
+    println("spec: $this generating in priority: $priority") // TODO: logger
 
     // fallback to `stop` instead of `null` for non-required priorities, and include its weight
     // when sampling

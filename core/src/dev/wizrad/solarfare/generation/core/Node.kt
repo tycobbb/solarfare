@@ -41,14 +41,19 @@ open class Node {
 
   //
   // Lifecycle
+  fun bootstrap() {
+    generate()
+    materialize(null as Materializable<Node>?)
+  }
+
   private fun generate() {
     // run the spec builder and capture its id
-    val lspec = spec().end()
-    id = lspec.id
+    val localSpec= spec().end()
+    id = localSpec.id
 
     // generate children from the spec as long as its able
-    while(lspec.hasNext) {
-      val node = lspec.next()
+    while(localSpec.hasNext) {
+      val node = localSpec.next()
       if(node != null) {
         add(node)
       }
@@ -57,7 +62,7 @@ open class Node {
 
   /** Realizes the node in the game world, each subclass should implement this */
   protected fun <P: Node> materialize(parent: Materializable<P>?) {
-    print("node: $this materializing children: ${children.count()}") // TODO: logging
+    println("node: $this materializing children: ${children.count()}") // TODO: logging
     for(child in children) {
       child.materialize(parent)
     }
@@ -72,8 +77,8 @@ open class Node {
 
   //
   // Spec
-  protected fun spec(spec: Spec.Builder = Spec.start(tag ?: "")): Spec.Builder {
-    return spec
+  protected open fun spec(): Spec.Builder {
+    return Spec.start(tag ?: "")
   }
 
   //
