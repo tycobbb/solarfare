@@ -5,7 +5,7 @@ import dev.wizrad.solarfare.generation.core.Node
 import javax.inject.Inject
 
 class SolarSystemNode @Inject constructor(
-  config: Config): Node() {
+  config: Config): Node("system") {
 
   //
   // Properties

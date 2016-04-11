@@ -8,7 +8,7 @@ import javax.inject.Provider
 
 class SpaceNode @Inject constructor(
   config: Config,
-  val solarSystems: Provider<SolarSystemNode>): Node() {
+  val solarSystems: Provider<SolarSystemNode>): Node("space") {
 
   //
   // Properties

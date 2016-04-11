@@ -3,6 +3,8 @@ package dev.wizrad.solarfare.generation.core
 import dev.wizrad.solarfare.extensions.findMapped
 import dev.wizrad.solarfare.extensions.rand
 import dev.wizrad.solarfare.extensions.upto
+import dev.wizrad.solarfare.support.Tag
+import dev.wizrad.solarfare.support.debug
 import java.util.*
 
 class Spec(
@@ -38,9 +40,9 @@ class Spec(
     }
 
     if(result != null) {
-      println("spec: $this generated child: $result weight: ${element.weight}") // TODO logger
+      debug(Tag.GENERATION, "$this generated child -> $result, weight -> ${element.weight}")
     } else {
-      println("spec: $this failed to generate a child")
+      debug(Tag.GENERATION, "$this failed to generate a child")
     }
 
     return result
@@ -48,7 +50,7 @@ class Spec(
 
   private fun stopGenerating() {
     stop.reached = true
-    println("spec: $this did stop generating") // TODO: logger
+    debug(Tag.GENERATION, "$this did stop generating")
   }
 
   //
@@ -67,7 +69,7 @@ class Spec(
       return null
     }
 
-    println("spec: $this generating in priority: $priority") // TODO: logger
+    debug(Tag.GENERATION, "$this sampling priority -> $priority")
 
     // fallback to `stop` instead of `null` for non-required priorities, and include its weight
     // when sampling
@@ -99,7 +101,7 @@ class Spec(
   //
   // Debugging
   override fun toString(): String {
-    return super.toString()
+    return "[spec: $id]"
   }
 
   //
@@ -127,7 +129,7 @@ class Spec(
     }
   }
 
-  private class Stop: SpecElement<Node>(::Node) {
+  private class Stop: SpecElement<Node>({ Node("stop") }) {
     var reached: Boolean = false
   }
 }

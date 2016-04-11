@@ -1,5 +1,6 @@
 package dev.wizrad.solarfare
 
+import com.badlogic.gdx.Application
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
@@ -11,11 +12,13 @@ import dev.wizrad.solarfare.generation.SpaceNode
 import dev.wizrad.solarfare.generation.core.Root
 import javax.inject.Inject
 
-class SolarFare : ApplicationAdapter() {
+class SolarFare: ApplicationAdapter() {
   lateinit protected var component: GameComponent private set
   lateinit protected var root: Root<SpaceNode> @Inject set
 
   override fun create() {
+    Gdx.app.logLevel = Application.LOG_DEBUG
+
     component = buildComponent()
     component.inject(this)
 

@@ -1,12 +1,12 @@
 package dev.wizrad.solarfare.generation.core
 
+import dev.wizrad.solarfare.support.Tag
+import dev.wizrad.solarfare.support.debug
 import java.awt.Point
 import java.util.*
 
-open class Node {
+open class Node(val tag: String) {
   // Configuration
-  /** @property tag Name for for this node, attached to materialied object */
-  private var tag: String? = null // TODO: make immutable and non-null
   /** @property resource Name for the resource to generate from this node */
   private var resource: String? = null
 
@@ -62,7 +62,7 @@ open class Node {
 
   /** Realizes the node in the game world, each subclass should implement this */
   protected fun <P: Node> materialize(parent: Materializable<P>?) {
-    println("node: $this materializing children: ${children.count()}") // TODO: logging
+    debug(Tag.GENERATION, "$this materializing children -> ${children.count()}")
     for(child in children) {
       child.materialize(parent)
     }
@@ -87,16 +87,14 @@ open class Node {
     get() = if(tag != null) tag!! else resource!!
 
   //
+  // Debugging
+  override fun toString(): String {
+    return "[node: $id]"
+  }
+
+  //
   // Bootstrapping
   companion object {
-    /** Bootstraps generation from a root node of this type */
-    fun <N: Node> start(factory: () -> N): N {
-      val root = generate(factory)
-      var parent: Materializable<Node>? = null
-      root.materialize(parent)
-      return root
-    }
-
     fun <N: Node> generate(factory: () -> N): N {
       val instance = factory()
       instance.generate()
