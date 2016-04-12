@@ -43,7 +43,7 @@ open class SpecElement<out N: Node>(
 
   private fun finishGenerating(node: N): N? {
     var result: N? = node
-    val filtered = filterFunction?.invoke(node) ?: false
+    val filtered = if(filterFunction != null) !filterFunction!!(node) else false
 
     if(filtered) {
       cancelGenerating(node)

@@ -1,10 +1,9 @@
 package dev.wizrad.solarfare.extensions
 
-import java.util.Random
+import dev.wizrad.solarfare.support.cache
+import java.util.*
 
-fun rand(): Random {
-  return Random()
-}
+val rand: () -> Random = cache { Random() }
 
 fun Random.upto(max: Int): Int {
   return nextInt(max)

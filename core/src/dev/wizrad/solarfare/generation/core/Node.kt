@@ -5,10 +5,12 @@ import dev.wizrad.solarfare.support.debug
 import java.awt.Point
 import java.util.*
 
-open class Node(val tag: String) {
+open class Node(
+  val tag: String) {
+
   // Configuration
   /** @property resource Name for the resource to generate from this node */
-  private var resource: String? = null
+  var resource: String? = null
 
   // Tree
   private var id: Identifier? = null
@@ -46,7 +48,7 @@ open class Node(val tag: String) {
     materialize(null as Materializable<Node>?)
   }
 
-  private fun generate() {
+  protected open fun generate() {
     // run the spec builder and capture its id
     val localSpec= spec().end()
     id = localSpec.id

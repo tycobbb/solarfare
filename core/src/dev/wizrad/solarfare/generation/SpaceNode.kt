@@ -1,8 +1,12 @@
 package dev.wizrad.solarfare.generation
 
 import dev.wizrad.solarfare.config.Config
+import dev.wizrad.solarfare.extensions.between
+import dev.wizrad.solarfare.extensions.rand
 import dev.wizrad.solarfare.generation.core.Node
 import dev.wizrad.solarfare.generation.core.Spec
+import dev.wizrad.solarfare.support.geometry.Point
+import dev.wizrad.solarfare.support.geometry.Size
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -14,10 +18,25 @@ class SpaceNode @Inject constructor(
   // Properties
   val model = config.space
 
+  /** The unit size of the corresponding materializable */
+  lateinit var size: Size
+
   //
   // Lifecycle
-  private fun generated(node: SolarSystemNode) {
+  init {
+    resource = "space"
+  }
 
+  override fun generate() {
+    size = Size(model.size.sample())
+    super.generate()
+  }
+
+  private fun generated(node: SolarSystemNode) {
+    node.center = Point(
+      rand().between(node.radius, size.width  - node.radius),
+      rand().between(node.radius, size.height - node.radius)
+    )
   }
 
   //
