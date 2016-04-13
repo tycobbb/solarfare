@@ -18,6 +18,7 @@ class Config {
   lateinit var planet: Spheroid
   lateinit var keys: Keys
   lateinit var camera: Camera
+  lateinit var ship: Ship
 
   //
   // De/serialization

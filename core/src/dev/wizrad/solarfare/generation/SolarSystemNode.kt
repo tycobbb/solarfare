@@ -8,7 +8,7 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 class SolarSystemNode @Inject constructor(
-  config: Config,
+  config:      Config,
   val stars:   Provider<StarNode>,
   val planets: Provider<PlanetNode>): Node("system") {
 
