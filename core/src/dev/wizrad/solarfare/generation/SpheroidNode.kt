@@ -7,7 +7,7 @@ import dev.wizrad.solarfare.support.geometry.Point
 abstract class SpheroidNode(tag: String): Node(tag) {
   //
   // Properties
-  abstract val model: Spheroid
+  abstract protected val model: Spheroid
 
   /** The name of the sprite to materialize */
   lateinit var sprite: String

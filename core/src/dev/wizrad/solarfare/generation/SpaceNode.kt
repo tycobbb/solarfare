@@ -12,13 +12,13 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 class SpaceNode @Inject constructor(
-  config:           Config,
-  val ships:        Provider<ShipNode>,
-  val solarSystems: Provider<SolarSystemNode>): Node("space") {
+  config: Config,
+  private val ships:        Provider<ShipNode>,
+  private val solarSystems: Provider<SolarSystemNode>): Node("space") {
 
   //
   // Properties
-  val model = config.space
+  private val model = config.space
 
   /** The unit size of the corresponding materializable */
   lateinit var size: Size

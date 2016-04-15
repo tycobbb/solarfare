@@ -15,7 +15,7 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 class SolarSystemNode @Inject constructor(
-  config:      Config,
+  config: Config,
   private val stars:   Provider<StarNode>,
   private val planets: Provider<PlanetNode>): Node("system") {
 
