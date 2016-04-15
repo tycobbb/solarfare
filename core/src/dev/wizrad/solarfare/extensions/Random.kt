@@ -20,3 +20,11 @@ fun Random.between(min: Int, max: Int): Int {
 fun Random.between(min: Double, max: Double): Double {
   return min + upto(max - min)
 }
+
+fun Random.stride(min: Int, length: Int): Int {
+  return min + upto(length)
+}
+
+fun Random.stride(min: Double, length: Double): Double {
+  return min + upto(length)
+}
