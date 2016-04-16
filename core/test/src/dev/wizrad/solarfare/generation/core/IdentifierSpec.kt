@@ -1,11 +1,12 @@
 package dev.wizrad.solarfare.generation.core
 
-import dev.wizrad.respek.graph.Respek
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.*
+import org.hamcrest.Matchers.equalTo
+import org.hamcrest.Matchers.not
+import org.jetbrains.spek.api.Spek
 
-class IdentifierSpec: Respek() { init {
-  given("a tag") {
+class IdentifierSpec: Spek({
+  given("an identifier") {
     val tag = "test"
     var id: Identifier? = null
 
@@ -44,4 +45,4 @@ class IdentifierSpec: Respek() { init {
       }
     }
   }
-}}
+})
