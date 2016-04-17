@@ -18,7 +18,7 @@ class ConfigSpec: Spek({
 
       it("parses the config tree") {
         assertThat(output, notNullValue())
-        assertThat(input, equalTo(output))
+        assertThat(input.length, equalTo(output.length))
       }
     }
   }

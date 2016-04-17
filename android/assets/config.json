@@ -5,12 +5,15 @@
   },
   "space": {
     "size": {
+      "raw": 0.0,
       "available": 1.0,
+      "independent": 0.0,
       "range": { "min": 1000.0, "max": 10000.0 }
     }
   },
   "solarSystem": {
     "radius": {
+      "raw": 0.0,
       "available": 50.0,
       "independent": 10.0,
       "range": { "min": 30.0, "max": 80.0 }
@@ -23,9 +26,13 @@
     },
     "mass": {
       "raw": 100000.0,
+      "available": 0.0,
+      "independent": 0.0,
       "range": { "min": 5.0, "max": 10.0 }
     },
     "radius": {
+      "raw": 0.0,
+      "available": 0.0,
       "independent": 10.0,
       "range": { "min": 1.0, "max": 10.0 }
     }
@@ -37,9 +44,13 @@
     },
     "mass": {
       "raw":  10.0,
+      "available": 0.0,
+      "independent": 0.0,
       "range": { "min": 1.0, "max": 3.0 }
     },
     "radius": {
+      "raw": 0.0,
+      "available": 0.0,
       "independent": 10.0,
       "range": { "min": 2.0, "max": 5.0 }
     }
@@ -48,9 +59,9 @@
 
   },
   "camera": {
-    "height": 10
+    "height": 10.0
   },
-  "keyBindings": {
+  "keys": {
     "thrust": "w",
     "leftBank": "a",
     "rightBank": "d",
