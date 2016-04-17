@@ -103,8 +103,6 @@ project(":core") {
     compile "com.google.dagger:dagger:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
-//    testCompile project('lib:test:respek')
-//    testCompile 'junit:junit:4.12'
     testCompile "org.jetbrains.spek:spek:$spekVersion"
     testCompile "org.hamcrest:hamcrest-all:$hamcrestVersion"
     testCompile "org.mockito:mockito-core:$mockitoVersion"
