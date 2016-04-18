@@ -80,7 +80,7 @@ open class Node(
   //
   // Spec
   protected open fun spec(): Spec.Builder {
-    return Spec.start(tag ?: "")
+    return Spec.start(tag)
   }
 
   //

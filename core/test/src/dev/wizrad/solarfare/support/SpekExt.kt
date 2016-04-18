@@ -16,3 +16,10 @@ fun DescribeBody.loadGdx() {
   // mock out any necessary static objects
   Gdx.gl = mock(GL20::class.java)
 }
+
+fun <T> DescribeBody.until(value: T?, generator: () -> T?) {
+  var result: T?
+  do {
+    result = generator()
+  } while(result != value)
+}

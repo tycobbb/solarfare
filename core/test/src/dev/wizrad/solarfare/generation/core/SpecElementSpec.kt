@@ -8,17 +8,12 @@ class SpecElementSpec: Spek({
   given("an element") {
     var subject: SpecElement<Node>? = null
 
-    beforeEach {
-      subject = SpecElement { Node("test") }.weight(5)
-    }
+    beforeEach { subject = SpecElement { Node("test") }.weight(5) }
 
     on("#generate") {
       context("normally") {
         var result: Node? = null
-
-        beforeEach {
-          result = subject?.generate()
-        }
+        beforeEach { result = subject?.generate() }
 
         it("generates a node") {
           assertThat(result, `is`(not(nullValue())))
