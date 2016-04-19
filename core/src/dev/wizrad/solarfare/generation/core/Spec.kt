@@ -1,8 +1,8 @@
 package dev.wizrad.solarfare.generation.core
 
-import dev.wizrad.solarfare.extensions.findMapped
-import dev.wizrad.solarfare.extensions.rand
-import dev.wizrad.solarfare.extensions.upto
+import dev.wizrad.solarfare.support.extensions.findMapped
+import dev.wizrad.solarfare.support.extensions.rand
+import dev.wizrad.solarfare.support.extensions.upto
 import dev.wizrad.solarfare.support.Tag
 import dev.wizrad.solarfare.support.debug
 import java.util.*

@@ -1,4 +1,4 @@
-package dev.wizrad.solarfare.extensions
+package dev.wizrad.solarfare.support.extensions
 
 inline fun <E, O> Iterable<E>.findMapped(transform: (E) -> O): O? {
   for(element in this) {

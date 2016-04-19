@@ -1,11 +1,11 @@
 package dev.wizrad.solarfare.dagger
 
 import dagger.Component
-import javax.inject.Singleton
 import dev.wizrad.solarfare.SolarFare
+import javax.inject.Singleton
 
 @Singleton
 @Component(modules = arrayOf(GameModule::class, GenerationModule::class))
 interface GameComponent {
-  fun inject(game: SolarFare)
+  fun inject(app: SolarFare)
 }

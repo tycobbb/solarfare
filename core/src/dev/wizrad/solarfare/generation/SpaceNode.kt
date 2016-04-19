@@ -1,9 +1,9 @@
 package dev.wizrad.solarfare.generation
 
 import dev.wizrad.solarfare.config.Config
-import dev.wizrad.solarfare.extensions.between
-import dev.wizrad.solarfare.extensions.rand
-import dev.wizrad.solarfare.extensions.upto
+import dev.wizrad.solarfare.support.extensions.between
+import dev.wizrad.solarfare.support.extensions.rand
+import dev.wizrad.solarfare.support.extensions.upto
 import dev.wizrad.solarfare.generation.core.Node
 import dev.wizrad.solarfare.generation.core.Spec
 import dev.wizrad.solarfare.support.geometry.Point

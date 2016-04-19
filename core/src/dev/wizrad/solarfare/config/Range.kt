@@ -1,7 +1,7 @@
 package dev.wizrad.solarfare.config
 
-import dev.wizrad.solarfare.extensions.between
-import dev.wizrad.solarfare.extensions.rand
+import dev.wizrad.solarfare.support.extensions.between
+import dev.wizrad.solarfare.support.extensions.rand
 
 class Range {
   var min: Double = 0.0

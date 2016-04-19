@@ -1,7 +1,7 @@
 package dev.wizrad.solarfare.support.collections
 
-import dev.wizrad.solarfare.extensions.rand
-import dev.wizrad.solarfare.extensions.stride
+import dev.wizrad.solarfare.support.extensions.rand
+import dev.wizrad.solarfare.support.extensions.stride
 import dev.wizrad.solarfare.support.extensions.end
 import dev.wizrad.solarfare.support.extensions.length
 import dev.wizrad.solarfare.support.extensions.replace

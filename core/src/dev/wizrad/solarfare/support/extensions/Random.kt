@@ -1,4 +1,4 @@
-package dev.wizrad.solarfare.extensions
+package dev.wizrad.solarfare.support.extensions
 
 import dev.wizrad.solarfare.support.cache
 import java.util.*

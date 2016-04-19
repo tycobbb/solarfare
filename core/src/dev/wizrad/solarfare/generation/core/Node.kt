@@ -85,8 +85,7 @@ open class Node(
 
   //
   // Accessors
-  val name: String
-    get() = if(tag != null) tag!! else resource!!
+  val name: String get() = tag
 
   //
   // Debugging

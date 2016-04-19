@@ -1,7 +1,7 @@
 package dev.wizrad.solarfare.config
 
-import dev.wizrad.solarfare.extensions.rand
-import dev.wizrad.solarfare.extensions.upto
+import dev.wizrad.solarfare.support.extensions.rand
+import dev.wizrad.solarfare.support.extensions.upto
 
 class Sprite {
   lateinit var name: String
