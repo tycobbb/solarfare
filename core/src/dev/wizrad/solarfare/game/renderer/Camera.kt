@@ -10,6 +10,9 @@ class Camera @Inject constructor(
   private val model = config.camera
 
   init {
-    setToOrtho(true, 100.0f, 200.0f)
+    setToOrtho(true,
+      model.width.toFloat(),
+      model.height.toFloat()
+    )
   }
 }

@@ -43,7 +43,7 @@
       "variants": 2
     },
     "mass": {
-      "raw":  10.0,
+      "raw": 10.0,
       "available": 0.0,
       "independent": 0.0,
       "range": { "min": 1.0, "max": 3.0 }
@@ -59,7 +59,8 @@
 
   },
   "camera": {
-    "height": 10.0
+    "width": 160.0,
+    "height": 90.0
   },
   "keys": {
     "thrust": "w",

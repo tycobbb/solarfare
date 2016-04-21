@@ -7,7 +7,11 @@ import javax.inject.Inject
 class World @Inject constructor(
   root: Root<SpaceNode>) {
 
-  private val root: SpaceNode = root.bootstrap()
+  private val space: Space
+
+  init {
+    space = Space(root.bootstrap())
+  }
 
   fun update(delta: Float) {
 
