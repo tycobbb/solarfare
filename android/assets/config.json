@@ -3,6 +3,10 @@
     "value": 123659751,
     "isEnabled": false
   },
+  "camera": {
+    "width": 160.0,
+    "height": 90.0
+  },
   "space": {
     "size": {
       "raw": 0.0,
@@ -57,10 +61,6 @@
   },
   "ship": {
 
-  },
-  "camera": {
-    "width": 160.0,
-    "height": 90.0
   },
   "keys": {
     "thrust": "w",

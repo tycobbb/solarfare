@@ -1,19 +1,20 @@
 package dev.wizrad.solarfare.game.world
 
+import dev.wizrad.solarfare.game.world.core.Updatable
 import dev.wizrad.solarfare.generation.SpaceNode
 import dev.wizrad.solarfare.generation.core.Root
 import javax.inject.Inject
 
 class World @Inject constructor(
-  root: Root<SpaceNode>) {
+  root: Root<SpaceNode>): Updatable {
 
-  private val space: Space
+  val space: Space
 
   init {
     space = Space(root.bootstrap())
   }
 
-  fun update(delta: Float) {
-
+  override fun update(delta: Float) {
+    space.update(delta)
   }
 }

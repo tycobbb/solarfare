@@ -1,5 +1,6 @@
-package dev.wizrad.solarfare.game.world
+package dev.wizrad.solarfare.game.world.support
 
+import dev.wizrad.solarfare.game.world.core.Entity
 import dev.wizrad.solarfare.generation.core.Node
 
 inline fun <reified N: Node, E: Entity<N>> entities(crossinline factory: (N) -> E): (MutableList<E>, Node) -> MutableList<E> {
