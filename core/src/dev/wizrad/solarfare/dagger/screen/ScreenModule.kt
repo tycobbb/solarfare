@@ -3,8 +3,8 @@ package dev.wizrad.solarfare.dagger.screen
 import dagger.Module
 import dagger.Provides
 import dev.wizrad.solarfare.config.Config
-import dev.wizrad.solarfare.game.renderer.Camera
-import dev.wizrad.solarfare.game.renderer.Renderer
+import dev.wizrad.solarfare.game.renderer.core.Camera
+import dev.wizrad.solarfare.game.renderer.core.Renderer
 import dev.wizrad.solarfare.game.world.World
 import dev.wizrad.solarfare.generation.SpaceNode
 import dev.wizrad.solarfare.generation.core.Root

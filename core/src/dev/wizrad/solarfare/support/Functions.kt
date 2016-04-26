@@ -1,6 +1,7 @@
 package dev.wizrad.solarfare.support
 
-fun <T> cache(function: () -> T): () -> T {
+// MARK: Caching
+inline fun <T> cache(crossinline function: () -> T): () -> T {
   var memo: T? = null
 
   return {
@@ -12,7 +13,7 @@ fun <T> cache(function: () -> T): () -> T {
   }
 }
 
-// Transduction
+// MARK: Transduction
 inline fun <S, M> reduce(list: List<S>, initial: M, transducer: (M, S) -> M): M {
   var memo: M = initial
 
@@ -23,8 +24,15 @@ inline fun <S, M> reduce(list: List<S>, initial: M, transducer: (M, S) -> M): M 
   return memo
 }
 
-fun <E, M1, M2> zip(left: (M1, E) -> M1, right: (M2, E) -> M2): (Pair<M1, M2>, E) -> Pair<M1, M2> {
+inline fun <E, M1, M2> zip(crossinline left: (M1, E) -> M1, crossinline right: (M2, E) -> M2): (Pair<M1, M2>, E) -> Pair<M1, M2> {
   return { memo, node ->
     Pair(left(memo.first, node), right(memo.second, node))
+  }
+}
+
+// MARK: Optionals
+inline fun <T> T?.unwrap(closure: (T) -> Unit) {
+  if(this != null) {
+    closure(this)
   }
 }

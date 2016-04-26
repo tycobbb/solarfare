@@ -8,8 +8,10 @@ import javax.inject.Inject
 class World @Inject constructor(
   root: Root<SpaceNode>): Updatable {
 
+  // MARK: Children
   val space: Space
 
+  // MARK: Lifecycle
   init {
     space = Space(root.bootstrap())
   }
