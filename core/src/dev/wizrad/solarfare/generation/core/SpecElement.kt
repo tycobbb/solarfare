@@ -22,8 +22,7 @@ open class SpecElement<out N: Node>(
   // an optional handler to call after a node is generated
   private var afterGenerateHandler: ((N) -> Unit)? = null
 
-  //
-  // Generation
+  // MARK: Generation
 
   /**
    Generates a new [node][Node] from this element.
@@ -75,8 +74,7 @@ open class SpecElement<out N: Node>(
     weight = 0;
   }
 
-  //
-  // Builder
+  // MARK: Builder
   fun prioritize(priority: Priority): SpecElement<N> {
     this.priority = priority
     return this
@@ -110,8 +108,7 @@ open class SpecElement<out N: Node>(
     return this
   }
 
-  //
-  // Stop
+  // MARK: Stop
   val stopGrowth: Int get() = if(affectsStopGrowth) lastDecay else 0
   // the last amount the weight decayed by
   private var lastDecay: Int = 0

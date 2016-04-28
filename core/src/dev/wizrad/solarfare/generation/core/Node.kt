@@ -1,6 +1,5 @@
 package dev.wizrad.solarfare.generation.core
 
-import java.awt.Point
 import java.util.*
 
 open class Node(
@@ -14,9 +13,6 @@ open class Node(
   var id: Identifier? = null
   var children = ArrayList<Node>()
   private var parent: Node? = null
-
-  // MARK: Position
-  private var center: Point? = null
 
   // MARK: Relationships
   /** Adds a new child, removing it from its parent if necessary */

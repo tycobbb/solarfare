@@ -14,8 +14,7 @@ class Spec(
   /** A pseudo-element that tracks when to stop node generation */
   private val stop = Stop()
 
-  //
-  // Generation
+  // MARK: Generation
   val hasNext: Boolean
     get() = !stop.reached
 
@@ -53,8 +52,7 @@ class Spec(
     debug(Tag.GENERATION, "$this did stop generating")
   }
 
-  //
-  // Sampling
+  // MARK: Sampling
   private fun sampleElement(): SpecElement<Node> {
     // return first valid element searching by descending priority; the `stop` fallback shouldn't be
     // hit, as it's returned by the priority-based override
@@ -98,14 +96,12 @@ class Spec(
   private val priorities: Array<SpecElement.Priority>
     get() = SpecElement.Priority.values()
 
-  //
-  // Debugging
+  // MARK: Debugging
   override fun toString(): String {
     return "[spec: $id]"
   }
 
-  //
-  // Building
+  // MARK: Building
   companion object {
     fun start(tag: String): Builder {
       return Builder(tag)
@@ -116,8 +112,7 @@ class Spec(
     private val id: Identifier = Identifier.next(tag)
     private val elements = ArrayList<SpecElement<Node>>()
 
-    //
-    // Elements
+    // MARK: Elements
     fun <N: Node> child(factory: () -> N): SpecElement<N> {
       val element = SpecElement(factory)
       elements.add(element)
