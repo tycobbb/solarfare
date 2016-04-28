@@ -1,16 +1,32 @@
 package dev.wizrad.solarfare.game.world.core
 
 import com.badlogic.gdx.math.Vector2
-import dev.wizrad.solarfare.generation.core.Node
+import dev.wizrad.solarfare.game.renderer.support.set
+import dev.wizrad.solarfare.support.geometry.Point
 
-abstract class Entity<N: Node>(
-  node: N): Updatable {
+abstract class Entity(
+  val parent: Entity?): Updatable {
 
   // MARK: Geometry
-  val center = Vector2.Zero
+  /** Position in the absolute coordinate space */
+  val center = Vector2.Zero.cpy()
+
+  /** Transforms a point from the local -> absolute coordinate space */
+  protected fun transform(point: Point): Vector2 {
+    return transform(scratch.set(point))
+  }
+
+  /** Transforms a vector from the local -> absolute coordinate space */
+  protected fun transform(vector: Vector2): Vector2  {
+    return vector.add(parent?.center)
+  }
 
   // MARK: Updatable
   override fun update(delta: Float) {
 
+  }
+
+  companion object {
+    val scratch = Vector2.Zero.cpy()
   }
 }
