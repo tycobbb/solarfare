@@ -3,6 +3,7 @@ package dev.wizrad.solarfare.generation
 import dev.wizrad.solarfare.config.Config
 import dev.wizrad.solarfare.generation.core.Node
 import dev.wizrad.solarfare.generation.core.Spec
+import dev.wizrad.solarfare.support.Maths
 import dev.wizrad.solarfare.support.Tag
 import dev.wizrad.solarfare.support.collections.Stripe
 import dev.wizrad.solarfare.support.debug
@@ -47,7 +48,7 @@ class SolarSystemNode @Inject constructor(
 
     if(orbital != null) {
       // generate a random polar coordinate for this planet
-      val coordinate = Polar(orbital.center, rand().upto(Math.PI))
+      val coordinate = Polar(orbital.center, rand().upto(Maths.M_2PI))
       debug(Tag.GENERATION, "$planet orbital -> ${coordinate.radial}")
 
       // convert coordinate to a cartesian point

@@ -6,8 +6,8 @@ data class Polar(
 
   fun toPoint(): Point {
     return Point(
-      x = radial + Math.cos(angle),
-      y = radial + Math.sin(angle)
+      x = radial * Math.cos(angle),
+      y = radial * Math.sin(angle)
     )
   }
 }
