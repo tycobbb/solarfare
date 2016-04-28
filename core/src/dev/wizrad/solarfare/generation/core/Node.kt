@@ -6,20 +6,19 @@ import java.util.*
 open class Node(
   val tag: String) {
 
-  // Configuration
+  // MARK: Configuration
   /** @property resource Name for the resource to generate from this node */
   var resource: String? = null
 
-  // Tree
-  private var id: Identifier? = null
-  private var parent: Node? = null
+  // MARK: Tree
+  var id: Identifier? = null
   var children = ArrayList<Node>()
+  private var parent: Node? = null
 
-  // Position
+  // MARK: Position
   private var center: Point? = null
 
-  //
-  // Relationships
+  // MARK: Relationships
   /** Adds a new child, removing it from its parent if necessary */
   private fun <N: Node> add(child: N): N {
     assert(!children.contains(child)) { "attempted to add existing child ${child.tag}" }
@@ -39,8 +38,7 @@ open class Node(
     return if(children.remove(child)) child else null
   }
 
-  //
-  // Lifecycle
+  // MARK: Lifecycle
   fun bootstrap() {
     generate()
   }
@@ -65,24 +63,20 @@ open class Node(
     }
   }
 
-  //
-  // Spec
+  // MARK: Spec
   protected open fun spec(): Spec.Builder {
     return Spec.start(tag)
   }
 
-  //
-  // Accessors
+  // MARK: Accessors
   val name: String get() = tag
 
-  //
-  // Debugging
+  // MARK: Debugging
   override fun toString(): String {
     return "[node: $id]"
   }
 
-  //
-  // Bootstrapping
+  // MARK: Bootstrapping
   companion object {
     fun <N: Node> generate(factory: () -> N): N {
       val instance = factory()

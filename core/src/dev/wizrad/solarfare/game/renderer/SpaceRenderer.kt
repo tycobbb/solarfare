@@ -9,7 +9,7 @@ import dev.wizrad.solarfare.game.world.Space
 fun Renderer.render(entity: Space, delta: Float) {
   shapeRenderer.draw {
     it.color = Color.PURPLE
-    it.rect(entity.rect)
+    it.rect(entity.size)
   }
 
   render(entity.ship, delta)

@@ -2,10 +2,14 @@ package dev.wizrad.solarfare.game.renderer.support
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType
-import com.badlogic.gdx.math.Rectangle
+import com.badlogic.gdx.math.Vector2
 
-fun ShapeRenderer.rect(source: Rectangle) {
-  rect(source.x, source.y, source.width, source.height)
+fun ShapeRenderer.rect(size: Vector2) {
+  rect(0.0f, 0.0f, size.x, size.y)
+}
+
+fun ShapeRenderer.circle(center: Vector2, radius: Float) {
+  circle(center.x, center.y, radius)
 }
 
 inline fun ShapeRenderer.draw(type: ShapeType = ShapeType.Filled, crossinline closure: (ShapeRenderer) -> Unit) {

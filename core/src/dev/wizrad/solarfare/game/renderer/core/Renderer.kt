@@ -8,7 +8,7 @@ import dev.wizrad.solarfare.game.world.World
 import javax.inject.Inject
 
 class Renderer @Inject constructor(
-  val world: World,
+  val world:  World,
   val camera: Camera): Renderable {
 
   // MARK: Renderers
@@ -16,6 +16,7 @@ class Renderer @Inject constructor(
 
   // MARK: Lifecycle
   init {
+    camera.setToOrtho(true, world.space.size.x, world.space.size.y)
     camera.track(world.space.trackable)
 
     shapeRenderer = ShapeRenderer()
