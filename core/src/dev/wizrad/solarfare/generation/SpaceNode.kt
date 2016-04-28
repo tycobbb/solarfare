@@ -1,11 +1,11 @@
 package dev.wizrad.solarfare.generation
 
 import dev.wizrad.solarfare.config.Config
+import dev.wizrad.solarfare.generation.core.Node
+import dev.wizrad.solarfare.generation.core.Spec
 import dev.wizrad.solarfare.support.extensions.between
 import dev.wizrad.solarfare.support.extensions.rand
 import dev.wizrad.solarfare.support.extensions.upto
-import dev.wizrad.solarfare.generation.core.Node
-import dev.wizrad.solarfare.generation.core.Spec
 import dev.wizrad.solarfare.support.geometry.Point
 import dev.wizrad.solarfare.support.geometry.Size
 import javax.inject.Inject
@@ -36,15 +36,15 @@ class SpaceNode @Inject constructor(
 
   private fun generated(node: ShipNode) {
     node.center = Point(
-      rand().upto(size.width),
-      rand().upto(size.height)
+      rand().upto(size.width)  - size.width  / 2,
+      rand().upto(size.height) - size.height / 2
     )
   }
 
   private fun generated(node: SolarSystemNode) {
     node.center = Point(
-      rand().between(node.radius, size.width  - node.radius),
-      rand().between(node.radius, size.height - node.radius)
+      rand().between(node.radius, size.width  - node.radius) - size.width  / 2,
+      rand().between(node.radius, size.height - node.radius) - size.height / 2
     )
   }
 

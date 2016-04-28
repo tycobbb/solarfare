@@ -9,7 +9,7 @@ import dev.wizrad.solarfare.game.world.Star
 fun Renderer.render(entity: Star, delta: Float) {
   shapeRenderer.draw {
     it.color = Color.GOLDENROD
-    it.circle(entity.center, entity.radius * 10)
+    it.circle(entity.center, entity.radius * 3) // TODO: remove arbitrary scale
   }
 }
 

@@ -9,7 +9,7 @@ import dev.wizrad.solarfare.game.world.Planet
 fun Renderer.render(entity: Planet, delta: Float) {
   shapeRenderer.draw {
     it.color = Color.CORAL
-    it.circle(entity.center, entity.radius * 10)
+    it.circle(entity.center, entity.radius * 3) // TODO: remove arbitrary scale
   }
 }
 

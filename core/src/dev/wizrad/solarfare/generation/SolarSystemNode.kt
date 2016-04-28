@@ -19,8 +19,7 @@ class SolarSystemNode @Inject constructor(
   private val stars:   Provider<StarNode>,
   private val planets: Provider<PlanetNode>): Node("system") {
 
-  //
-  // Properties
+  // MARK: Properties
   private val model = config.solarSystem
   private var orbitals: Stripe? = null
 
@@ -29,8 +28,7 @@ class SolarSystemNode @Inject constructor(
   /** The unit radius of the solar system */
   var radius: Double = 0.0
 
-  //
-  // Lifecycle
+  // MARK: Lifecycle
   override fun generate() {
     radius = model.radius.sample()
     super.generate()
@@ -61,8 +59,7 @@ class SolarSystemNode @Inject constructor(
     return false
   }
 
-  //
-  // Spec
+  // MARK: Spec
   override fun spec(): Spec.Builder {
     val spec = super.spec()
 

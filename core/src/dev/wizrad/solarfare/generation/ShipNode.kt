@@ -8,8 +8,7 @@ import javax.inject.Inject
 class ShipNode @Inject constructor(
   config: Config): Node("ship") {
 
-  //
-  // Properties
+  // MARK: Properties
   private val model = config.ship
 
   /** The unit position of this node, relative to its parent */
