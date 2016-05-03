@@ -1,13 +1,16 @@
 package dev.wizrad.solarfare.game.world
 
-import dev.wizrad.solarfare.game.world.core.Entity
+import dev.wizrad.solarfare.game.core.Entity
+import dev.wizrad.solarfare.game.minimap.Minimap
 import dev.wizrad.solarfare.game.world.core.NodeEntity
 import dev.wizrad.solarfare.generation.SpheroidNode
 import dev.wizrad.solarfare.support.Tag.WORLD
 import dev.wizrad.solarfare.support.debug
 
 abstract class Spheroid<N: SpheroidNode>(
-  node: N, parent: Entity): NodeEntity<N>(node, parent) {
+  node:   N,
+  parent: Entity,
+  protected val minimap: Minimap): NodeEntity<N>(node, parent) {
 
   // MARK: Geometry
   var radius = node.radius.toFloat()

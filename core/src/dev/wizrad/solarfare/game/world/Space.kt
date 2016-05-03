@@ -1,26 +1,22 @@
 package dev.wizrad.solarfare.game.world
 
 import com.badlogic.gdx.math.Vector2
+import dev.wizrad.solarfare.game.core.update
+import dev.wizrad.solarfare.game.minimap.Minimap
 import dev.wizrad.solarfare.game.renderer.core.CameraTrackable
 import dev.wizrad.solarfare.game.renderer.support.set
 import dev.wizrad.solarfare.game.world.core.NodeEntity
-import dev.wizrad.solarfare.game.world.core.update
-import dev.wizrad.solarfare.game.world.support.default
-import dev.wizrad.solarfare.game.world.support.entities
-import dev.wizrad.solarfare.generation.ShipNode
-import dev.wizrad.solarfare.generation.SolarSystemNode
 import dev.wizrad.solarfare.generation.SpaceNode
 import dev.wizrad.solarfare.support.Tag
 import dev.wizrad.solarfare.support.debug
-import dev.wizrad.solarfare.support.reduce
-import dev.wizrad.solarfare.support.zip
 
 class Space(
-  node: SpaceNode): NodeEntity<SpaceNode>(node, null) {
+  node: SpaceNode,
+  private val minimap: Minimap): NodeEntity<SpaceNode>(node, null) {
 
   // MARK: Children
-  val ship: Ship
-  val solarSystems: List<SolarSystem>
+  lateinit var ship: Ship
+  lateinit var solarSystems: List<SolarSystem>
 
   // MARK: Geometry
   val size = Vector2.Zero
@@ -33,15 +29,6 @@ class Space(
 
     // logs
     debug(Tag.WORLD, "space -> $size")
-
-    // children
-    val children = reduce(node.children, default(), zip(
-      entities { n: ShipNode -> Ship(n, this) },
-      entities { n: SolarSystemNode -> SolarSystem(n, this) }
-    ))
-
-    ship         = children.first.first()
-    solarSystems = children.second
   }
 
   override fun update(delta: Float) {

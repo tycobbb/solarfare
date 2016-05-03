@@ -6,6 +6,7 @@ import dev.wizrad.solarfare.dagger.screen.DaggerScreenComponent
 import dev.wizrad.solarfare.dagger.screen.GenerationModule
 import dev.wizrad.solarfare.dagger.screen.ScreenComponent
 import dev.wizrad.solarfare.dagger.screen.ScreenModule
+import dev.wizrad.solarfare.game.minimap.Minimap
 import dev.wizrad.solarfare.game.renderer.core.Renderer
 import dev.wizrad.solarfare.game.world.World
 import javax.inject.Inject
@@ -15,7 +16,8 @@ class MainScreen(
 
   private lateinit var component: ScreenComponent
   private lateinit var world:     World
-  private lateinit var renderer: Renderer
+  private lateinit var minimap:   Minimap
+  private lateinit var renderer:  Renderer
 
   init {
     component = componentFrom(gameComponent)
@@ -23,14 +25,16 @@ class MainScreen(
   }
 
   @Inject
-  fun inject(world: World, renderer: Renderer) {
+  fun inject(world: World, minimap: Minimap, renderer: Renderer) {
     this.world    = world
+    this.minimap  = minimap
     this.renderer = renderer
   }
 
   override fun render(delta: Float) {
     world.update(delta)
-    renderer.render(delta)
+    minimap.update(delta)
+    renderer.update(delta)
   }
 
   override fun resize(width: Int, height: Int) {

@@ -1,4 +1,4 @@
-package dev.wizrad.solarfare.game.world.core
+package dev.wizrad.solarfare.game.core
 
 import com.badlogic.gdx.math.Vector2
 import dev.wizrad.solarfare.game.renderer.support.set
@@ -17,13 +17,15 @@ abstract class Entity(
   }
 
   /** Transforms a vector from the local -> absolute coordinate space */
-  protected fun transform(vector: Vector2): Vector2  {
+  protected fun transform(vector: Vector2): Vector2 {
     return vector.add(parent?.center)
   }
 
-  // MARK: Updatable
+  // MARK: Lifecycle
   override fun update(delta: Float) {
+  }
 
+  open fun destroy() {
   }
 
   companion object {

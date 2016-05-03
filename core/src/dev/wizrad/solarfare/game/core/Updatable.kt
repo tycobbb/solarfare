@@ -1,4 +1,4 @@
-package dev.wizrad.solarfare.game.world.core
+package dev.wizrad.solarfare.game.core
 
 interface Updatable {
   fun update(delta: Float)
