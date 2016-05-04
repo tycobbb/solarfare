@@ -1,6 +1,6 @@
 package dev.wizrad.solarfare.game.world.core
 
-import dev.wizrad.solarfare.game.minimap.Minimap
+import dev.wizrad.solarfare.game.ui.Minimap
 import dev.wizrad.solarfare.game.world.*
 import dev.wizrad.solarfare.game.world.support.default
 import dev.wizrad.solarfare.game.world.support.entities
@@ -13,7 +13,7 @@ class NodeEntityFactory @Inject constructor(
   private val minimap: Minimap) {
 
   fun entity(node: SpaceNode): Space {
-    val result = Space(node, minimap)
+    val result = Space(node)
 
     val children = reduce(node.children, default(), zip(
       entities { n: ShipNode -> entity(n, result) },

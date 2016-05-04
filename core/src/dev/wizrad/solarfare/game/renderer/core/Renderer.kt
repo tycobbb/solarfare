@@ -4,14 +4,12 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import dev.wizrad.solarfare.game.core.Updatable
-import dev.wizrad.solarfare.game.minimap.Minimap
 import dev.wizrad.solarfare.game.renderer.render
 import dev.wizrad.solarfare.game.world.World
 import javax.inject.Inject
 
 class Renderer @Inject constructor(
   val world:   World,
-  val minimap: Minimap,
   val camera:  Camera): Updatable {
 
   // MARK: Renderers
@@ -34,7 +32,6 @@ class Renderer @Inject constructor(
 
     // render the world / map
     render(world.space, delta)
-    render(minimap, delta)
 
     // reposition the camera
     camera.update(delta)

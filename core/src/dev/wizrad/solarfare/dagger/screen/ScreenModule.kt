@@ -3,9 +3,10 @@ package dev.wizrad.solarfare.dagger.screen
 import dagger.Module
 import dagger.Provides
 import dev.wizrad.solarfare.config.Config
-import dev.wizrad.solarfare.game.minimap.Minimap
 import dev.wizrad.solarfare.game.renderer.core.Camera
 import dev.wizrad.solarfare.game.renderer.core.Renderer
+import dev.wizrad.solarfare.game.ui.MainStage
+import dev.wizrad.solarfare.game.ui.Minimap
 import dev.wizrad.solarfare.game.world.World
 import dev.wizrad.solarfare.game.world.core.NodeEntityFactory
 import dev.wizrad.solarfare.generation.SpaceNode
@@ -29,8 +30,13 @@ class ScreenModule {
   }
 
   @Provides
-  fun renderer(world: World, minimap: Minimap, camera: Camera): Renderer {
-    return Renderer(world, minimap, camera)
+  fun stage(minimap: Minimap): MainStage {
+    return MainStage(minimap)
+  }
+
+  @Provides
+  fun renderer(world: World, camera: Camera): Renderer {
+    return Renderer(world, camera)
   }
 
   @Provides

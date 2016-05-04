@@ -2,7 +2,6 @@ package dev.wizrad.solarfare.game.world
 
 import com.badlogic.gdx.math.Vector2
 import dev.wizrad.solarfare.game.core.update
-import dev.wizrad.solarfare.game.minimap.Minimap
 import dev.wizrad.solarfare.game.renderer.core.CameraTrackable
 import dev.wizrad.solarfare.game.renderer.support.set
 import dev.wizrad.solarfare.game.world.core.NodeEntity
@@ -11,8 +10,7 @@ import dev.wizrad.solarfare.support.Tag
 import dev.wizrad.solarfare.support.debug
 
 class Space(
-  node: SpaceNode,
-  private val minimap: Minimap): NodeEntity<SpaceNode>(node, null) {
+  node: SpaceNode): NodeEntity<SpaceNode>(node) {
 
   // MARK: Children
   lateinit var ship: Ship
