@@ -4,11 +4,14 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Stage
+import dev.wizrad.solarfare.game.shared.CoordinateSpace
+import dev.wizrad.solarfare.game.shared.CoordinateSpace.Kind
 import dev.wizrad.solarfare.support.unwrap
 
-class Minimap: Group() {
+class Minimap(): Group() {
   // MARK: Properties
   private val texture: TextureRegion by lazy {
     TextureRegion(Texture(Gdx.files.internal("minimap.png")), 1, 1)
@@ -17,6 +20,9 @@ class Minimap: Group() {
   init {
     width  = 100.0f
     height = 100.0f
+
+    // setup the minimap coordinate space
+    CoordinateSpace.registerTransformsFor(Kind.MINIMAP, byScale = Vector2(width, height))
   }
 
   // MARK: Lifecycle
