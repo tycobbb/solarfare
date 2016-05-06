@@ -1,6 +1,8 @@
 package dev.wizrad.solarfare.game.shared
 
 import com.badlogic.gdx.math.Vector2
+import dev.wizrad.solarfare.support.extensions.mabs
+import dev.wizrad.solarfare.support.extensions.minv
 
 class CoordinateSpace {
   // MARK: Support Types
@@ -13,7 +15,7 @@ class CoordinateSpace {
 
   // MARK: Static Storage
   companion object {
-    val scratch = Vector2.Zero.cpy()
+    val scratch = Vector2(0.0f, 0.0f)
 
     // MARK: Transforms
     private var world:   Transforms? = null
@@ -42,16 +44,13 @@ class CoordinateSpace {
       }
     }
 
-    fun registerTransformsFor(kind: CoordinateSpace.Kind, byScale: Vector2) {
+    fun registerTransformsFor(kind: CoordinateSpace.Kind, byScale: Vector2, transform: Vector2 = Vector2.Zero) {
       val scale   = byScale.cpy()
-      val inverse = Vector2(
-        1.0f / scale.x,
-        1.0f / scale.y
-      )
+      val inverse = scale.cpy().minv()
 
       registerTransformsFor(kind, CoordinateSpace.Transforms(
-        normalizer   = { position -> position.scl(inverse) },
-        denormalizer = { position -> position.scl(scale) }
+        normalizer   = { position -> position.scl(inverse).add(transform).mabs() },
+        denormalizer = { position -> position.add(transform).mabs().scl(scale) }
       ))
     }
   }

@@ -17,7 +17,7 @@ class Space(
   lateinit var solarSystems: List<SolarSystem>
 
   // MARK: Geometry
-  val size = Vector2.Zero
+  val size = Vector2(0.0f, 0.0f)
 
   // MARK: Lifecycle
   init {

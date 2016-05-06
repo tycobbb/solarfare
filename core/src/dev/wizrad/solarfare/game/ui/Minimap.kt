@@ -22,7 +22,10 @@ class Minimap(): Group() {
     height = 100.0f
 
     // setup the minimap coordinate space
-    CoordinateSpace.registerTransformsFor(Kind.MINIMAP, byScale = Vector2(width, height))
+    CoordinateSpace.registerTransformsFor(Kind.MINIMAP,
+      byScale   = Vector2(width, height),
+      transform = Vector2(0.0f,  -1.0f)
+    )
   }
 
   // MARK: Lifecycle
