@@ -39,6 +39,8 @@ class MainScreen(
   }
 
   override fun resize(width: Int, height: Int) {
+    renderer.resize(width, height)
+    stage.resize(width, height)
   }
 
   override fun show() {

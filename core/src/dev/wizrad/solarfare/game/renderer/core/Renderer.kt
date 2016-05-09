@@ -3,14 +3,14 @@ package dev.wizrad.solarfare.game.renderer.core
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
-import dev.wizrad.solarfare.game.core.Updatable
+import dev.wizrad.solarfare.game.core.Renderable
 import dev.wizrad.solarfare.game.renderer.render
 import dev.wizrad.solarfare.game.world.World
 import javax.inject.Inject
 
 class Renderer @Inject constructor(
   val world:  World,
-  val camera: Camera): Updatable {
+  val camera: Camera): Renderable {
 
   // MARK: Renderers
   val shapeRenderer: ShapeRenderer = ShapeRenderer()
@@ -20,7 +20,6 @@ class Renderer @Inject constructor(
     camera.track(world.space.trackable)
   }
 
-  // MARK: Updatable
   override fun update(delta: Float) {
     // render background color to prevent flickering
     Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -32,5 +31,9 @@ class Renderer @Inject constructor(
 
     // render the world / map
     render(world.space, delta)
+  }
+
+  override fun resize(width: Int, height: Int) {
+    camera.resize(width, height)
   }
 }
