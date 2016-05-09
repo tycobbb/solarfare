@@ -13,8 +13,7 @@ class MinimapNode(
   private val mappable: Mappable): Actor() {
 
   // MARK: Properties
-  val id: Int = nextId()
-  val texture: TextureRegion by lazy {
+  private val texture: TextureRegion by lazy {
     TextureRegion(Texture(Gdx.files.internal("minimap-node.png")), 1, 1)
   }
 
@@ -26,24 +25,16 @@ class MinimapNode(
 
   override fun act(delta: Float) {
     super.act(delta)
-
-    val position = transform(mappable.center, from = Kind.WORLD, to = Kind.MINIMAP)
-    setPosition(position)
+    setPosition(transform(mappable.center, from = Kind.WORLD, to = Kind.MINIMAP))
   }
 
   override fun draw(batch: Batch?, parentAlpha: Float) {
+    batch?.color = color
+    batch?.draw(texture, x, y, width, height)
     super.draw(batch, parentAlpha)
-    batch?.draw(texture, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
   }
 
   fun destroy() {
     remove()
-  }
-
-  companion object {
-    private var id = 0
-    private fun nextId(): Int {
-      return id++
-    }
   }
 }

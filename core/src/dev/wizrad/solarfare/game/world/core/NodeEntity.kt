@@ -17,6 +17,12 @@ abstract class NodeEntity<N: Node>(
   // MARK: Lifecycle
   init {
     minimapNode = minimap?.track(this)
+    if(minimapNode != null) {
+      configure(minimapNode)
+    }
+  }
+
+  open protected fun configure(node: MinimapNode) {
   }
 
   override fun destroy() {

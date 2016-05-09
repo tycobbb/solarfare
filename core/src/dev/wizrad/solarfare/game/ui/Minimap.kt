@@ -40,8 +40,8 @@ class Minimap(): Group() {
   }
 
   override fun draw(batch: Batch?, parentAlpha: Float) {
+    batch?.draw(texture, x, y, width, height)
     super.draw(batch, parentAlpha)
-    batch?.draw(texture, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
   }
 
   // MARK: Tracking
