@@ -9,6 +9,6 @@ import dev.wizrad.solarfare.game.world.Ship
 fun Renderer.render(entity: Ship, delta: Float) {
   shapeRenderer.draw {
     it.color = Color.CHARTREUSE
-    it.circle(entity.center, 20.0f)
+    it.circle(entity.center, 4.0f)
   }
 }

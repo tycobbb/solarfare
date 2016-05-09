@@ -12,6 +12,7 @@ class Camera @Inject constructor(
   private val model = config.camera
   private var target: CameraTrackable? = null
 
+  // MARK: Lifecycle
   init {
     setToOrtho(true,
       model.width.toFloat(),
@@ -19,16 +20,16 @@ class Camera @Inject constructor(
     )
   }
 
-  // MARK: Tracking
-  fun track(target: CameraTrackable) {
-    this.target = target
-  }
-
-  // MARK: Updatable
   override fun update(delta: Float) {
     target.unwrap {
       position.set(it.point, 0.0f)
       update()
     }
   }
+
+  // MARK: Tracking
+  fun track(target: CameraTrackable) {
+    this.target = target
+  }
+
 }

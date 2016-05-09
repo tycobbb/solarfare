@@ -44,7 +44,7 @@ class CoordinateSpace {
       }
     }
 
-    fun registerTransformsFor(kind: CoordinateSpace.Kind, byScale: Vector2, transform: Vector2 = Vector2.Zero) {
+    fun registerTransformsFor(kind: CoordinateSpace.Kind, byScale: Vector2, transform: Vector2) {
       val scale   = byScale.cpy()
       val inverse = scale.cpy().minv()
 
@@ -65,4 +65,8 @@ fun transform(position: Vector2, from: CoordinateSpace.Kind, to: CoordinateSpace
 
 fun mtransform(position: Vector2, from: CoordinateSpace.Kind, to: CoordinateSpace.Kind) {
   CoordinateSpace.mtransform(position, from, to)
+}
+
+fun coordinateSpace(kind: CoordinateSpace.Kind, byScale: Vector2, transform: Vector2 = Vector2.Zero) {
+  CoordinateSpace.registerTransformsFor(kind, byScale, transform)
 }

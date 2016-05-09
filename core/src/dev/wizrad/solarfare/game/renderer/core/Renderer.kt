@@ -9,19 +9,15 @@ import dev.wizrad.solarfare.game.world.World
 import javax.inject.Inject
 
 class Renderer @Inject constructor(
-  val world:   World,
-  val camera:  Camera): Updatable {
+  val world:  World,
+  val camera: Camera): Updatable {
 
   // MARK: Renderers
-  val shapeRenderer: ShapeRenderer
+  val shapeRenderer: ShapeRenderer = ShapeRenderer()
 
   // MARK: Lifecycle
   init {
-    camera.setToOrtho(true, world.space.size.x, world.space.size.y)
     camera.track(world.space.trackable)
-
-    shapeRenderer = ShapeRenderer()
-    shapeRenderer.projectionMatrix = camera.combined
   }
 
   // MARK: Updatable
@@ -30,10 +26,11 @@ class Renderer @Inject constructor(
     Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-    // render the world / map
-    render(world.space, delta)
-
     // reposition the camera
     camera.update(delta)
+    shapeRenderer.projectionMatrix = camera.combined
+
+    // render the world / map
+    render(world.space, delta)
   }
 }

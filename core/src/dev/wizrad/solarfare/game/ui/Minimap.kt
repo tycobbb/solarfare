@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Stage
-import dev.wizrad.solarfare.game.shared.CoordinateSpace
 import dev.wizrad.solarfare.game.shared.CoordinateSpace.Kind
+import dev.wizrad.solarfare.game.shared.coordinateSpace
 import dev.wizrad.solarfare.support.unwrap
 
 class Minimap(): Group() {
@@ -22,9 +22,8 @@ class Minimap(): Group() {
     height = 100.0f
 
     // setup the minimap coordinate space
-    CoordinateSpace.registerTransformsFor(Kind.MINIMAP,
-      byScale   = Vector2(width, height),
-      transform = Vector2(0.0f,  -1.0f)
+    coordinateSpace(Kind.MINIMAP,
+      byScale = Vector2(width, height), transform = Vector2(0.0f,  -1.0f)
     )
   }
 
