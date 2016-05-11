@@ -2,10 +2,7 @@ package dev.wizrad.solarfare.game
 
 import com.badlogic.gdx.Screen
 import dev.wizrad.solarfare.dagger.game.GameComponent
-import dev.wizrad.solarfare.dagger.screen.DaggerScreenComponent
-import dev.wizrad.solarfare.dagger.screen.GenerationModule
-import dev.wizrad.solarfare.dagger.screen.ScreenComponent
-import dev.wizrad.solarfare.dagger.screen.ScreenModule
+import dev.wizrad.solarfare.dagger.screen.*
 import dev.wizrad.solarfare.game.renderer.core.Renderer
 import dev.wizrad.solarfare.game.ui.MainStage
 import dev.wizrad.solarfare.game.world.World
@@ -64,6 +61,8 @@ class MainScreen(
     return DaggerScreenComponent.builder()
       .gameComponent(gameComponent)
       .screenModule(ScreenModule())
+      .worldModule(WorldModule())
+      .interfaceModule(InterfaceModule())
       .generationModule(GenerationModule())
       .build()
   }

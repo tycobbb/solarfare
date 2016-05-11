@@ -7,10 +7,12 @@ import dev.wizrad.solarfare.game.renderer.support.rect
 import dev.wizrad.solarfare.game.world.Space
 
 fun Renderer.render(entity: Space, delta: Float) {
+  batch.end()
   shapeRenderer.draw {
     it.color = Color.PURPLE
     it.rect(entity.size)
   }
+  batch.begin()
 
   render(entity.ship, delta)
   render(entity.solarSystems, delta)

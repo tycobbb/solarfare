@@ -14,7 +14,7 @@ task run(dependsOn: classes, type: JavaExec) {
   ignoreExitValue = true
 }
 
-task dist(type: Jar) {
+task dist(dependsOn: classes, type: Jar) {
   from files(sourceSets.main.output.classesDir)
   from files(sourceSets.main.output.resourcesDir)
   from { configurations.compile.collect { zipTree(it) } }
@@ -25,7 +25,11 @@ task dist(type: Jar) {
   }
 }
 
-dist.dependsOn classes
+task pack(type: JavaExec) {
+  classpath = sourceSets.main.runtimeClasspath
+  main = "com.badlogic.gdx.tools.texturepacker.TexturePacker"
+  args = ["$rootDir/../assets/", "$rootDir/android/assets/", "textures"]
+}
 
 eclipse {
   project {
