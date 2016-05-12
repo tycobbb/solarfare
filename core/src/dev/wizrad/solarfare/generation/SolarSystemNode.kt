@@ -1,6 +1,7 @@
 package dev.wizrad.solarfare.generation
 
 import dev.wizrad.solarfare.config.Config
+import dev.wizrad.solarfare.generation.clustering.ClusteringStrategy
 import dev.wizrad.solarfare.generation.core.Node
 import dev.wizrad.solarfare.generation.core.Spec
 import dev.wizrad.solarfare.support.Maths
@@ -17,8 +18,9 @@ import javax.inject.Provider
 
 class SolarSystemNode @Inject constructor(
   config: Config,
-  private val stars:   Provider<StarNode>,
-  private val planets: Provider<PlanetNode>): Node("system") {
+  private val stars:    Provider<StarNode>,
+  private val planets:  Provider<PlanetNode>,
+  private val strategy: ClusteringStrategy): Node("system") {
 
   // MARK: Properties
   private val model = config.solarSystem

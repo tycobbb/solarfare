@@ -4,11 +4,16 @@ import dagger.Module
 import dagger.Provides
 import dev.wizrad.solarfare.config.Config
 import dev.wizrad.solarfare.generation.*
+import dev.wizrad.solarfare.generation.clustering.ClusteringStrategy
+import dev.wizrad.solarfare.generation.clustering.RadialClusteringStrategy
+import dev.wizrad.solarfare.generation.clustering.constraints.Solver
+import dev.wizrad.solarfare.generation.clustering.constraints.SolverType
 import dev.wizrad.solarfare.generation.core.Root
 import javax.inject.Provider
 
 @Module
 class GenerationModule {
+  // MARK: Nodes
   @Provides
   fun root(node: SpaceNode): Root<SpaceNode> {
     return Root(node)
@@ -25,8 +30,8 @@ class GenerationModule {
   }
 
   @Provides
-  fun solarSystem(config: Config, stars: Provider<StarNode>, planets: Provider<PlanetNode>): SolarSystemNode {
-    return SolarSystemNode(config, stars, planets)
+  fun solarSystem(config: Config, stars: Provider<StarNode>, planets: Provider<PlanetNode>, strategy: ClusteringStrategy): SolarSystemNode {
+    return SolarSystemNode(config, stars, planets, strategy)
   }
 
   @Provides
@@ -37,5 +42,16 @@ class GenerationModule {
   @Provides
   fun planet(config: Config): PlanetNode {
     return PlanetNode(config)
+  }
+
+  // MARK: Clustering
+  @Provides
+  fun strategy(solver: SolverType): ClusteringStrategy {
+    return RadialClusteringStrategy(solver)
+  }
+
+  @Provides
+  fun solver(): SolverType {
+    return Solver()
   }
 }
