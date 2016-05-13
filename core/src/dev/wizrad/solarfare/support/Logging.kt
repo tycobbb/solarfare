@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx
 enum class Tag(val key: String) {
   GENERAL("DEF"),
   GENERATION("GEN"),
+  CLUSTERING("CLS"),
   WORLD("WRL"),
 }
 

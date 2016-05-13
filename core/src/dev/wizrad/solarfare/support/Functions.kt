@@ -31,7 +31,7 @@ inline fun <E, M1, M2> zip(crossinline left: (M1, E) -> M1, crossinline right: (
 }
 
 // MARK: Optionals
-inline fun <T> T?.unwrap(closure: (T) -> Unit) {
+inline fun <T> T?.unwrap(crossinline closure: (T) -> Unit) {
   if(this != null) {
     closure(this)
   }

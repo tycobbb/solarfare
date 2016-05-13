@@ -4,5 +4,7 @@ import dev.wizrad.solarfare.support.geometry.Point
 
 interface Constrainable {
   /** The current position of the constrainable */
-  val position: Point
+  var position: Point
+  /** An identifier for the constrainable to aid in logging/debugging */
+  val name: String
 }
