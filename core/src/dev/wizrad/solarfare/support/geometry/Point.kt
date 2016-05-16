@@ -45,6 +45,8 @@ data class Point(
 
   // MARK: Companion
   companion object {
+    val zero = Point(0.0, 0.0)
+
     fun random(bound: Double): Point {
       return random(bound, bound)
     }

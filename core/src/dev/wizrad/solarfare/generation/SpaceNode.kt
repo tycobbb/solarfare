@@ -16,22 +16,19 @@ class SpaceNode @Inject constructor(
   private val ships:        Provider<ShipNode>,
   private val solarSystems: Provider<SolarSystemNode>): Node("space") {
 
-  //
-  // Properties
+  // MARK: Properties
   private val model = config.space
-
   /** The unit size of the corresponding materializable */
   lateinit var size: Size
 
-  //
-  // Lifecycle
+  // MARK: Lifecycle
   init {
     resource = "space"
   }
 
-  override fun generate() {
+  override fun willGenerate() {
+    super.willGenerate()
     size = Size(model.size.sample())
-    super.generate()
   }
 
   private fun generated(node: ShipNode) {
@@ -48,8 +45,7 @@ class SpaceNode @Inject constructor(
     )
   }
 
-  //
-  // Spec
+  // MARK: Spec
   override fun spec(): Spec.Builder {
     val spec = super.spec()
 

@@ -6,7 +6,6 @@ import javax.inject.Inject
 class StarNode @Inject constructor(
   config: Config): SpheroidNode("star") {
 
-  //
-  // Properties
+  // MARK: Properties
   override val model = config.star
 }

@@ -39,7 +39,13 @@ open class Node(
     generate()
   }
 
-  protected open fun generate() {
+  protected open fun willGenerate() {
+  }
+
+  protected fun generate() {
+    // fire pre-generation hook
+    willGenerate()
+
     // run the spec builder and capture its id
     val localSpec= spec().end()
     id = localSpec.id
@@ -51,12 +57,12 @@ open class Node(
         add(node)
       }
     }
+
+    // fire post-generation hook
+    didGenerate()
   }
 
-  inline fun <reified N: Node> mat(factory: (N) -> Unit) {
-    if(this is N) {
-      factory(this)
-    }
+  protected open fun didGenerate() {
   }
 
   // MARK: Spec

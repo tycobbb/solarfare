@@ -1,30 +1,23 @@
 package dev.wizrad.solarfare.generation
 
 import dev.wizrad.solarfare.config.Config
+import dev.wizrad.solarfare.generation.clustering.Cluster
 import dev.wizrad.solarfare.generation.clustering.ClusteringStrategy
 import dev.wizrad.solarfare.generation.core.Node
 import dev.wizrad.solarfare.generation.core.Spec
-import dev.wizrad.solarfare.support.Maths
-import dev.wizrad.solarfare.support.Tag
-import dev.wizrad.solarfare.support.collections.Stripe
-import dev.wizrad.solarfare.support.debug
-import dev.wizrad.solarfare.support.extensions.center
-import dev.wizrad.solarfare.support.extensions.rand
-import dev.wizrad.solarfare.support.extensions.upto
 import dev.wizrad.solarfare.support.geometry.Point
-import dev.wizrad.solarfare.support.geometry.Polar
 import javax.inject.Inject
 import javax.inject.Provider
 
 class SolarSystemNode @Inject constructor(
   config: Config,
-  private val stars:    Provider<StarNode>,
-  private val planets:  Provider<PlanetNode>,
-  private val strategy: ClusteringStrategy): Node("system") {
+  private val stars:   Provider<StarNode>,
+  private val planets: Provider<PlanetNode>,
+  strategy: ClusteringStrategy): Node("system") {
 
   // MARK: Properties
-  private val model = config.solarSystem
-  private var orbitals: Stripe? = null
+  private val model   = config.solarSystem
+  private val cluster = Cluster(strategy)
 
   /** The unit position of this node, relative to its parent */
   lateinit var center: Point
@@ -32,34 +25,22 @@ class SolarSystemNode @Inject constructor(
   var radius: Double = 0.0
 
   // MARK: Lifecycle
-  override fun generate() {
+  override fun willGenerate() {
+    super.willGenerate()
     radius = model.radius.sample()
-    super.generate()
   }
 
   private fun generated(star: StarNode) {
-    star.center = Point(0.0, 0.0)
-
-    // create a stripe for inserting planets at positions that don't overlap the star
-    orbitals = Stripe(star.radius..(radius - star.radius))
+    cluster.add(star)
   }
 
-  private fun shouldGenerate(planet: PlanetNode): Boolean {
-    // find an orbital radius, or don't generate if we couldn't fit the planet
-    val orbital = orbitals?.insert(planet.radius * 2.0)
+  private fun generated(planet: PlanetNode) {
+    cluster.add(planet)
+  }
 
-    if(orbital != null) {
-      // generate a random polar coordinate for this planet
-      val coordinate = Polar(orbital.center, rand().upto(Maths.M_2PI))
-      debug(Tag.GENERATION, "$planet orbital -> ${coordinate.radial}")
-
-      // convert coordinate to a cartesian point
-      planet.center = coordinate.toPoint()
-
-      return true
-    }
-
-    return false
+  override fun didGenerate() {
+    super.didGenerate()
+    cluster.resolve()
   }
 
   // MARK: Spec
@@ -72,7 +53,7 @@ class SolarSystemNode @Inject constructor(
 
     spec.child { planets.get() }
       .weight(80).decay { it * 5 }
-      .filter { shouldGenerate(it) }
+      .afterGenerate { generated(it) }
 
     return spec
   }

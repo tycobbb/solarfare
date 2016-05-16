@@ -1,6 +1,6 @@
 package dev.wizrad.solarfare.generation.clustering
 
 interface ClusteringStrategy {
-  /** Clusters the parameterized `clusterables` */
+  /** Updates the positions of the clusterables */
   fun resolve(clusterables: List<Clusterable>)
 }
