@@ -71,7 +71,7 @@ open class Node(
   }
 
   // MARK: Accessors
-  val name: String get() = tag
+  val name: String get() = id.toString()
 
   // MARK: Debugging
   override fun toString(): String {

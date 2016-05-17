@@ -26,7 +26,7 @@ class Space(
     center.set(size.x / 2, size.y / 2)
 
     // logs
-    debug(Tag.WORLD, "space -> $size")
+    debug(Tag.WORLD, "$this created")
   }
 
   override fun update(delta: Float) {
@@ -37,4 +37,9 @@ class Space(
 
   // MARK: Accessors
   val trackable: CameraTrackable get() = ship
+
+  // MARK: Debugging
+  override fun toString(): String {
+    return "[space size=$size]"
+  }
 }

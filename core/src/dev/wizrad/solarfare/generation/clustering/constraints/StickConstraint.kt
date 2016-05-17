@@ -2,6 +2,7 @@ package dev.wizrad.solarfare.generation.clustering.constraints
 
 import dev.wizrad.solarfare.support.Tag
 import dev.wizrad.solarfare.support.debug
+import dev.wizrad.solarfare.support.fmt
 
 /** A fixed-distance constraint between two constrainable poles */
 data class StickConstraint(
@@ -30,19 +31,14 @@ data class StickConstraint(
     }
 
     // debug info
-    debug(Tag.CLUSTERING, "relaxed constraint l -> ${describe(left)} r -> ${describe(right)}")
+    debug(Tag.CLUSTERING, "$this applied ${distance.fmt()} -> ${value.fmt()}")
   }
 
   // MARK: Debugging
   override fun toString(): String {
-    return "[constraint: strength = $strength, value = ${value()}]"
+    return "[stick: ${left.name}::${right.name} str=${strength.fmt()}]"
   }
 
-  private fun value(): Double {
-    return right.center.distanceTo(left.center)
-  }
-
-  private fun describe(constrainable: Constrainable): String {
-    return "${constrainable.name}.${constrainable.center}"
-  }
+  private val value: Double
+    get() = right.center.distanceTo(left.center)
 }

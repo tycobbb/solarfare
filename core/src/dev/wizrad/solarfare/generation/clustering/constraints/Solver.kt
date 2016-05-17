@@ -13,6 +13,8 @@ class Solver(
   */
 
   override fun solve(constraints: List<Constraint>) {
+    debug(Tag.CLUSTERING, "$this start")
+
     // make an arbitrary number of passes through the constraint relaxation to get close
     // enough to the constrained values
     iterations.repeat {
@@ -21,6 +23,11 @@ class Solver(
       }
     }
 
-    debug(Tag.CLUSTERING, "solver did finish")
+    debug(Tag.CLUSTERING, "$this finished")
+  }
+
+  // MARK: Debugging
+  override fun toString(): String {
+    return "[solver]"
   }
 }

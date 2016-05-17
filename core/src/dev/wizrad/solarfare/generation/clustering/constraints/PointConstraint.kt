@@ -14,6 +14,10 @@ data class PointConstraint(
   // MARK: Constraint
   override fun apply() {
     constrainable.center = point
-    debug(Tag.CLUSTERING, "")
+    debug(Tag.CLUSTERING, "$this applied")
+  }
+
+  override fun toString(): String {
+    return "[constraint: ${constrainable.name} pt=$point]"
   }
 }
