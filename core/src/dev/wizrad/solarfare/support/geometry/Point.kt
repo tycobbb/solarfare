@@ -2,10 +2,11 @@ package dev.wizrad.solarfare.support.geometry
 
 import dev.wizrad.solarfare.support.extensions.rand
 import dev.wizrad.solarfare.support.extensions.upto
+import dev.wizrad.solarfare.support.fmt
 
 data class Point(
-  val x: Double,
-  val y: Double) {
+  val x: Double = 0.0,
+  val y: Double = 0.0) {
 
   // MARK: Operations
   fun distanceTo(other: Point): Double {
@@ -60,5 +61,9 @@ data class Point(
         x = rand().upto(x),
         y = rand().upto(y))
     }
+  }
+
+  override fun toString(): String {
+    return "Point(x=${x.fmt()}, y=${y.fmt()})"
   }
 }

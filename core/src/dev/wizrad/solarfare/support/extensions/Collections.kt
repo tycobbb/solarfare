@@ -21,3 +21,8 @@ inline fun <E, O> Array<out E>.findMapped(transform: (E) -> O): O? {
 
   return null
 }
+
+fun <E, C: MutableCollection<E>> C.append(element: E): C {
+  this.add(element)
+  return this
+}
