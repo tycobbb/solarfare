@@ -1,5 +1,5 @@
 package dev.wizrad.solarfare.generation.clustering.constraints
 
-interface SolverType {
+interface ConstraintSolverType {
   fun solve(constraints: List<Constraint>)
 }

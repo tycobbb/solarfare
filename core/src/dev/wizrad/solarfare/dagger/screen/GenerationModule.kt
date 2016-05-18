@@ -4,10 +4,10 @@ import dagger.Module
 import dagger.Provides
 import dev.wizrad.solarfare.config.Config
 import dev.wizrad.solarfare.generation.*
-import dev.wizrad.solarfare.generation.clustering.ClusteringStrategy
+import dev.wizrad.solarfare.generation.clustering.PlanarClusteringStrategy
 import dev.wizrad.solarfare.generation.clustering.RadialClusteringStrategy
-import dev.wizrad.solarfare.generation.clustering.constraints.Solver
-import dev.wizrad.solarfare.generation.clustering.constraints.SolverType
+import dev.wizrad.solarfare.generation.clustering.constraints.ConstraintSolver
+import dev.wizrad.solarfare.generation.clustering.constraints.ConstraintSolverType
 import dev.wizrad.solarfare.generation.core.Root
 import javax.inject.Provider
 
@@ -20,7 +20,11 @@ class GenerationModule {
   }
 
   @Provides
-  fun space(config: Config, ships: Provider<ShipNode>, solarSystems: Provider<SolarSystemNode>): SpaceNode {
+  fun space(
+    config: Config,
+    ships:  Provider<ShipNode>,
+    solarSystems: Provider<SolarSystemNode>): SpaceNode {
+
     return SpaceNode(config, ships, solarSystems)
   }
 
@@ -30,7 +34,12 @@ class GenerationModule {
   }
 
   @Provides
-  fun solarSystem(config: Config, stars: Provider<StarNode>, planets: Provider<PlanetNode>, strategy: ClusteringStrategy): SolarSystemNode {
+  fun solarSystem(
+    config:   Config,
+    stars:    Provider<StarNode>,
+    planets:  Provider<PlanetNode>,
+    strategy: RadialClusteringStrategy): SolarSystemNode {
+
     return SolarSystemNode(config, stars, planets, strategy)
   }
 
@@ -46,12 +55,17 @@ class GenerationModule {
 
   // MARK: Clustering
   @Provides
-  fun strategy(solver: SolverType): ClusteringStrategy {
-    return RadialClusteringStrategy(solver)
+  fun radialStrategy(): RadialClusteringStrategy {
+    return RadialClusteringStrategy()
   }
 
   @Provides
-  fun solver(): SolverType {
-    return Solver()
+  fun planarStrategy(solver: ConstraintSolverType): PlanarClusteringStrategy {
+    return PlanarClusteringStrategy(solver)
+  }
+
+  @Provides
+  fun solver(): ConstraintSolverType {
+    return ConstraintSolver()
   }
 }
