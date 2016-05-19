@@ -11,7 +11,14 @@ class Cluster(
     clusterables.add(clusterable)
   }
 
-  fun resolve() {
-    strategy.resolve(clusterables)
+  fun resolve(dissipation: Double) {
+    strategy.resolve(clusterables, dissipation)
+  }
+
+  // MARK: Accessors
+  private val last: Clusterable? get() = clusterables.lastOrNull()
+
+  fun radius(): Double {
+    return last?.center?.magnitude() ?: 0.0
   }
 }

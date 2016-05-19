@@ -19,7 +19,7 @@ class PlanarClusteringStrategy @Inject constructor(
   private val maximumDistance = 10.0
 
   // MARK: ClusteringStrategy
-  override fun resolve(clusterables: List<Clusterable>) {
+  override fun resolve(clusterables: List<Clusterable>, dissipation: Double) {
     !clusterables.isEmpty() || return
 
     // randomize the positions of the clusterables

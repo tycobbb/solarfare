@@ -25,11 +25,6 @@ class SolarSystemNode @Inject constructor(
   var radius: Double = 0.0
 
   // MARK: Lifecycle
-  override fun willGenerate() {
-    super.willGenerate()
-    radius = model.radius.sample()
-  }
-
   private fun generated(star: StarNode) {
     cluster.add(star)
   }
@@ -40,7 +35,13 @@ class SolarSystemNode @Inject constructor(
 
   override fun didGenerate() {
     super.didGenerate()
-    cluster.resolve()
+
+    // cluster the nodes with the sample dissipation
+    val dissipation = model.dissipation.sample()
+    cluster.resolve(dissipation)
+
+    // set radius from the extent of the cluster
+    radius = cluster.radius()
   }
 
   // MARK: Spec
