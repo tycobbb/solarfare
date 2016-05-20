@@ -1,9 +1,10 @@
 package dev.wizrad.solarfare.generation
 
 import dev.wizrad.solarfare.config.Config
+import dev.wizrad.solarfare.generation.clustering.Cluster
+import dev.wizrad.solarfare.generation.clustering.ClusteringStrategy
 import dev.wizrad.solarfare.generation.core.Node
 import dev.wizrad.solarfare.generation.core.Spec
-import dev.wizrad.solarfare.support.extensions.between
 import dev.wizrad.solarfare.support.extensions.rand
 import dev.wizrad.solarfare.support.extensions.upto
 import dev.wizrad.solarfare.support.geometry.Point
@@ -14,12 +15,15 @@ import javax.inject.Provider
 class SpaceNode @Inject constructor(
   config: Config,
   private val ships:        Provider<ShipNode>,
-  private val solarSystems: Provider<SolarSystemNode>): Node("space") {
+  private val solarSystems: Provider<SolarSystemNode>,
+  strategy: ClusteringStrategy): Node("space") {
 
   // MARK: Properties
-  private val model = config.space
   /** The unit size of the corresponding materializable */
-  lateinit var size: Size
+  var size = Size.zero
+
+  private val model   = config.space
+  private val cluster = Cluster(strategy)
 
   // MARK: Lifecycle
   init {
@@ -39,10 +43,12 @@ class SpaceNode @Inject constructor(
   }
 
   private fun generated(node: SolarSystemNode) {
-    node.center = Point(
-      rand().between(node.radius, size.width  - node.radius) - size.width  / 2,
-      rand().between(node.radius, size.height - node.radius) - size.height / 2
-    )
+    cluster.add(node)
+  }
+
+  override fun didGenerate() {
+    super.didGenerate()
+    cluster.resolve(10.0)
   }
 
   // MARK: Spec

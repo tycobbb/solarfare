@@ -13,10 +13,12 @@ class MainScreen(
 
   private lateinit var component: ScreenComponent
 
+  // MARK: Dependencies
   private lateinit var world:    World
   private lateinit var renderer: Renderer
   private lateinit var stage:    MainStage
 
+  // MARK: Initialization
   init {
     component = componentFrom(gameComponent)
     component.inject(this)
@@ -29,6 +31,7 @@ class MainScreen(
     this.stage    = stage
   }
 
+  // MARK: Screen
   override fun render(delta: Float) {
     world.update(delta)
     renderer.update(delta)
@@ -55,8 +58,7 @@ class MainScreen(
   override fun dispose() {
   }
 
-  //
-  // Component
+  // MARK: Component
   private fun componentFrom(gameComponent: GameComponent): ScreenComponent {
     return DaggerScreenComponent.builder()
       .gameComponent(gameComponent)

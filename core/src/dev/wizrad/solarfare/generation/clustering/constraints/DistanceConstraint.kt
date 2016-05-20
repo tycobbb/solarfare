@@ -4,8 +4,8 @@ import dev.wizrad.solarfare.support.Tag
 import dev.wizrad.solarfare.support.debug
 import dev.wizrad.solarfare.support.fmt
 
-/** A fixed-distance constraint between two constrainable poles */
-data class StickConstraint(
+/** A minimum distance constraint between two constrainable poles */
+data class DistanceConstraint(
   /** The value of the constraint */
   val strength: Double,
   /** The first pole for this constraint */
@@ -20,7 +20,7 @@ data class StickConstraint(
     val distance = delta.magnitude()
 
     // if the distance is non-zero, update the positions of the poles
-    if(distance != 0.0) {
+    if(distance < strength) {
       // compute the percent delta relative to the strength
       val percent = (distance - strength) / distance
 

@@ -23,9 +23,10 @@ class GenerationModule {
   fun space(
     config: Config,
     ships:  Provider<ShipNode>,
-    solarSystems: Provider<SolarSystemNode>): SpaceNode {
+    solarSystems: Provider<SolarSystemNode>,
+    strategy: PlanarClusteringStrategy): SpaceNode {
 
-    return SpaceNode(config, ships, solarSystems)
+    return SpaceNode(config, ships, solarSystems, strategy)
   }
 
   @Provides

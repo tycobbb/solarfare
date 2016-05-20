@@ -2,6 +2,7 @@ package dev.wizrad.solarfare.generation
 
 import dev.wizrad.solarfare.config.Config
 import dev.wizrad.solarfare.generation.clustering.Cluster
+import dev.wizrad.solarfare.generation.clustering.Clusterable
 import dev.wizrad.solarfare.generation.clustering.ClusteringStrategy
 import dev.wizrad.solarfare.generation.core.Node
 import dev.wizrad.solarfare.generation.core.Spec
@@ -13,14 +14,14 @@ class SolarSystemNode @Inject constructor(
   config: Config,
   private val stars:   Provider<StarNode>,
   private val planets: Provider<PlanetNode>,
-  strategy: ClusteringStrategy): Node("system") {
+  strategy: ClusteringStrategy): Node("system"), Clusterable {
 
   // MARK: Properties
   private val model   = config.solarSystem
   private val cluster = Cluster(strategy)
 
   /** The unit position of this node, relative to its parent */
-  lateinit var center: Point
+  override var center = Point.zero
   /** The unit radius of the solar system */
   var radius: Double = 0.0
 
