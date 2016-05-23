@@ -8,6 +8,7 @@ import dev.wizrad.solarfare.support.debug
 import dev.wizrad.solarfare.support.extensions.between
 import dev.wizrad.solarfare.support.extensions.flatMapIndexed
 import dev.wizrad.solarfare.support.extensions.rand
+import dev.wizrad.solarfare.support.geometry.Point
 import javax.inject.Inject
 
 class PlanarClusteringStrategy @Inject constructor(
@@ -17,7 +18,11 @@ class PlanarClusteringStrategy @Inject constructor(
   override fun resolve(clusterables: List<Clusterable>, dissipation: Double) {
     !clusterables.isEmpty() || return
 
-    // generate a constraint between each pair of clusterables
+    // choose non-zero starting positions so that distance constraints can calculate
+    // real position deltas
+    randomizePositionsOf(clusterables, dissipation)
+
+    // generate a distance constraint between each pair of clusterables
     val constraints = clusterables
       .flatMapIndexed { i, left ->
         val strength = rand().between(0.1, dissipation)
@@ -31,6 +36,15 @@ class PlanarClusteringStrategy @Inject constructor(
 
     // log final positions of clusterables
     debug(Tag.CLUSTERING, "$this finished ${describe(clusterables, constraints)}")
+  }
+
+  private fun randomizePositionsOf(clusterables: List<Clusterable>, dissipation: Double) {
+    // scale down the dissipation by some arbitrary value so that clusterables remain close
+    val range = (0.01 * dissipation..dissipation * 0.1)
+
+    for(clusterable in clusterables) {
+      clusterable.center = Point.random(range)
+    }
   }
 
   // MARK: Debugging

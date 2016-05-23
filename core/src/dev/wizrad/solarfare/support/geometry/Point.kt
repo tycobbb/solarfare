@@ -1,5 +1,6 @@
 package dev.wizrad.solarfare.support.geometry
 
+import dev.wizrad.solarfare.support.extensions.between
 import dev.wizrad.solarfare.support.extensions.rand
 import dev.wizrad.solarfare.support.extensions.upto
 import dev.wizrad.solarfare.support.fmt
@@ -50,6 +51,13 @@ data class Point(
 
     fun random(bound: Double): Point {
       return random(bound, bound)
+    }
+
+    fun random(range: ClosedRange<Double>): Point {
+      return random(
+        x = rand().between(range),
+        y = rand().between(range)
+      )
     }
 
     fun random(bound: Point): Point {
