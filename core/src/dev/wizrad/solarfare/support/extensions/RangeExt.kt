@@ -1,11 +1,13 @@
 package dev.wizrad.solarfare.support.extensions
 
-//
-// Generic
+// MARK: Generic
 val <E: Comparable<E>> ClosedRange<E>.end: E get() = endInclusive
 
-//
-// Double
+fun <E: Comparable<E>> ClosedRange<E>.clamp(value: E): E {
+  return min(max(value, start), end)
+}
+
+// MARK: Double
 val ClosedRange<Double>.length: Double get() = endInclusive - start
 val ClosedRange<Double>.center: Double get() = start + length / 2
 

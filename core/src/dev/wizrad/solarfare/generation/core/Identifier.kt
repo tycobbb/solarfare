@@ -1,6 +1,6 @@
 package dev.wizrad.solarfare.generation.core
 
-import java.util.HashMap
+import java.util.*
 
 data class Identifier(
   val tag: String,

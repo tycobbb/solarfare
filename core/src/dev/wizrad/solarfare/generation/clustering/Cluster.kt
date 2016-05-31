@@ -7,8 +7,14 @@ class Cluster(
   private val clusterables = mutableListOf<Clusterable>()
 
   // MARK: Operations
-  fun add(clusterable: Clusterable) {
-    clusterables.add(clusterable)
+  fun <T: Clusterable> add(other: T): T {
+    clusterables.add(other)
+    return other
+  }
+
+  fun <T: Clusterable> add(others: Iterable<T>): Iterable<T> {
+    clusterables.addAll(others)
+    return others
   }
 
   fun resolve(dissipation: Double) {

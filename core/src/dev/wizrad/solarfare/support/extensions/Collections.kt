@@ -72,3 +72,18 @@ inline fun <T, R, C: MutableCollection<in R>> Iterable<T>.flatMapIndexedTo(desti
   forEachIndexed { i, element -> destination.addAll(transform(i, element)) }
   return destination
 }
+
+// MARK: Generate
+inline fun <T> generateIterable(crossinline generator: (Int) -> T?): Iterable<T> {
+  val list = mutableListOf<T>()
+
+  var index   = 0
+  var element = generator(index++)
+
+  while(element != null) {
+    list.add(element)
+    element = generator(index++)
+  }
+
+  return list
+}

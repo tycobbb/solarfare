@@ -13,8 +13,8 @@ class Space(
   node: SpaceNode): NodeEntity<SpaceNode>(node) {
 
   // MARK: Children
-  lateinit var ship: Ship
-  lateinit var solarSystems: List<SolarSystem>
+  lateinit var ship:    Ship
+  lateinit var systems: List<SolarSystem>
 
   // MARK: Geometry
   val size = Vector2(0.0f, 0.0f)
@@ -32,7 +32,7 @@ class Space(
   override fun update(delta: Float) {
     super.update(delta)
     ship.update(delta)
-    solarSystems.update(delta)
+    systems.update(delta)
   }
 
   // MARK: Accessors

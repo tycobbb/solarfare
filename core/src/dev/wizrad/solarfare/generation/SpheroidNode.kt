@@ -12,17 +12,19 @@ abstract class SpheroidNode(
   abstract protected val model: Spheroid
 
   /** The name of the sprite to materialize */
-  lateinit var sprite: String
-  /** The unit position of this node, relative to its parent */
-  override var center = Point.zero
+  var sprite: String = ""
   /** The unit radius for the materialized spheroid */
   var radius: Double = 0.0
   /** The unit mass for the materialized spheroid */
   var mass: Double = 0.0
 
+  /** The unit position of this node, relative to its parent */
+  override var center = Point.zero
+
   // MARK: Lifecycle
-  override fun willGenerate() {
-    super.willGenerate()
+  override fun generate() {
+    super.generate()
+
     sprite = model.sprite.sample()
     mass   = model.mass.sample()
     radius = model.radius.sample()

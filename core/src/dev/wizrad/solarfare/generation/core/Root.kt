@@ -6,7 +6,7 @@ class Root<N: Node> @Inject constructor(
   private val node: N) {
 
   fun bootstrap(): N {
-    node.bootstrap()
+    node.resolve()
     return node
   }
 }

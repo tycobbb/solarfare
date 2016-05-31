@@ -2,11 +2,7 @@ package dev.wizrad.solarfare.game.world.core
 
 import dev.wizrad.solarfare.game.ui.Minimap
 import dev.wizrad.solarfare.game.world.*
-import dev.wizrad.solarfare.game.world.support.default
-import dev.wizrad.solarfare.game.world.support.entities
 import dev.wizrad.solarfare.generation.*
-import dev.wizrad.solarfare.support.reduce
-import dev.wizrad.solarfare.support.zip
 import javax.inject.Inject
 
 class NodeEntityFactory @Inject constructor(
@@ -15,13 +11,8 @@ class NodeEntityFactory @Inject constructor(
   fun entity(node: SpaceNode): Space {
     val result = Space(node)
 
-    val children = reduce(node.children, default(), zip(
-      entities { n: ShipNode -> entity(n, result) },
-      entities { n: SolarSystemNode -> entity(n, result) }
-    ))
-
-    result.ship         = children.first.first()
-    result.solarSystems = children.second
+    result.ship    = entity(node.ship, result)
+    result.systems = node.systems.map { entity(it, result) }
 
     return result
   }
@@ -29,13 +20,8 @@ class NodeEntityFactory @Inject constructor(
   fun entity(node: SolarSystemNode, parent: Space): SolarSystem {
     val result = SolarSystem(node, parent)
 
-    val children = reduce(node.children, default(), zip(
-      entities { n: StarNode -> entity(n, result) },
-      entities { n: PlanetNode -> entity(n, result) }
-    ))
-
-    result.star    = children.first.first()
-    result.planets = children.second
+    result.star    = entity(node.star, result)
+    result.planets = node.planets.map { entity(it, result) }
 
     return result
   }

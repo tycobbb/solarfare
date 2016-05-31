@@ -14,6 +14,6 @@ fun Renderer.render(entity: Space, delta: Float) {
   }
   batch.begin()
 
-  render(entity.solarSystems, delta)
-  render(entity.ship, delta)
+  render(entity.systems, delta)
+  render(entity.ship,    delta)
 }
