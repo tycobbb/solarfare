@@ -25,9 +25,8 @@ class PlanarClusteringStrategy @Inject constructor(
     // generate a distance constraint between each pair of clusterables
     val constraints = clusterables
       .flatMapIndexed { i, left ->
-        val strength = rand().between(0.1, dissipation)
         clusterables.mapIndexedNotNull { j, right ->
-          if(i != j) DistanceConstraint(strength, left, right) else null
+          if(i != j) constraintFor(left, right, dissipation) else null
         }
       }
 
@@ -45,6 +44,13 @@ class PlanarClusteringStrategy @Inject constructor(
     for(clusterable in clusterables) {
       clusterable.center = Point.random(range)
     }
+  }
+
+  private fun constraintFor(left: Clusterable, right: Clusterable, dissipation: Double): DistanceConstraint {
+    val base  = left.radius + right.radius
+    val delta = rand().between(0.1, dissipation)
+
+    return DistanceConstraint(base + delta, left, right)
   }
 
   // MARK: Debugging

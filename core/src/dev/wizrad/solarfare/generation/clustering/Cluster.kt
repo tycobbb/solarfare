@@ -1,5 +1,7 @@
 package dev.wizrad.solarfare.generation.clustering
 
+import dev.wizrad.solarfare.support.geometry.Size
+
 class Cluster(
   private val strategy: ClusteringStrategy) {
 
@@ -21,10 +23,16 @@ class Cluster(
     strategy.resolve(clusterables, dissipation)
   }
 
-  // MARK: Accessors
-  private val last: Clusterable? get() = clusterables.lastOrNull()
-
+  // MARK: Extent Calculation
   fun radius(): Double {
     return last?.center?.magnitude() ?: 0.0
+  }
+
+  fun bounds(): Size {
+    return Size.zero
+  }
+
+  private val last: Clusterable? get() {
+    return clusterables.lastOrNull()
   }
 }

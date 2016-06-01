@@ -4,6 +4,7 @@ import dev.wizrad.solarfare.support.Maths
 import dev.wizrad.solarfare.support.Tag
 import dev.wizrad.solarfare.support.debug
 import dev.wizrad.solarfare.support.extensions.append
+import dev.wizrad.solarfare.support.extensions.between
 import dev.wizrad.solarfare.support.extensions.rand
 import dev.wizrad.solarfare.support.extensions.upto
 import dev.wizrad.solarfare.support.fmt
@@ -14,11 +15,11 @@ class RadialClusteringStrategy: ClusteringStrategy {
   override fun resolve(clusterables: List<Clusterable>, dissipation: Double) {
     !clusterables.isEmpty() || return
 
-    // generate monotonically increasing radii for the clusterables
+    // generate monotonically increasing radii
     val radii = clusterables
-      .drop(1)
-      .fold(mutableListOf(0.0)) { radii, clusterable ->
-        radii.append(radii.last() + rand().upto(dissipation))
+      .zip(clusterables.drop(1)) // for each pair of nodes
+      .fold(mutableListOf(0.0)) { radii, pair ->
+        radii.append(radii.last() + deltaFor(pair, dissipation))
       }
 
     // update the positions of each clusterable based on the radii
@@ -34,6 +35,13 @@ class RadialClusteringStrategy: ClusteringStrategy {
     }
 
     debug(Tag.CLUSTERING, "$this finished")
+  }
+
+  private fun deltaFor(pair: Pair<Clusterable, Clusterable>, dissipation: Double): Double {
+    val base  = pair.first.radius + pair.second.radius
+    val delta = rand().between(0.1, dissipation)
+
+    return base + delta
   }
 
   // MARK: Debugging

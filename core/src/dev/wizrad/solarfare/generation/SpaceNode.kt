@@ -49,8 +49,8 @@ class SpaceNode @Inject constructor(
     cluster.add(systems)
       .resolve(model.dissipation.sample())
 
-    // size space based on radius of cluster
-    size = Size(cluster.radius())
+    // size space based on bounds of clusterables
+    size = cluster.bounds()
 
     // position ship inside space
     ship.center = Point(
