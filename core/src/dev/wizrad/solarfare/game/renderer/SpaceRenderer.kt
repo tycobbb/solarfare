@@ -9,7 +9,7 @@ import dev.wizrad.solarfare.game.world.Space
 fun Renderer.render(entity: Space, delta: Float) {
   batch.end()
   shapeRenderer.draw {
-    it.color = Color.PURPLE
+    it.color = Color(0x131313FF)
     it.rect(entity.size)
   }
   batch.begin()
