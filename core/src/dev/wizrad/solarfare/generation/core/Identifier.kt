@@ -14,7 +14,7 @@ data class Identifier(
     private var history = HashMap<String, Int>()
 
     fun next(tag: String): Identifier {
-      var value = (history[tag] ?: 0) + 1
+      val value = (history[tag] ?: 0) + 1
       history[tag] = value
       return Identifier(tag, value)
     }

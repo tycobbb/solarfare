@@ -5,7 +5,7 @@ import dev.wizrad.solarfare.support.debug
 import dev.wizrad.solarfare.support.extensions.repeat
 
 class ConstraintSolver(
-  private val iterations: Int = 2): ConstraintSolverType {
+  private val iterations: Int = 4): ConstraintSolverType {
 
   /**
    Solves the set of constraints through iterative constraint relaxation

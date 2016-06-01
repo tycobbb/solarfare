@@ -6,27 +6,18 @@ import dev.wizrad.solarfare.generation.core.Node
 import dev.wizrad.solarfare.support.geometry.Point
 
 abstract class SpheroidNode(
+  protected val model: Spheroid,
   tag: String): Node(tag), Clusterable {
 
   // MARK: Properties
-  abstract protected val model: Spheroid
-
   /** The name of the sprite to materialize */
-  var sprite: String = ""
-  /** The unit radius for the materialized spheroid */
-  var radius: Double = 0.0
-  /** The unit mass for the materialized spheroid */
-  var mass: Double = 0.0
+  val sprite: String = model.sprite.sample()
 
+  // MARK: Geometry
+  /** The unit mass for the materialized spheroid */
+  val mass: Double = model.mass.sample()
+  /** The unit radius for the materialized spheroid */
+  override val radius: Double = model.radius.sample()
   /** The unit position of this node, relative to its parent */
   override var center = Point.zero
-
-  // MARK: Lifecycle
-  override fun generate() {
-    super.generate()
-
-    sprite = model.sprite.sample()
-    mass   = model.mass.sample()
-    radius = model.radius.sample()
-  }
 }

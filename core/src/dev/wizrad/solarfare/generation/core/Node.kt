@@ -9,19 +9,17 @@ open class Node(
   var resource: String? = null
 
   // MARK: Lifecycle
-  fun resolve() {
+  init {
     // fire pre-generation hooks
     willGenerate()
-    // run generation
-    generate()
+  }
+
+  fun resolve() {
     // fire post-generation hooks
     didGenerate()
   }
 
   protected open fun willGenerate() {
-  }
-
-  protected open fun generate() {
   }
 
   protected open fun didGenerate() {

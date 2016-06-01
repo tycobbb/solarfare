@@ -40,7 +40,7 @@ class PlanarClusteringStrategy @Inject constructor(
 
   private fun randomizePositionsOf(clusterables: List<Clusterable>, dissipation: Double) {
     // scale down the dissipation by some arbitrary value so that clusterables remain close
-    val range = (0.01 * dissipation..dissipation * 0.1)
+    val range = (0.01 * dissipation)..(dissipation * 0.1)
 
     for(clusterable in clusterables) {
       clusterable.center = Point.random(range)

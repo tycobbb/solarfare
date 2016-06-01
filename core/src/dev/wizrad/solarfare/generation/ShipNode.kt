@@ -10,6 +10,8 @@ class ShipNode @Inject constructor(
 
   // MARK: Properties
   private val model = config.ship
+
+  // MARK: Geometry
   /** The unit position of this node, relative to its parent */
   var center = Point.zero
 }

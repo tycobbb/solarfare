@@ -15,34 +15,30 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 class SpaceNode @Inject constructor(
-  config: Config,
-  private val shipFactory:   Provider<ShipNode>,
-  private val systemFactory: Provider<SolarSystemNode>,
-  strategy: ClusteringStrategy): Node("space") {
+  config:        Config,
+  shipFactory:   Provider<ShipNode>,
+  systemFactory: Provider<SolarSystemNode>,
+  strategy:      ClusteringStrategy): Node("space") {
 
   // MARK: Properties
   private val model   = config.space
   private val cluster = Cluster(strategy)
 
+  // MARK: Geometry
   /** The unit size of the corresponding materializable */
   var size = Size.zero
 
   // MARK: Children
-  lateinit var ship:    ShipNode private set
-  lateinit var systems: Iterable<SolarSystemNode> private set
+  val ship:    ShipNode
+  val systems: Iterable<SolarSystemNode>
 
   // MARK: Lifecycle
-  override fun generate() {
-    super.generate()
-
-    // generate solar systems
-    systems = cluster.add(
-      child(systemFactory)
-        .decay(from = 1.0) { it * 0.05 }
-        .generate())
-
-    // generate ship
+  init {
     ship = child(shipFactory)
+      .generate()
+
+    systems = child(systemFactory)
+      .decay(from = 1.0) { it * 0.05 }
       .generate()
   }
 
@@ -50,7 +46,8 @@ class SpaceNode @Inject constructor(
     super.didGenerate()
 
     // position systems
-    cluster.resolve(dissipation = 10.0)
+    cluster.add(systems)
+      .resolve(model.dissipation.sample())
 
     // size space based on radius of cluster
     size = Size(cluster.radius())

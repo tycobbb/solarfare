@@ -4,8 +4,6 @@ import dev.wizrad.solarfare.config.Config
 import javax.inject.Inject
 
 class PlanetNode @Inject constructor(
-  config: Config): SpheroidNode("planet") {
+  config: Config): SpheroidNode(config.planet, "planet") {
 
-  // MARK: Properties
-  override val model = config.planet
 }
