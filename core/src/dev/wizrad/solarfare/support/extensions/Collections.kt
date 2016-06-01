@@ -47,7 +47,7 @@ fun <E> MutableList<E>.shuffle() {
   for(remaining in (count()..1)) {
     // sample a random index
     val index  = remaining - 1
-    val sample = rand().upto(remaining)
+    val sample = rand.upto(remaining)
 
     // and swap the current item with the sampled one
     val swap     = this[sample]

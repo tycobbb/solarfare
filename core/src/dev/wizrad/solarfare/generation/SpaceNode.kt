@@ -8,7 +8,6 @@ import dev.wizrad.solarfare.generation.core.child
 import dev.wizrad.solarfare.generation.core.decay
 import dev.wizrad.solarfare.generation.core.generate
 import dev.wizrad.solarfare.support.extensions.rand
-import dev.wizrad.solarfare.support.extensions.upto
 import dev.wizrad.solarfare.support.geometry.Point
 import dev.wizrad.solarfare.support.geometry.Size
 import javax.inject.Inject
@@ -54,8 +53,8 @@ class SpaceNode @Inject constructor(
 
     // position ship inside space
     ship.center = Point(
-      rand().upto(size.width)  - size.width  / 2,
-      rand().upto(size.height) - size.height / 2
+      rand.upto(size.width)  - size.width  / 2,
+      rand.upto(size.height) - size.height / 2
     )
   }
 }

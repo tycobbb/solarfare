@@ -1,8 +1,6 @@
 package dev.wizrad.solarfare.support.geometry
 
-import dev.wizrad.solarfare.support.extensions.between
 import dev.wizrad.solarfare.support.extensions.rand
-import dev.wizrad.solarfare.support.extensions.upto
 import dev.wizrad.solarfare.support.fmt
 
 data class Point(
@@ -55,8 +53,8 @@ data class Point(
 
     fun random(range: ClosedRange<Double>): Point {
       return random(
-        x = rand().between(range),
-        y = rand().between(range)
+        x = rand.between(range),
+        y = rand.between(range)
       )
     }
 
@@ -66,8 +64,8 @@ data class Point(
 
     fun random(x: Double, y: Double): Point {
       return Point(
-        x = rand().upto(x),
-        y = rand().upto(y))
+        x = rand.upto(x),
+        y = rand.upto(y))
     }
   }
 

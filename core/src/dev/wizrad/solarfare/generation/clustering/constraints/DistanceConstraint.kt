@@ -39,6 +39,7 @@ data class DistanceConstraint(
     return "[stick: ${left.name}::${right.name} str=${strength.fmt()}]"
   }
 
-  private val value: Double
-    get() = right.center.distanceTo(left.center)
+  private val value: Double get() {
+    return right.center.distanceTo(left.center)
+  }
 }

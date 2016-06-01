@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx
 
 // MARK: Logging
 enum class Tag(val key: String) {
-  GENERAL("DEF"),
+  GENERAL("STD"),
   GENERATION("GEN"),
   CLUSTERING("CLS"),
   WORLD("WRL"),

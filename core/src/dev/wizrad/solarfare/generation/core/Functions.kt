@@ -3,7 +3,6 @@ package dev.wizrad.solarfare.generation.core
 import dev.wizrad.solarfare.support.extensions.clamp
 import dev.wizrad.solarfare.support.extensions.generateIterable
 import dev.wizrad.solarfare.support.extensions.rand
-import dev.wizrad.solarfare.support.extensions.upto
 import javax.inject.Provider
 
 // MARK: Start
@@ -30,7 +29,7 @@ fun <N: Node> (() -> N).decay(from: Double, function: (Int) -> Double): () -> It
 
   return {
     generateIterable { index ->
-      val sample = rand().upto(1.0)
+      val sample = rand.upto(1.0)
 
       if(sample <= percent) {
         percent -= function(index)

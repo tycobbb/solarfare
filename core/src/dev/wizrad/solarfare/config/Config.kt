@@ -9,8 +9,7 @@ import javax.inject.Singleton
 
 @Singleton
 class Config {
-  //
-  // Fields
+  // MARK: Properties
   lateinit var seed: Seed
   lateinit var space: Space
   lateinit var solarSystem: SolarSystem
@@ -20,8 +19,7 @@ class Config {
   lateinit var camera: Camera
   lateinit var ship: Ship
 
-  //
-  // De/serialization
+  // MARK: De/serialization
   fun toJson(): String {
     return adapter().toJson(this)
   }

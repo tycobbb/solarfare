@@ -1,20 +1,15 @@
 package dev.wizrad.solarfare.generation.clustering.constraints
 
-import dev.wizrad.solarfare.support.Tag
-import dev.wizrad.solarfare.support.debug
 import dev.wizrad.solarfare.support.extensions.repeat
 
+/**
+ Solves the set of constraints through iterative constraint relaxation
+ See: http://www.gamasutra.com/resource_guide/20030121/jacobson_pfv.htm
+*/
 class ConstraintSolver(
   private val iterations: Int = 4): ConstraintSolverType {
 
-  /**
-   Solves the set of constraints through iterative constraint relaxation
-   See: http://www.gamasutra.com/resource_guide/20030121/jacobson_pfv.htm
-  */
-
   override fun solve(constraints: List<Constraint>) {
-    debug(Tag.CLUSTERING, "$this start")
-
     // make an arbitrary number of passes through the constraint relaxation to get close
     // enough to the constrained values
     iterations.repeat {
@@ -22,8 +17,6 @@ class ConstraintSolver(
         constraint.apply()
       }
     }
-
-    debug(Tag.CLUSTERING, "$this finished")
   }
 
   // MARK: Debugging
