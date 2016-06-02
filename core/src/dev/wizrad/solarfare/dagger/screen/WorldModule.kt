@@ -5,6 +5,7 @@ import dagger.Provides
 import dev.wizrad.solarfare.config.Config
 import dev.wizrad.solarfare.game.renderer.core.Camera
 import dev.wizrad.solarfare.game.renderer.core.Renderer
+import dev.wizrad.solarfare.game.shared.Controls
 import dev.wizrad.solarfare.game.shared.Textures
 import dev.wizrad.solarfare.game.ui.Minimap
 import dev.wizrad.solarfare.game.world.World
@@ -21,8 +22,8 @@ class WorldModule {
   }
 
   @Provides
-  fun factory(minimap: Minimap): NodeEntityFactory {
-    return NodeEntityFactory(minimap)
+  fun factory(controls: Controls, minimap: Minimap): NodeEntityFactory {
+    return NodeEntityFactory(controls, minimap)
   }
 
   // MARK: View

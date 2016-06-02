@@ -5,9 +5,7 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import okio.Okio
 import java.io.InputStream
-import javax.inject.Singleton
 
-@Singleton
 class Config {
   // MARK: Properties
   lateinit var seed: Seed
@@ -15,7 +13,7 @@ class Config {
   lateinit var solarSystem: SolarSystem
   lateinit var star: Spheroid
   lateinit var planet: Spheroid
-  lateinit var keys: Keys
+  lateinit var keys: Map<Key, String>
   lateinit var camera: Camera
   lateinit var ship: Ship
 
@@ -36,7 +34,10 @@ class Config {
     }
 
     private fun adapter(): JsonAdapter<Config> {
-       return Moshi.Builder().build().adapter(Config::class.java)
+       return Moshi.Builder()
+         .add(Key.Adapter())
+         .build()
+         .adapter(Config::class.java)
     }
   }
 }

@@ -51,10 +51,9 @@
 
   },
   "keys": {
-    "thrust": "w",
-    "leftBank": "a",
-    "rightBank": "d",
-    "reverse": "s",
-    "mouseTouch": "mouse0"
+    "thrust": "W",
+    "reverse": "S",
+    "bankLeft": "A",
+    "bankRight": "D"
   }
 }

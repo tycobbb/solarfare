@@ -1,12 +1,14 @@
 package dev.wizrad.solarfare.game.world.core
 
+import dev.wizrad.solarfare.game.shared.Controls
 import dev.wizrad.solarfare.game.ui.Minimap
 import dev.wizrad.solarfare.game.world.*
 import dev.wizrad.solarfare.generation.*
 import javax.inject.Inject
 
 class NodeEntityFactory @Inject constructor(
-  private val minimap: Minimap) {
+  private val controls: Controls,
+  private val minimap:  Minimap) {
 
   fun entity(node: SpaceNode): Space {
     val result = Space(node)
@@ -27,7 +29,7 @@ class NodeEntityFactory @Inject constructor(
   }
 
   fun entity(node: ShipNode, parent: Space): Ship {
-    return Ship(node, parent, minimap)
+    return Ship(node, parent, minimap, controls)
   }
 
   fun entity(node: StarNode, parent: SolarSystem): Star {
