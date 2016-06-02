@@ -8,17 +8,17 @@ import dev.wizrad.solarfare.game.renderer.core.Renderer
 import dev.wizrad.solarfare.game.shared.Controls
 import dev.wizrad.solarfare.game.shared.Textures
 import dev.wizrad.solarfare.game.ui.Minimap
-import dev.wizrad.solarfare.game.world.World
+import dev.wizrad.solarfare.game.world.Entities
 import dev.wizrad.solarfare.game.world.core.NodeEntityFactory
 import dev.wizrad.solarfare.generation.SpaceNode
 import dev.wizrad.solarfare.generation.core.Root
 
 @Module
-class WorldModule {
+class EntityModule {
   // MARK: Model
   @Provides @ScreenScope
-  fun world(root: Root<SpaceNode>, factory: NodeEntityFactory): World {
-    return World(root, factory)
+  fun entities(root: Root<SpaceNode>, factory: NodeEntityFactory): Entities {
+    return Entities(root, factory)
   }
 
   @Provides
@@ -28,8 +28,8 @@ class WorldModule {
 
   // MARK: View
   @Provides
-  fun renderer(world: World, camera: Camera, textures: Textures): Renderer {
-    return Renderer(world, camera, textures)
+  fun renderer(entities: Entities, camera: Camera, textures: Textures): Renderer {
+    return Renderer(entities, camera, textures)
   }
 
   @Provides

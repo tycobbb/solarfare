@@ -7,11 +7,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import dev.wizrad.solarfare.game.core.Renderable
 import dev.wizrad.solarfare.game.renderer.render
 import dev.wizrad.solarfare.game.shared.Textures
-import dev.wizrad.solarfare.game.world.World
+import dev.wizrad.solarfare.game.world.Entities
 import javax.inject.Inject
 
 class Renderer @Inject constructor(
-  val world:    World,
+  val entities: Entities,
   val camera:   Camera,
   val textures: Textures): Renderable {
 
@@ -21,7 +21,7 @@ class Renderer @Inject constructor(
 
   // MARK: Lifecycle
   init {
-    camera.track(world.space.trackable)
+    camera.track(entities.space.trackable)
   }
 
   override fun update(delta: Float) {
@@ -36,7 +36,7 @@ class Renderer @Inject constructor(
 
     // render the world / map
     batch.begin()
-    render(world.space, delta)
+    render(entities.space, delta)
     batch.end()
   }
 

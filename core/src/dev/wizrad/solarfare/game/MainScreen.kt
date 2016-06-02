@@ -5,7 +5,7 @@ import dev.wizrad.solarfare.dagger.game.GameComponent
 import dev.wizrad.solarfare.dagger.screen.*
 import dev.wizrad.solarfare.game.renderer.core.Renderer
 import dev.wizrad.solarfare.game.ui.MainStage
-import dev.wizrad.solarfare.game.world.World
+import dev.wizrad.solarfare.game.world.Entities
 import javax.inject.Inject
 
 class MainScreen(
@@ -14,7 +14,7 @@ class MainScreen(
   private lateinit var component: ScreenComponent
 
   // MARK: Dependencies
-  private lateinit var world:    World
+  private lateinit var entities: Entities
   private lateinit var renderer: Renderer
   private lateinit var stage:    MainStage
 
@@ -25,15 +25,15 @@ class MainScreen(
   }
 
   @Inject
-  fun inject(world: World, renderer: Renderer, stage: MainStage) {
-    this.world    = world
+  fun inject(entities: Entities, renderer: Renderer, stage: MainStage) {
+    this.entities = entities
     this.renderer = renderer
     this.stage    = stage
   }
 
   // MARK: Screen
   override fun render(delta: Float) {
-    world.update(delta)
+    entities.update(delta)
     renderer.update(delta)
     stage.update(delta)
   }
@@ -63,7 +63,7 @@ class MainScreen(
     return DaggerScreenComponent.builder()
       .gameComponent(gameComponent)
       .screenModule(ScreenModule())
-      .worldModule(WorldModule())
+      .entityModule(EntityModule())
       .interfaceModule(InterfaceModule())
       .generationModule(GenerationModule())
       .build()

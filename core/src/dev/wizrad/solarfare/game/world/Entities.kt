@@ -8,7 +8,7 @@ import dev.wizrad.solarfare.generation.SpaceNode
 import dev.wizrad.solarfare.generation.core.Root
 import javax.inject.Inject
 
-class World @Inject constructor(
+class Entities @Inject constructor(
   root:    Root<SpaceNode>,
   factory: NodeEntityFactory): Updatable {
 

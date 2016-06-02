@@ -6,7 +6,7 @@ import dev.wizrad.solarfare.game.MainScreen
 
 @ScreenScope @Component(
   dependencies = arrayOf(GameComponent::class),
-  modules      = arrayOf(ScreenModule::class, WorldModule::class, InterfaceModule::class, GenerationModule::class))
+  modules      = arrayOf(ScreenModule::class, EntityModule::class, InterfaceModule::class, GenerationModule::class))
 interface ScreenComponent {
   fun inject(screen: MainScreen)
 }
