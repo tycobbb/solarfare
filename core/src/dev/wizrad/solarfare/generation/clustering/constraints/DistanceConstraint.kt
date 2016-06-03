@@ -31,7 +31,7 @@ data class DistanceConstraint(
     }
 
     // debug info
-    debug(Tag.CLUSTERING, "$this applied ${distance.fmt()} -> ${value.fmt()}")
+    debug(Tag.Clustering, "$this applied ${distance.fmt()} -> ${value.fmt()}")
   }
 
   // MARK: Debugging

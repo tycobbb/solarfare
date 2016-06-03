@@ -31,7 +31,7 @@ class Ship(
     super.update(delta)
 
     if(controls.pressed(Key.Thrust)) {
-      info(Tag.GENERAL, "pressed ${Key.Thrust}")
+      info(Tag.General, "pressed ${Key.Thrust}")
     }
   }
 

@@ -19,7 +19,7 @@ class Entities @Inject constructor(
   init {
     space = factory.entity(root.bootstrap())
     // setup the world coordinate space
-    coordinateSpace(Kind.WORLD, byScale = space.size)
+    coordinateSpace(Kind.World, byScale = space.size)
   }
 
   override fun update(delta: Float) {

@@ -26,7 +26,7 @@ class Space(
     center.set(size.x / 2, size.y / 2)
 
     // logs
-    debug(Tag.WORLD, "$this created")
+    debug(Tag.World, "$this created")
   }
 
   override fun update(delta: Float) {

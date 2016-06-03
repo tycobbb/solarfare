@@ -4,10 +4,10 @@ import com.badlogic.gdx.Gdx
 
 // MARK: Logging
 enum class Tag(val key: String) {
-  GENERAL("STD"),
-  GENERATION("GEN"),
-  CLUSTERING("CLS"),
-  WORLD("WRL"),
+  General("STD"),
+  Generation("GEN"),
+  Clustering("CLS"),
+  World("WRL"),
 }
 
 fun error(tag: Tag, message: String) {

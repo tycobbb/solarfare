@@ -6,7 +6,7 @@ import dev.wizrad.solarfare.support.extensions.minv
 
 class CoordinateSpace {
   // MARK: Support Types
-  enum class Kind { WORLD, MINIMAP }
+  enum class Kind { World, Minimap }
 
   data class Transforms(
     val normalizer:   (Vector2) -> Vector2,
@@ -31,16 +31,16 @@ class CoordinateSpace {
 
     private fun transformsFor(kind: Kind): Transforms {
       return when (kind) {
-        Kind.WORLD   -> world!!
-        Kind.MINIMAP -> minimap!!
+        Kind.World   -> world!!
+        Kind.Minimap -> minimap!!
       }
     }
 
     // MARK: Registration
     fun registerTransformsFor(kind: Kind, transforms: Transforms) {
       when (kind) {
-        Kind.WORLD   -> world   = transforms
-        Kind.MINIMAP -> minimap = transforms
+        Kind.World   -> world   = transforms
+        Kind.Minimap -> minimap = transforms
       }
     }
 

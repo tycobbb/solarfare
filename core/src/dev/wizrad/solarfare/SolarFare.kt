@@ -31,7 +31,7 @@ class SolarFare: Game() {
   @Inject
   fun inject(config: Config) {
     rand.seed = config.seed.get()
-    info(Tag.GENERAL, "$this seed=${rand.seed} fixed?=${config.seed.isEnabled}")
+    info(Tag.General, "$this seed=${rand.seed} fixed?=${config.seed.isEnabled}")
   }
 
   private fun buildComponent(): GameComponent {

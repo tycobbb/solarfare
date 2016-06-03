@@ -17,7 +17,7 @@ class PlanarClusteringStrategy @Inject constructor(
   override fun resolve(nodes: List<Clusterable>, dissipation: Double) {
     !nodes.isEmpty() || return
 
-    debug(Tag.CLUSTERING, "$this started")
+    debug(Tag.Clustering, "$this started")
 
     // choose non-zero starting positions so that distance constraints can calculate
     // real position deltas
@@ -35,7 +35,7 @@ class PlanarClusteringStrategy @Inject constructor(
     solver.solve(constraints)
 
     // log final positions of nodes
-    debug(Tag.CLUSTERING, "$this finished ${describe(nodes, constraints)}")
+    debug(Tag.Clustering, "$this finished ${describe(nodes, constraints)}")
   }
 
   // MARK: Helpers

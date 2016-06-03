@@ -13,7 +13,7 @@ class RadialClusteringStrategy: ClusteringStrategy {
   override fun resolve(nodes: List<Clusterable>, dissipation: Double) {
     !nodes.isEmpty() || return
 
-    debug(Tag.CLUSTERING, "$this started")
+    debug(Tag.Clustering, "$this started")
 
     // generate monotonically increasing radii
     val radii = nodes
@@ -31,10 +31,10 @@ class RadialClusteringStrategy: ClusteringStrategy {
       pair.first.center = polar.toPoint()
 
       // debug logging
-      debug(Tag.CLUSTERING, "$this ${pair.first} @ ${pair.first.center}, rad=${polar.radial.fmt()}")
+      debug(Tag.Clustering, "$this ${pair.first} @ ${pair.first.center}, rad=${polar.radial.fmt()}")
     }
 
-    debug(Tag.CLUSTERING, "$this finished")
+    debug(Tag.Clustering, "$this finished")
   }
 
   // MARK: Helpers

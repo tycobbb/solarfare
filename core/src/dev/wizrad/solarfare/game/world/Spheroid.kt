@@ -22,7 +22,7 @@ abstract class Spheroid<N: SpheroidNode>(
     center.set(transform(node.center))
 
     // logging
-    debug(Tag.WORLD, "$this created")
+    debug(Tag.World, "$this created")
   }
 
   // MARK: Debugging
