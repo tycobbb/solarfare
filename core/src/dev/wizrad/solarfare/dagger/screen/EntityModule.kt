@@ -1,5 +1,7 @@
 package dev.wizrad.solarfare.dagger.screen
 
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.World
 import dagger.Module
 import dagger.Provides
 import dev.wizrad.solarfare.config.Config
@@ -15,15 +17,20 @@ import dev.wizrad.solarfare.generation.core.Root
 
 @Module
 class EntityModule {
-  // MARK: Model
+  // MARK: Model / Physics
   @Provides @ScreenScope
-  fun entities(root: Root<SpaceNode>, factory: NodeEntityFactory): Entities {
-    return Entities(root, factory)
+  fun world(): World {
+    return World(Vector2(0.0f, 0.0f), true)
   }
 
   @Provides
-  fun factory(controls: Controls, minimap: Minimap): NodeEntityFactory {
-    return NodeEntityFactory(controls, minimap)
+  fun entities(world: World, root: Root<SpaceNode>, factory: NodeEntityFactory): Entities {
+    return Entities(world, root, factory)
+  }
+
+  @Provides
+  fun factory(world: World, controls: Controls, minimap: Minimap): NodeEntityFactory {
+    return NodeEntityFactory(world, controls, minimap)
   }
 
   // MARK: View

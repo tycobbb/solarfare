@@ -3,6 +3,7 @@ package dev.wizrad.solarfare
 import com.badlogic.gdx.Application
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.physics.box2d.Box2D
 import dev.wizrad.solarfare.config.Config
 import dev.wizrad.solarfare.dagger.game.DaggerGameComponent
 import dev.wizrad.solarfare.dagger.game.GameComponent
@@ -21,9 +22,14 @@ class SolarFare: Game() {
   override fun create() {
     Gdx.app.logLevel = Application.LOG_DEBUG
 
+    // build component
     component = buildComponent()
     component.inject(this)
 
+    // bootstrap box2d
+    Box2D.init()
+
+    // transition to initial screen
     setScreen(MainScreen(component))
   }
 

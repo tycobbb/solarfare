@@ -9,7 +9,7 @@ abstract class Entity(
 
   // MARK: Geometry
   /** Position in the absolute coordinate space */
-  val center = Vector2(0.0f, 0.0f)
+  abstract val center: Vector2
 
   /** Transforms a point from the local -> absolute coordinate space */
   protected fun transform(point: Point): Vector2 {

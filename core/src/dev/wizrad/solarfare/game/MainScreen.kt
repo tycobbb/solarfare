@@ -11,7 +11,7 @@ import javax.inject.Inject
 class MainScreen(
   gameComponent: GameComponent): Screen {
 
-  private lateinit var component: ScreenComponent
+  private var component: ScreenComponent = componentFrom(gameComponent)
 
   // MARK: Dependencies
   private lateinit var entities: Entities
@@ -20,7 +20,6 @@ class MainScreen(
 
   // MARK: Initialization
   init {
-    component = componentFrom(gameComponent)
     component.inject(this)
   }
 
@@ -58,14 +57,16 @@ class MainScreen(
   override fun dispose() {
   }
 
-  // MARK: Component
-  private fun componentFrom(gameComponent: GameComponent): ScreenComponent {
-    return DaggerScreenComponent.builder()
-      .gameComponent(gameComponent)
-      .screenModule(ScreenModule())
-      .entityModule(EntityModule())
-      .interfaceModule(InterfaceModule())
-      .generationModule(GenerationModule())
-      .build()
+  companion object {
+    // MARK: Component
+    private fun componentFrom(gameComponent: GameComponent): ScreenComponent {
+      return DaggerScreenComponent.builder()
+        .gameComponent(gameComponent)
+        .screenModule(ScreenModule())
+        .entityModule(EntityModule())
+        .interfaceModule(InterfaceModule())
+        .generationModule(GenerationModule())
+        .build()
+    }
   }
 }

@@ -1,6 +1,7 @@
 package dev.wizrad.solarfare.game.world
 
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.World
 import dev.wizrad.solarfare.game.core.update
 import dev.wizrad.solarfare.game.renderer.core.CameraTrackable
 import dev.wizrad.solarfare.game.renderer.support.set
@@ -10,7 +11,8 @@ import dev.wizrad.solarfare.support.Tag
 import dev.wizrad.solarfare.support.debug
 
 class Space(
-  node: SpaceNode): NodeEntity<SpaceNode>(node) {
+  node:  SpaceNode,
+  world: World): NodeEntity<SpaceNode>(node, world) {
 
   // MARK: Children
   lateinit var ship:    Ship
@@ -18,6 +20,7 @@ class Space(
 
   // MARK: Geometry
   val size = Vector2(0.0f, 0.0f)
+  override val center: Vector2 = Vector2(0.0f, 0.0f)
 
   // MARK: Lifecycle
   init {
