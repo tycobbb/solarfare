@@ -2,6 +2,7 @@ package dev.wizrad.solarfare.game.world
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.World
 import dev.wizrad.solarfare.config.Key
 import dev.wizrad.solarfare.game.core.Entity
@@ -24,15 +25,15 @@ class Ship(
   // MARK: Dependencies
   private val controls = controls
 
-  // MARK: Properties
-  override val center: Vector2 get() = Vector2(0.0f, 0.0f)
-
   // MARK: Lifecycle
   init {
-    // minimap
     trackOn(minimap)
-    // geometry
-    center.set(transform(node.center))
+  }
+
+  override fun defineBody(node: ShipNode): BodyDef {
+    val body = super.defineBody(node)
+    body.position.set(transform(node.center))
+    return body
   }
 
   override fun update(delta: Float) {

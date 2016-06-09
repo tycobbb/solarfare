@@ -1,6 +1,6 @@
 package dev.wizrad.solarfare.game.world
 
-import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.World
 import dev.wizrad.solarfare.game.core.Entity
 import dev.wizrad.solarfare.game.world.core.NodeEntity
@@ -16,14 +16,16 @@ abstract class Spheroid<N: SpheroidNode>(
 
   // MARK: Geometry
   var radius = node.radius.toFloat()
-  override val center: Vector2 = Vector2(0.0f, 0.0f)
 
   // MARK: Lifecycle
   init {
-    // geometry
-    center.set(transform(node.center))
-    // logging
     debug(Tag.World, "$this created")
+  }
+
+  override fun defineBody(node: N): BodyDef {
+    val body = super.defineBody(node)
+    body.position.set(transform(node.center))
+    return body
   }
 
   // MARK: Debugging

@@ -1,5 +1,8 @@
 package dev.wizrad.solarfare.game.world.core
 
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
+import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.World
 import dev.wizrad.solarfare.game.core.Entity
 import dev.wizrad.solarfare.game.ui.Mappable
@@ -13,15 +16,26 @@ abstract class NodeEntity<N: Node>(
   parent:  Entity? = null): Entity(parent), Mappable {
 
   // MARK: Properties
+  private val body: Body
   private var minimapNode: MinimapNode? = null
+  override val center: Vector2 get() = body.position
 
   // MARK: Lifecycle
+  init {
+    body = world.createBody(defineBody(node))
+  }
+
   override fun destroy() {
     // stop tracking this node on the map when it's destroyed (for now)
     minimapNode?.destroy()
     minimapNode = null
 
     super.destroy()
+  }
+
+  // MARK: Physics
+  open protected fun defineBody(node: N): BodyDef {
+    return BodyDef()
   }
 
   // MARK: Minimap

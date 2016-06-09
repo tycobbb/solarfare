@@ -1,6 +1,7 @@
 package dev.wizrad.solarfare.game.world
 
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.World
 import dev.wizrad.solarfare.game.core.update
 import dev.wizrad.solarfare.game.renderer.core.CameraTrackable
@@ -19,17 +20,17 @@ class Space(
   lateinit var systems: List<SolarSystem>
 
   // MARK: Geometry
-  val size = Vector2(0.0f, 0.0f)
-  override val center: Vector2 = Vector2(0.0f, 0.0f)
+  val size = Vector2(0.0f, 0.0f).set(node.size)
 
   // MARK: Lifecycle
   init {
-    // geometry
-    size.set(node.size)
-    center.set(size.x / 2, size.y / 2)
-
-    // logs
     debug(Tag.World, "$this created")
+  }
+
+  override fun defineBody(node: SpaceNode): BodyDef {
+    val body = super.defineBody(node)
+    body.position.set(node.size * 0.5)
+    return body
   }
 
   override fun update(delta: Float) {
