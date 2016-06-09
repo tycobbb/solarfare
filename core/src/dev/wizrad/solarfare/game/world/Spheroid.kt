@@ -1,13 +1,15 @@
 package dev.wizrad.solarfare.game.world
 
 import com.badlogic.gdx.physics.box2d.BodyDef
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
+import com.badlogic.gdx.physics.box2d.CircleShape
+import com.badlogic.gdx.physics.box2d.FixtureDef
 import com.badlogic.gdx.physics.box2d.World
 import dev.wizrad.solarfare.game.core.Entity
 import dev.wizrad.solarfare.game.world.core.NodeEntity
 import dev.wizrad.solarfare.generation.SpheroidNode
 import dev.wizrad.solarfare.support.Tag
 import dev.wizrad.solarfare.support.debug
-import dev.wizrad.solarfare.support.fmt
 
 abstract class Spheroid<N: SpheroidNode>(
   node:   N,
@@ -24,12 +26,30 @@ abstract class Spheroid<N: SpheroidNode>(
 
   override fun defineBody(node: N): BodyDef {
     val body = super.defineBody(node)
+    body.type = BodyType.DynamicBody
     body.position.set(transform(node.center))
     return body
   }
 
+  override fun createFixtures(node: N) {
+    super.createFixtures(node)
+
+    // define fixtures
+    val circle = CircleShape()
+    circle.radius = node.radius.toFloat()
+
+    val fixture = FixtureDef()
+    fixture.shape = circle
+
+    // add fixtures to body
+    body.createFixture(fixture)
+
+    // clean up
+    circle.dispose()
+  }
+
   // MARK: Debugging
   override fun toString(): String {
-    return "[spheroid center=$center rad=${radius.fmt()}]"
+    return "[spheroid center=$center}]"
   }
 }

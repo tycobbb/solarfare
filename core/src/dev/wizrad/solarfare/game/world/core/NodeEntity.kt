@@ -16,13 +16,14 @@ abstract class NodeEntity<N: Node>(
   parent:  Entity? = null): Entity(parent), Mappable {
 
   // MARK: Properties
-  private val body: Body
+  protected val body: Body
   private var minimapNode: MinimapNode? = null
   override val center: Vector2 get() = body.position
 
   // MARK: Lifecycle
   init {
     body = world.createBody(defineBody(node))
+    createFixtures(node)
   }
 
   override fun destroy() {
@@ -36,6 +37,9 @@ abstract class NodeEntity<N: Node>(
   // MARK: Physics
   open protected fun defineBody(node: N): BodyDef {
     return BodyDef()
+  }
+
+  open protected fun createFixtures(node: N) {
   }
 
   // MARK: Minimap

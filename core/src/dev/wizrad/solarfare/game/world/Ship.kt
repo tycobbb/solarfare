@@ -3,6 +3,8 @@ package dev.wizrad.solarfare.game.world
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.BodyDef
+import com.badlogic.gdx.physics.box2d.FixtureDef
+import com.badlogic.gdx.physics.box2d.PolygonShape
 import com.badlogic.gdx.physics.box2d.World
 import dev.wizrad.solarfare.config.Key
 import dev.wizrad.solarfare.game.core.Entity
@@ -34,6 +36,27 @@ class Ship(
     val body = super.defineBody(node)
     body.position.set(transform(node.center))
     return body
+  }
+
+  override fun createFixtures(node: ShipNode) {
+    super.createFixtures(node)
+
+    // define fixtures
+    val triangle = PolygonShape()
+    triangle.set(floatArrayOf(
+       0.0f, -1.0f,
+       1.0f,  1.0f,
+      -1.0f,  1.0f
+    ))
+
+    val fixture = FixtureDef()
+    fixture.shape = triangle
+
+    // add fixtures to body
+    body.createFixture(fixture)
+
+    // clean up
+    triangle.dispose()
   }
 
   override fun update(delta: Float) {
