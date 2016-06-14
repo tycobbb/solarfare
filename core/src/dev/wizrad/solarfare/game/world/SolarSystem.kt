@@ -1,5 +1,6 @@
 package dev.wizrad.solarfare.game.world
 
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.World
 import dev.wizrad.solarfare.game.core.Entity
@@ -38,5 +39,20 @@ class SolarSystem(
   // MARK: Debugging
   override fun toString(): String {
     return "[system center=$center]"
+  }
+
+  val debugColor = nextColor()
+
+  companion object {
+    private var index  = 0
+    private val colors = arrayOf(
+      Color.RED,  Color.BLUE,   Color.CYAN,   Color.MAGENTA, Color.PURPLE,
+      Color.PINK, Color.MAROON, Color.ORANGE, Color.CORAL,   Color.TAN)
+
+    private fun nextColor(): Color {
+      val color = colors[index]
+      index = (index + 1) % colors.size
+      return color
+    }
   }
 }

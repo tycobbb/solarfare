@@ -28,7 +28,8 @@ class Cluster(
 
   // MARK: Extent Calculation
   fun radius(): Double {
-    return last?.center?.magnitude() ?: 0.0
+    val last = clusterables.lastOrNull()
+    return if (last != null) last.center.magnitude() + last.radius else 0.0
   }
 
   fun bounds(): Size {

@@ -23,7 +23,7 @@ class EntityModule {
     return World(Vector2(0.0f, 0.0f), true)
   }
 
-  @Provides
+  @Provides @ScreenScope
   fun entities(world: World, root: Root<SpaceNode>, factory: NodeEntityFactory): Entities {
     return Entities(world, root, factory)
   }
