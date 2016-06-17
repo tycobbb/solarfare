@@ -68,14 +68,14 @@ class Ship(
   override fun update(delta: Float) {
     super.update(delta)
 
-    if(controls.pressed(Key.BankLeft)) {
+    if(controls.pressed(Key.RotateLeft)) {
       body.rotate(-Maths.F_PI_2 / 64.0f)
-      info(Tag.General, "pressed ${Key.BankLeft}")
+      info(Tag.General, "pressed ${Key.RotateLeft}")
     }
 
-    if(controls.pressed(Key.BankRight)) {
+    if(controls.pressed(Key.RotateRight)) {
       body.rotate(Maths.F_PI_2 / 64.0f)
-      info(Tag.General, "pressed ${Key.BankRight}")
+      info(Tag.General, "pressed ${Key.RotateRight}")
     }
 
     if(controls.pressed(Key.Thrust)) {

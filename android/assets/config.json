@@ -53,7 +53,7 @@
   "keys": {
     "thrust": "W",
     "reverse": "S",
-    "bankLeft": "A",
-    "bankRight": "D"
+    "rotateLeft": "A",
+    "rotateRight": "D"
   }
 }

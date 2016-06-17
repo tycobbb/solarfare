@@ -5,9 +5,9 @@ import com.squareup.moshi.ToJson
 
 enum class Key {
   Thrust,
-  BankLeft,
-  BankRight,
-  Reverse;
+  Reverse,
+  RotateLeft,
+  RotateRight;
 
   class Adapter {
     @ToJson   fun toJson(key: Key) = key.name.decapitalize()
