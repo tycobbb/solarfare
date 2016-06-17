@@ -42,7 +42,7 @@ class Cluster(
   }
 
   private fun extents(): Pair<Point, Point> {
-    return clusterables.fold(Pair(Point.zero, Point.zero)) { memo, node ->
+    return clusterables.fold(Pair(Point.max, Point.min)) { memo, node ->
       val min = Point(
         x = min(memo.first.x, node.center.x - node.radius),
         y = min(memo.first.y, node.center.y - node.radius))

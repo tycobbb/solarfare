@@ -46,6 +46,8 @@ data class Point(
   // MARK: Companion
   companion object {
     val zero = Point(0.0, 0.0)
+    val min  = Point(Double.MIN_VALUE, Double.MIN_VALUE)
+    val max  = Point(Double.MAX_VALUE, Double.MAX_VALUE)
 
     fun random(bound: Double): Point {
       return random(bound, bound)

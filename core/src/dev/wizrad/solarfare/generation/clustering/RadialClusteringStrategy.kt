@@ -26,7 +26,7 @@ class RadialClusteringStrategy: ClusteringStrategy {
     for(pair in nodes.zip(radii)) {
       val polar = Polar(
         radial = pair.second,
-        angle  = rand.upto(Maths.M_2PI))
+        angle  = rand.upto(Maths.D_2PI))
 
       pair.first.center = polar.toPoint()
 

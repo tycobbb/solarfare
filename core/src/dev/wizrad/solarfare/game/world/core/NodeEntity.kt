@@ -16,8 +16,10 @@ abstract class NodeEntity<N: Node>(
   parent:  Entity? = null): Entity(parent), Mappable {
 
   // MARK: Properties
-  protected val body: Body
   private var minimapNode: MinimapNode? = null
+
+  protected val body: Body
+  val angle: Float get() = body.angle
   override val center: Vector2 get() = body.position
 
   // MARK: Lifecycle

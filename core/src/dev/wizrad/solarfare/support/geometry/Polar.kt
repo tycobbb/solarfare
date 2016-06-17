@@ -1,5 +1,6 @@
 package dev.wizrad.solarfare.support.geometry
 
+import dev.wizrad.solarfare.support.Maths
 import dev.wizrad.solarfare.support.fmt
 
 data class Polar(
@@ -8,8 +9,8 @@ data class Polar(
 
   fun toPoint(): Point {
     return Point(
-      x = radial * Math.cos(angle),
-      y = radial * Math.sin(angle)
+      x = radial * Maths.cos(angle),
+      y = radial * Maths.sin(angle)
     )
   }
 
