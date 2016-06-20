@@ -14,8 +14,8 @@ abstract class SpheroidNode(
   val sprite: String = model.sprite.sample()
 
   // MARK: Geometry
-  /** The unit mass for the materialized spheroid */
-  val mass: Double = model.mass.sample()
+  /** The unit density for the materialized spheroid */
+  val density: Double = model.density.sample()
   /** The unit radius for the materialized spheroid */
   override val radius: Double = model.radius.sample()
   /** The unit position of this node, relative to its parent */

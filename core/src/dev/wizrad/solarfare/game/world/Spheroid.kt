@@ -39,7 +39,8 @@ abstract class Spheroid<N: SpheroidNode>(
     circle.radius = node.radius.toFloat()
 
     val fixture = FixtureDef()
-    fixture.shape = circle
+    fixture.shape   = circle
+    fixture.density = node.density.toFloat()
 
     // add fixtures to body
     body.createFixture(fixture)
