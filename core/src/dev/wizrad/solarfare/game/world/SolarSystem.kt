@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.World
 import dev.wizrad.solarfare.game.core.Entity
-import dev.wizrad.solarfare.game.core.update
 import dev.wizrad.solarfare.game.world.core.NodeEntity
+import dev.wizrad.solarfare.game.world.support.EntitySequence
 import dev.wizrad.solarfare.generation.SolarSystemNode
 import dev.wizrad.solarfare.support.Tag
 import dev.wizrad.solarfare.support.debug
@@ -24,16 +24,14 @@ class SolarSystem(
     debug(Tag.World, "$this created")
   }
 
+  override fun children(sequence: EntitySequence): EntitySequence {
+    return sequence.first(star).then(planets)
+  }
+
   override fun defineBody(node: SolarSystemNode): BodyDef {
     val body = super.defineBody(node)
     body.position.set(transform(node.center))
     return body
-  }
-
-  override fun update(delta: Float) {
-    super.update(delta)
-    star.update(delta)
-    planets.update(delta)
   }
 
   // MARK: Debugging

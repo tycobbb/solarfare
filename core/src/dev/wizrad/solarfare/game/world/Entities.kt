@@ -39,6 +39,8 @@ class Entities @Inject constructor(
     accumulator += frame
     while(accumulator >= timestep) {
       world.step(timestep, 6, 2)
+      space.afterStep(timestep)
+
       accumulator -= timestep
     }
   }
