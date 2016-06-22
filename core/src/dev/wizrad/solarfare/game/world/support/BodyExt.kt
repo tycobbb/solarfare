@@ -16,3 +16,17 @@ fun Body.rotate(radians: Float) {
   val angle = (angle + radians) % Maths.F_2PI
   setTransform(position, angle)
 }
+
+// MARK: Velocity
+fun Body.limitVelocity(minimum: Float = 0.0f, maximum: Float = Float.MAX_VALUE) {
+  val magnitude = linearVelocity.len()
+
+  // otherwise apply the minimum velocity
+  if(magnitude < minimum) {
+    linearVelocity = Vector.polar(minimum, angle)
+  }
+  // otherwise apply the maximum velocity
+  else if(magnitude > maximum) {
+    linearVelocity = Vector.polar(maximum, angle)
+  }
+}

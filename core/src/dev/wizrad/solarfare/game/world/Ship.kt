@@ -14,12 +14,11 @@ import dev.wizrad.solarfare.game.shared.Controls
 import dev.wizrad.solarfare.game.ui.Minimap
 import dev.wizrad.solarfare.game.ui.MinimapNode
 import dev.wizrad.solarfare.game.world.core.NodeEntity
+import dev.wizrad.solarfare.game.world.support.limitVelocity
 import dev.wizrad.solarfare.game.world.support.rotate
 import dev.wizrad.solarfare.game.world.support.thrust
 import dev.wizrad.solarfare.generation.ShipNode
 import dev.wizrad.solarfare.support.Maths
-import dev.wizrad.solarfare.support.Tag
-import dev.wizrad.solarfare.support.info
 
 class Ship(
   node:     ShipNode,
@@ -70,24 +69,26 @@ class Ship(
 
     if(controls.pressed(Key.RotateLeft)) {
       body.rotate(-Maths.F_PI_2 / 64.0f)
-      info(Tag.General, "pressed ${Key.RotateLeft}")
     }
 
     if(controls.pressed(Key.RotateRight)) {
       body.rotate(Maths.F_PI_2 / 64.0f)
-      info(Tag.General, "pressed ${Key.RotateRight}")
     }
 
     if(controls.pressed(Key.Thrust)) {
       body.thrust(1.0f)
-      info(Tag.General, "pressed ${Key.Thrust}")
-      info(Tag.General, "ship @ ${body.position}")
     }
 
     if(controls.pressed(Key.Reverse)) {
       body.thrust(-1.0f)
-      info(Tag.General, "pressed ${Key.Reverse}")
     }
+  }
+
+  override fun afterStep(delta: Float) {
+    super.afterStep(delta)
+
+    // TODO: config this based on ship
+    body.limitVelocity(maximum = 5.0f)
   }
 
   // MARK: Minimap
