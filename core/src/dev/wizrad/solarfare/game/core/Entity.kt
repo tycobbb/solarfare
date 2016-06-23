@@ -11,8 +11,11 @@ abstract class Entity(
   val parent: Entity?): Updatable {
 
   // MARK: Properties
+  /** A string name for this entity */
+  abstract val name:   String
   /** Position in the absolute coordinate space */
   abstract val center: Vector2
+
   /** Cached list for traversing children in prescribed order */
   private val children: Array<Entity> by lazy { children(EntitySequence()).generate() }
 

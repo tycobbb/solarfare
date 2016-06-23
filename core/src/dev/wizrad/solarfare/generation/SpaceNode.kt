@@ -7,8 +7,6 @@ import dev.wizrad.solarfare.generation.core.Node
 import dev.wizrad.solarfare.generation.core.child
 import dev.wizrad.solarfare.generation.core.decay
 import dev.wizrad.solarfare.generation.core.generate
-import dev.wizrad.solarfare.support.extensions.rand
-import dev.wizrad.solarfare.support.geometry.Point
 import dev.wizrad.solarfare.support.geometry.Size
 import javax.inject.Inject
 import javax.inject.Provider
@@ -45,16 +43,14 @@ class SpaceNode @Inject constructor(
     super.didGenerate()
 
     // position systems
-    cluster.add(systems)
-      .resolve(model.dissipation.sample())
+    val dissipation = model.dissipation.sample()
+    cluster.add(systems).resolve(dissipation)
 
-    // size space based on bounds of clusterables
-    size = cluster.bounds()
+    // calculate size based on extents of cluster
+    val size    = cluster.bounds().size()
 
-    // position ship inside space
-    ship.center = Point(
-      rand.upto(size.width)  - size.width  / 2,
-      rand.upto(size.height) - size.height / 2
-    )
+    // position space / ship according to size
+    this.size   = size
+    ship.center = size.sample()
   }
 }

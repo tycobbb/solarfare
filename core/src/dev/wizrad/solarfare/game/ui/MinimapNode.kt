@@ -19,7 +19,9 @@ class MinimapNode(
 
   override fun act(delta: Float) {
     super.act(delta)
-    setPosition(transform(mappable.center, from = Kind.World, to = Kind.Minimap))
+
+    val position = transform(mappable.center, from = Kind.World, to = Kind.Minimap)
+    setPosition(position)
   }
 
   override fun draw(batch: Batch?, parentAlpha: Float) {

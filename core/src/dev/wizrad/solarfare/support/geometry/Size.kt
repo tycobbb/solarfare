@@ -1,5 +1,7 @@
 package dev.wizrad.solarfare.support.geometry
 
+import dev.wizrad.solarfare.support.extensions.rand
+
 data class Size(
   val width:  Double,
   val height: Double) {
@@ -11,6 +13,12 @@ data class Size(
     return Size(
       width  = width  * other,
       height = height * other)
+  }
+
+  fun sample(): Point {
+    return Point(
+      x = rand.upto(width)  - width  / 2,
+      y = rand.upto(height) - height / 2)
   }
 
   companion object {

@@ -2,8 +2,8 @@ package dev.wizrad.solarfare.generation.clustering
 
 import dev.wizrad.solarfare.support.extensions.max
 import dev.wizrad.solarfare.support.extensions.min
+import dev.wizrad.solarfare.support.geometry.Bounds
 import dev.wizrad.solarfare.support.geometry.Point
-import dev.wizrad.solarfare.support.geometry.Size
 
 class Cluster(
   private val strategy: ClusteringStrategy) {
@@ -32,30 +32,17 @@ class Cluster(
     return if (last != null) last.center.magnitude() + last.radius else 0.0
   }
 
-  fun bounds(): Size {
-    val extents = extents()
-    val result  = Size(
-      width  = extents.second.x - extents.first.x,
-      height = extents.second.y - extents.first.y)
-
-    return result
-  }
-
-  private fun extents(): Pair<Point, Point> {
-    return clusterables.fold(Pair(Point.max, Point.min)) { memo, node ->
+  fun bounds(): Bounds {
+    return clusterables.fold(Bounds(Point.max, Point.min)) { memo, node ->
       val min = Point(
-        x = min(memo.first.x, node.center.x - node.radius),
-        y = min(memo.first.y, node.center.y - node.radius))
+        x = min(memo.minimum.x, node.center.x - node.radius),
+        y = min(memo.minimum.y, node.center.y - node.radius))
 
       val max = Point(
-        x = max(memo.first.x, node.center.x + node.radius),
-        y = max(memo.first.y, node.center.y + node.radius))
+        x = max(memo.maximum.x, node.center.x + node.radius),
+        y = max(memo.maximum.y, node.center.y + node.radius))
 
-      Pair(min, max)
+      Bounds(min, max)
     }
-  }
-
-  private val last: Clusterable? get() {
-    return clusterables.lastOrNull()
   }
 }
