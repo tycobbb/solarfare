@@ -15,9 +15,7 @@ class Minimap(
     height = 100.0f
 
     // setup the minimap coordinate space
-    coordinateSpace(Kind.Minimap,
-      byScale = Vector2(width, height), transform = Vector2(0.0f,  -1.0f)
-    )
+    coordinateSpace(Kind.Minimap, byScale = Vector2(width, height), reflected = true)
   }
 
   // MARK: Lifecycle

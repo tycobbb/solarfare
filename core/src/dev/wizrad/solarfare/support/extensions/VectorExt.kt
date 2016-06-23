@@ -13,3 +13,15 @@ fun Vector2.mabs(): Vector2 {
   y = Math.abs(y)
   return this
 }
+
+fun Vector2.mreflect(x: Float? = null, y: Float? = null): Vector2 {
+  if(x != null) {
+    this.x = x - this.x
+  }
+
+  if(y != null) {
+    this.y = y - this.y
+  }
+
+  return this
+}

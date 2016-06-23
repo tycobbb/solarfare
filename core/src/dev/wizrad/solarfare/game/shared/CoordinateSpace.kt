@@ -1,8 +1,8 @@
 package dev.wizrad.solarfare.game.shared
 
 import com.badlogic.gdx.math.Vector2
-import dev.wizrad.solarfare.support.extensions.mabs
 import dev.wizrad.solarfare.support.extensions.minv
+import dev.wizrad.solarfare.support.extensions.mreflect
 
 class CoordinateSpace {
   // MARK: Support Types
@@ -44,19 +44,24 @@ class CoordinateSpace {
       }
     }
 
-    fun registerTransformsFor(kind: CoordinateSpace.Kind, byScale: Vector2, transform: Vector2) {
-      val scale   = byScale.cpy()
-      val inverse = scale.cpy().minv()
+    fun registerTransformsFor(kind: CoordinateSpace.Kind, byScale: Vector2, reflected: Boolean) {
+      val scale      = byScale.cpy()
+      val inverse    = scale.cpy().minv()
+      val reflection = if(reflected) 1.0f else null
 
       registerTransformsFor(kind, CoordinateSpace.Transforms(
-        normalizer   = { position -> position.scl(inverse).add(transform).mabs() },
-        denormalizer = { position -> position.add(transform).mabs().scl(scale) }
+        normalizer   = { position -> position.scl(inverse).mreflect(y = reflection) },
+        denormalizer = { position -> position.mreflect(y = reflection).scl(scale) }
       ))
     }
   }
 }
 
 // MARK: Exports
+fun coordinateSpace(kind: CoordinateSpace.Kind, byScale: Vector2, reflected: Boolean = false) {
+  CoordinateSpace.registerTransformsFor(kind, byScale, reflected)
+}
+
 fun transform(position: Vector2, from: CoordinateSpace.Kind, to: CoordinateSpace.Kind): Vector2 {
   val scratch = CoordinateSpace.scratch.set(position)
   mtransform(scratch, from, to)
@@ -65,8 +70,4 @@ fun transform(position: Vector2, from: CoordinateSpace.Kind, to: CoordinateSpace
 
 fun mtransform(position: Vector2, from: CoordinateSpace.Kind, to: CoordinateSpace.Kind) {
   CoordinateSpace.mtransform(position, from, to)
-}
-
-fun coordinateSpace(kind: CoordinateSpace.Kind, byScale: Vector2, transform: Vector2 = Vector2.Zero) {
-  CoordinateSpace.registerTransformsFor(kind, byScale, transform)
 }
