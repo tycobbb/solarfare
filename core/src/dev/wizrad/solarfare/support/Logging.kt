@@ -8,6 +8,7 @@ enum class Tag(val key: String) {
   Generation("GEN"),
   Clustering("CLS"),
   World("WRL"),
+  Physics("PHS"),
 }
 
 fun error(tag: Tag, message: String) {

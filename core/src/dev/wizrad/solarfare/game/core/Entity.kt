@@ -3,8 +3,6 @@ package dev.wizrad.solarfare.game.core
 import com.badlogic.gdx.math.Vector2
 import dev.wizrad.solarfare.game.renderer.support.set
 import dev.wizrad.solarfare.game.world.support.EntitySequence
-import dev.wizrad.solarfare.game.world.support.afterStep
-import dev.wizrad.solarfare.game.world.support.update
 import dev.wizrad.solarfare.support.geometry.Point
 
 abstract class Entity(
@@ -36,12 +34,28 @@ abstract class Entity(
   }
 
   // MARK: Lifecycle
+  open fun initialize() {
+    for(child in children) {
+      child.initialize()
+    }
+  }
+
   override fun update(delta: Float) {
-    children.update(delta)
+    for(child in children) {
+      child.update(delta)
+    }
+  }
+
+  open fun step(delta: Float) {
+    for(child in children) {
+      child.step(delta)
+    }
   }
 
   open fun afterStep(delta: Float) {
-    children.afterStep(delta)
+    for(child in children) {
+      child.afterStep(delta)
+    }
   }
 
   open fun destroy() {

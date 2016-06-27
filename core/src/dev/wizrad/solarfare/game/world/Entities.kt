@@ -7,7 +7,7 @@ import dev.wizrad.solarfare.game.shared.coordinateSpace
 import dev.wizrad.solarfare.game.world.core.NodeEntityFactory
 import dev.wizrad.solarfare.generation.SpaceNode
 import dev.wizrad.solarfare.generation.core.Root
-import dev.wizrad.solarfare.support.extensions.max
+import dev.wizrad.solarfare.support.extensions.min
 import javax.inject.Inject
 
 class Entities @Inject constructor(
@@ -27,6 +27,9 @@ class Entities @Inject constructor(
   init {
     // setup the world coordinate space
     coordinateSpace(Kind.World, byScale = space.size)
+
+    // setup initial conditions
+    space.initialize()
   }
 
   override fun update(delta: Float) {
@@ -35,9 +38,11 @@ class Entities @Inject constructor(
 
     // update physics according to fixed time step
     // See: http://gafferongames.com/game-physics/fix-your-timestep/
-    val frame = max(delta, 0.25f)
+    val frame = min(delta, 0.25f)
     accumulator += frame
+
     while(accumulator >= timestep) {
+      space.step(timestep)
       world.step(timestep, 6, 2)
       space.afterStep(timestep)
 

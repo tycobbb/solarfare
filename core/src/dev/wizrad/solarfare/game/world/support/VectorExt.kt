@@ -1,14 +1,15 @@
 package dev.wizrad.solarfare.game.world.support
 
 import com.badlogic.gdx.math.Vector2
-import dev.wizrad.solarfare.support.Maths
+import dev.wizrad.solarfare.support.cosf
+import dev.wizrad.solarfare.support.sinf
 
 class Vector {
   companion object {
     fun polar(magnitude: Float, angle: Float): Vector2 {
       return Vector2(
-        Maths.cosf(angle) * magnitude,
-        Maths.sinf(angle) * magnitude
+        cosf(angle) * magnitude,
+        sinf(angle) * magnitude
       )
     }
   }

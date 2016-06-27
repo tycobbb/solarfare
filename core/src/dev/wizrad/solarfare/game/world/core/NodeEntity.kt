@@ -16,11 +16,10 @@ abstract class NodeEntity<N: Node>(
   parent:  Entity? = null): Entity(parent), Mappable {
 
   // MARK: Physics
-  protected val body: Body
-  val angle: Float get() = body.angle
+  val body: Body
 
   // MARK: Entity
-  override val name:   String  = node.name
+  override val name:   String = node.name
   override val center: Vector2 get() = body.position
 
   // MARK: Minimap

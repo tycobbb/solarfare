@@ -1,7 +1,8 @@
 package dev.wizrad.solarfare.support.geometry
 
-import dev.wizrad.solarfare.support.Maths
+import dev.wizrad.solarfare.support.cosd
 import dev.wizrad.solarfare.support.fmt
+import dev.wizrad.solarfare.support.sind
 
 data class Polar(
   val radial: Double = 0.0,
@@ -9,8 +10,8 @@ data class Polar(
 
   fun toPoint(): Point {
     return Point(
-      x = radial * Maths.cos(angle),
-      y = radial * Maths.sin(angle)
+      x = radial * cosd(angle),
+      y = radial * sind(angle)
     )
   }
 

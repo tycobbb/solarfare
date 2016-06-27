@@ -10,6 +10,6 @@ fun Renderer.render(entity: Ship, delta: Float) {
   batch.with(tint = Color.CHARTREUSE) {
     batch.drawr(textures.ship,
       center = entity.center,
-      angle  = entity.angle)
+      angle  = entity.body.angle)
   }
 }

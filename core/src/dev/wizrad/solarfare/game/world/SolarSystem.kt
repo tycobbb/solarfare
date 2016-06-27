@@ -6,6 +6,8 @@ import com.badlogic.gdx.physics.box2d.World
 import dev.wizrad.solarfare.game.core.Entity
 import dev.wizrad.solarfare.game.world.core.NodeEntity
 import dev.wizrad.solarfare.game.world.support.EntitySequence
+import dev.wizrad.solarfare.game.world.support.beginOrbiting
+import dev.wizrad.solarfare.game.world.support.gravitateTowards
 import dev.wizrad.solarfare.generation.SolarSystemNode
 import dev.wizrad.solarfare.support.Tag
 import dev.wizrad.solarfare.support.debug
@@ -32,6 +34,22 @@ class SolarSystem(
     val body = super.defineBody(node)
     body.position.set(transform(node.center))
     return body
+  }
+
+  override fun initialize() {
+    super.initialize()
+
+    for(planet in planets) {
+      planet.body.beginOrbiting(star.body)
+    }
+  }
+
+  override fun step(delta: Float) {
+    super.step(delta)
+
+    for(planet in planets) {
+      planet.body.gravitateTowards(star.body)
+    }
   }
 
   // MARK: Debugging
