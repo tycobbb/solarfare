@@ -67,6 +67,7 @@ class Ship(
   override fun update(delta: Float) {
     super.update(delta)
 
+    // TODO: config movement based on ship
     if(controls.pressed(Key.RotateLeft)) {
       body.rotate(-Maths.F_PI_2 / 64.0f)
     }
@@ -76,19 +77,19 @@ class Ship(
     }
 
     if(controls.pressed(Key.Thrust)) {
-      body.thrust(1.0f)
+      body.thrust(15.0f)
     }
 
     if(controls.pressed(Key.Reverse)) {
-      body.thrust(-1.0f)
+      body.thrust(-15.0f)
     }
   }
 
   override fun afterStep(delta: Float) {
     super.afterStep(delta)
 
-    // TODO: config this based on ship
-    body.limitVelocity(maximum = 5.0f)
+    // TODO: config max speed based on ship
+    body.limitVelocity(maximum = 80.0f)
   }
 
   // MARK: Minimap

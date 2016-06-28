@@ -46,11 +46,17 @@ class SpaceNode @Inject constructor(
     val dissipation = model.dissipation.sample()
     cluster.add(systems).resolve(dissipation)
 
-    // calculate size based on extents of cluster
-    val size    = cluster.bounds().size()
+    // calculate cluster bounds
+    val bounds = cluster.bounds()
 
-    // position space / ship according to size
-    this.size   = size
-    ship.center = size.sample()
+    // reposition systems based on bounds center
+    val offset = bounds.offset()
+    for(system in systems) {
+      system.center += offset
+    }
+
+    // calculate size, position space / ship accordingly
+    this.size   = bounds.size()
+    ship.center = this.size.sample()
   }
 }
