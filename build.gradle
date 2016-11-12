@@ -1,5 +1,5 @@
 buildscript {
-  ext.kotlinVersion = "1.0.2"
+  ext.kotlinVersion = '1.0.5'
 
   repositories {
     mavenCentral()
@@ -9,7 +9,7 @@ buildscript {
 
   dependencies {
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-    classpath 'com.android.tools.build:gradle:2.1.2'
+    classpath 'com.android.tools.build:gradle:2.2.2'
     classpath 'org.robovm:robovm-gradle-plugin:1.12.0'
   }
 }
@@ -35,6 +35,32 @@ allprojects {
     maven { url "http://repository.jetbrains.com/all" }
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+  }
+}
+
+
+project(":core") {
+  apply plugin: "java"
+  apply plugin: "kotlin"
+
+  dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+    compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+    compile 'com.squareup.moshi:moshi:1.1.0'
+    compile "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    testCompile "org.jetbrains.spek:spek:$spekVersion"
+    testCompile "org.hamcrest:hamcrest-all:$hamcrestVersion"
+    testCompile "org.mockito:mockito-core:$mockitoVersion"
+    testCompile "com.badlogicgames.gdx:gdx:$gdxVersion"
+    testCompile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+    testCompile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+  }
+
+  kapt {
+    generateStubs = true
   }
 }
 
@@ -89,33 +115,4 @@ project(":ios") {
     compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
     compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-ios"
   }
-}
-
-project(":core") {
-  apply plugin: "java"
-  apply plugin: "kotlin"
-
-  dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-    compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-    compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
-    compile 'com.squareup.moshi:moshi:1.1.0'
-    compile "com.google.dagger:dagger:$daggerVersion"
-    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
-
-    testCompile "org.jetbrains.spek:spek:$spekVersion"
-    testCompile "org.hamcrest:hamcrest-all:$hamcrestVersion"
-    testCompile "org.mockito:mockito-core:$mockitoVersion"
-    testCompile "com.badlogicgames.gdx:gdx:$gdxVersion"
-    testCompile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-    testCompile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
-  }
-
-  kapt {
-    generateStubs = true
-  }
-}
-
-tasks.eclipse.doLast {
-  delete ".project"
 }
