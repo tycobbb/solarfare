@@ -1,4 +1,4 @@
-package dev.wizrad.solarfare.game.ui
+package dev.wizrad.solarfare.game.ui.minimap
 
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
@@ -9,7 +9,7 @@ import dev.wizrad.solarfare.game.ui.support.setPosition
 
 class MinimapNode(
   private val mappable: Mappable,
-  private val texture:  TextureRegion): Actor() {
+  private val texture: TextureRegion): Actor() {
 
   // MARK: Lifecycle
   init {

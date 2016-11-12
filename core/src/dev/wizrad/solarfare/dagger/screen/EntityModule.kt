@@ -9,7 +9,7 @@ import dev.wizrad.solarfare.game.renderer.core.Camera
 import dev.wizrad.solarfare.game.renderer.core.Renderer
 import dev.wizrad.solarfare.game.shared.Controls
 import dev.wizrad.solarfare.game.shared.Textures
-import dev.wizrad.solarfare.game.ui.Minimap
+import dev.wizrad.solarfare.game.ui.minimap.Minimap
 import dev.wizrad.solarfare.game.world.Entities
 import dev.wizrad.solarfare.game.world.core.NodeEntityFactory
 import dev.wizrad.solarfare.generation.SpaceNode

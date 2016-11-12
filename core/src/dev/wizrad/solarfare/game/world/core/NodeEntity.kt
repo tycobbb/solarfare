@@ -5,9 +5,9 @@ import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.World
 import dev.wizrad.solarfare.game.core.Entity
-import dev.wizrad.solarfare.game.ui.Mappable
-import dev.wizrad.solarfare.game.ui.Minimap
-import dev.wizrad.solarfare.game.ui.MinimapNode
+import dev.wizrad.solarfare.game.ui.minimap.Mappable
+import dev.wizrad.solarfare.game.ui.minimap.Minimap
+import dev.wizrad.solarfare.game.ui.minimap.MinimapNode
 import dev.wizrad.solarfare.generation.core.Node
 
 abstract class NodeEntity<N: Node>(

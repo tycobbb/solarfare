@@ -3,6 +3,7 @@ package dev.wizrad.solarfare.game.ui
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.ScreenViewport
 import dev.wizrad.solarfare.game.core.Renderable
+import dev.wizrad.solarfare.game.ui.minimap.Minimap
 import javax.inject.Inject
 
 class MainStage @Inject constructor(

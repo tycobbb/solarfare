@@ -20,18 +20,7 @@ class EntitySequence {
   }
 
   // MARK: Output
-  fun generate(): Array<Entity> {
-    val size   = collections.sumBy { it.size }
-    val result = arrayOfNulls<Entity>(size)
-
-    var index = 0
-    for(entities in collections) {
-      for(entity in entities) {
-        result[index++] = entity
-      }
-    }
-
-    @Suppress("CAST_NEVER_SUCCEEDS")
-    return result as Array<Entity>
+  fun toArray(): Array<Entity> {
+    return collections.flatten().toTypedArray()
   }
 }

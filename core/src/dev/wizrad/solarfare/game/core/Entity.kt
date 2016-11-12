@@ -15,7 +15,7 @@ abstract class Entity(
   abstract val center: Vector2
 
   /** Cached list for traversing children in prescribed order */
-  private val children: Array<Entity> by lazy { children(EntitySequence()).generate() }
+  private val children: Array<Entity> by lazy { children(EntitySequence()).toArray() }
 
   // MARK: Geometry
   /** Transforms a point from the local -> absolute coordinate space */
@@ -34,28 +34,21 @@ abstract class Entity(
   }
 
   // MARK: Lifecycle
+  @Suppress("ConvertLambdaToReference")
   open fun initialize() {
-    for(child in children) {
-      child.initialize()
-    }
+    children.forEach { it.initialize() }
   }
 
   override fun update(delta: Float) {
-    for(child in children) {
-      child.update(delta)
-    }
+    children.forEach { it.update(delta) }
   }
 
   open fun step(delta: Float) {
-    for(child in children) {
-      child.step(delta)
-    }
+    children.forEach { it.step(delta) }
   }
 
   open fun afterStep(delta: Float) {
-    for(child in children) {
-      child.afterStep(delta)
-    }
+    children.forEach { it.afterStep(delta) }
   }
 
   open fun destroy() {

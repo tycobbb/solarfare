@@ -1,4 +1,4 @@
-package dev.wizrad.solarfare.game.ui
+package dev.wizrad.solarfare.game.ui.minimap
 
 import com.badlogic.gdx.math.Vector2
 

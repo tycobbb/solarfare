@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dev.wizrad.solarfare.game.shared.Textures
 import dev.wizrad.solarfare.game.ui.MainStage
-import dev.wizrad.solarfare.game.ui.Minimap
+import dev.wizrad.solarfare.game.ui.minimap.Minimap
 
 @Module
 class InterfaceModule {

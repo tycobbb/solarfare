@@ -11,8 +11,8 @@ import dev.wizrad.solarfare.config.Key
 import dev.wizrad.solarfare.game.core.Entity
 import dev.wizrad.solarfare.game.renderer.core.CameraTrackable
 import dev.wizrad.solarfare.game.shared.Controls
-import dev.wizrad.solarfare.game.ui.Minimap
-import dev.wizrad.solarfare.game.ui.MinimapNode
+import dev.wizrad.solarfare.game.ui.minimap.Minimap
+import dev.wizrad.solarfare.game.ui.minimap.MinimapNode
 import dev.wizrad.solarfare.game.world.core.NodeEntity
 import dev.wizrad.solarfare.game.world.support.limitVelocity
 import dev.wizrad.solarfare.game.world.support.rotate
@@ -24,7 +24,7 @@ class Ship(
   node:     ShipNode,
   parent:   Entity,
   world:    World,
-  minimap:  Minimap,
+  minimap: Minimap,
   controls: Controls): NodeEntity<ShipNode>(node, world, parent), CameraTrackable {
 
   // MARK: Dependencies
