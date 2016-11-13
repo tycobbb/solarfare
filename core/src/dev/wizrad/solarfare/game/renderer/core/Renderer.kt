@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import dev.wizrad.solarfare.game.components.Textures
 import dev.wizrad.solarfare.game.core.Renderable
 import dev.wizrad.solarfare.game.renderer.render
-import dev.wizrad.solarfare.game.shared.Textures
 import dev.wizrad.solarfare.game.world.Entities
 import javax.inject.Inject
 

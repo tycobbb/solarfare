@@ -1,7 +1,7 @@
 package dev.wizrad.solarfare.game.world.core
 
 import com.badlogic.gdx.physics.box2d.World
-import dev.wizrad.solarfare.game.shared.Controls
+import dev.wizrad.solarfare.game.components.controls.Controls
 import dev.wizrad.solarfare.game.ui.minimap.Minimap
 import dev.wizrad.solarfare.game.world.*
 import dev.wizrad.solarfare.generation.*

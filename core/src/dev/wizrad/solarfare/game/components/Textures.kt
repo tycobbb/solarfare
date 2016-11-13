@@ -1,4 +1,4 @@
-package dev.wizrad.solarfare.game.shared
+package dev.wizrad.solarfare.game.components
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.TextureAtlas

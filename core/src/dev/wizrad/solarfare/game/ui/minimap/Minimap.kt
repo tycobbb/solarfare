@@ -3,9 +3,8 @@ package dev.wizrad.solarfare.game.ui.minimap
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Group
-import dev.wizrad.solarfare.game.shared.CoordinateSpace.Kind
-import dev.wizrad.solarfare.game.shared.Textures
-import dev.wizrad.solarfare.game.shared.coordinateSpace
+import dev.wizrad.solarfare.game.components.CoordinateSpace
+import dev.wizrad.solarfare.game.components.Textures
 
 class Minimap(
   private val textures: Textures): Group() {
@@ -14,8 +13,7 @@ class Minimap(
     width  = 100.0f
     height = 100.0f
 
-    // setup the minimap coordinate space
-    coordinateSpace(Kind.Minimap, byScale = Vector2(width, height), reflected = true)
+    CoordinateSpace.minimap = CoordinateSpace.create(scale = Vector2(width, height), isReflected = true)
   }
 
   // MARK: Lifecycle

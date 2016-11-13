@@ -7,8 +7,8 @@ import dagger.Provides
 import dev.wizrad.solarfare.config.Config
 import dev.wizrad.solarfare.game.renderer.core.Camera
 import dev.wizrad.solarfare.game.renderer.core.Renderer
-import dev.wizrad.solarfare.game.shared.Controls
-import dev.wizrad.solarfare.game.shared.Textures
+import dev.wizrad.solarfare.game.components.controls.Controls
+import dev.wizrad.solarfare.game.components.Textures
 import dev.wizrad.solarfare.game.ui.minimap.Minimap
 import dev.wizrad.solarfare.game.world.Entities
 import dev.wizrad.solarfare.game.world.core.NodeEntityFactory

@@ -3,8 +3,9 @@ package dev.wizrad.solarfare.game.ui.minimap
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.Actor
-import dev.wizrad.solarfare.game.shared.CoordinateSpace.Kind
-import dev.wizrad.solarfare.game.shared.transform
+import dev.wizrad.solarfare.game.components.CoordinateSpace.Companion.minimap
+import dev.wizrad.solarfare.game.components.CoordinateSpace.Companion.transform
+import dev.wizrad.solarfare.game.components.CoordinateSpace.Companion.world
 import dev.wizrad.solarfare.game.ui.support.setPosition
 
 class MinimapNode(
@@ -19,9 +20,7 @@ class MinimapNode(
 
   override fun act(delta: Float) {
     super.act(delta)
-
-    val position = transform(mappable.center, from = Kind.World, to = Kind.Minimap)
-    setPosition(position)
+    setPosition(transform(mappable.center, from = world, to = minimap))
   }
 
   override fun draw(batch: Batch?, parentAlpha: Float) {

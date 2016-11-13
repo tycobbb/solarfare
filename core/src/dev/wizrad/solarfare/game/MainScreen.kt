@@ -3,9 +3,11 @@ package dev.wizrad.solarfare.game
 import com.badlogic.gdx.Screen
 import dev.wizrad.solarfare.dagger.game.GameComponent
 import dev.wizrad.solarfare.dagger.screen.*
+import dev.wizrad.solarfare.game.components.CoordinateSpace
 import dev.wizrad.solarfare.game.renderer.core.Renderer
 import dev.wizrad.solarfare.game.ui.MainStage
 import dev.wizrad.solarfare.game.world.Entities
+import dev.wizrad.solarfare.support.extensions.Vector2
 import javax.inject.Inject
 
 class MainScreen(
@@ -38,6 +40,7 @@ class MainScreen(
   }
 
   override fun resize(width: Int, height: Int) {
+    CoordinateSpace.screen = CoordinateSpace.create(Vector2(width, height))
     renderer.resize(width, height)
     stage.resize(width, height)
   }
