@@ -36,6 +36,9 @@ class EntityWorld @Inject constructor(
     space = factory.entity(node = root.bootstrap())
     space.initialize()
 
+    // routing should target the user's ship
+    routes.target = space.ship
+
     // setup the world coordinate space
     CoordinateSpace.world = CoordinateSpace.create(scale = space.size)
   }

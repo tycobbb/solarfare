@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport
 import dev.wizrad.solarfare.game.components.CoordinateSpace
 import dev.wizrad.solarfare.game.core.Renderable
 import dev.wizrad.solarfare.game.ui.minimap.Minimap
-import dev.wizrad.solarfare.game.ui.routeline.RouteLine
+import dev.wizrad.solarfare.game.ui.RouteLine
 import dev.wizrad.solarfare.support.extensions.Vector2
 import javax.inject.Inject
 

@@ -2,7 +2,6 @@ package dev.wizrad.solarfare.game.world
 
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.BodyDef
-import dev.wizrad.solarfare.game.renderer.core.CameraTrackable
 import dev.wizrad.solarfare.game.renderer.support.set
 import dev.wizrad.solarfare.game.world.core.NodeEntity
 import dev.wizrad.solarfare.game.world.support.EntitySequence
@@ -35,9 +34,6 @@ class Space(
     body.position.set(node.size * 0.5)
     return body
   }
-
-  // MARK: Accessors
-  val trackable: CameraTrackable get() = ship
 
   // MARK: Debugging
   override fun toString(): String {

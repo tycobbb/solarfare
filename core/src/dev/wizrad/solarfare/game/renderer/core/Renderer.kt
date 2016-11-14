@@ -21,7 +21,7 @@ class Renderer @Inject constructor(
 
   // MARK: Lifecycle
   init {
-    camera.track(world.space.trackable)
+    camera.target = world.space.ship
   }
 
   override fun update(delta: Float) {

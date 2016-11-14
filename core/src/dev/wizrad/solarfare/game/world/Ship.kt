@@ -8,7 +8,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
 import dev.wizrad.solarfare.config.Key
 import dev.wizrad.solarfare.game.core.Entity
-import dev.wizrad.solarfare.game.renderer.core.CameraTrackable
+import dev.wizrad.solarfare.game.core.Targetable
 import dev.wizrad.solarfare.game.ui.minimap.MinimapNode
 import dev.wizrad.solarfare.game.world.core.NodeEntity
 import dev.wizrad.solarfare.game.world.support.limitVelocity
@@ -20,7 +20,7 @@ import dev.wizrad.solarfare.support.Maths
 class Ship(
   node:   ShipNode,
   parent: Entity,
-  world:  World): NodeEntity<ShipNode>(node, parent, world), CameraTrackable {
+  world:  World): NodeEntity<ShipNode>(node, parent, world), Targetable {
 
   // MARK: Lifecycle
   init {
@@ -90,6 +90,6 @@ class Ship(
     node.color = Color.GREEN
   }
 
-  // MARK: CameraTrackable
+  // MARK: Targetable
   override val point: Vector2 get() = center
 }

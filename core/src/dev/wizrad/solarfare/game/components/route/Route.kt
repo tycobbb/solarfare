@@ -2,9 +2,12 @@ package dev.wizrad.solarfare.game.components.route
 
 import com.badlogic.gdx.math.Vector2
 import dev.wizrad.solarfare.game.components.controls.Touch
+import dev.wizrad.solarfare.game.core.Targetable
 import dev.wizrad.solarfare.support.extensions.append
 
-class Route {
+class Route(
+  private val target: Targetable?) {
+
   // MARK: Properties
   private val _points = mutableListOf<Vector2>()
   private var _event  = Touch.Event.Began

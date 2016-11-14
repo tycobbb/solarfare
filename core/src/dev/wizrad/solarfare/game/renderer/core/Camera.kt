@@ -5,14 +5,16 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import dev.wizrad.solarfare.config.Config
 import dev.wizrad.solarfare.game.core.Renderable
+import dev.wizrad.solarfare.game.core.Targetable
 import dev.wizrad.solarfare.support.unwrap
 import javax.inject.Inject
 
 class Camera @Inject constructor(
   config: Config): OrthographicCamera(), Renderable {
 
+  // MARK: Properties
   private val viewport: Viewport
-  private var target: CameraTrackable? = null
+  var target: Targetable? = null
 
   // MARK: Lifecycle
   init {
@@ -29,10 +31,5 @@ class Camera @Inject constructor(
 
   override fun resize(width: Int, height: Int) {
     viewport.update(width, height)
-  }
-
-  // MARK: Tracking
-  fun track(target: CameraTrackable) {
-    this.target = target
   }
 }

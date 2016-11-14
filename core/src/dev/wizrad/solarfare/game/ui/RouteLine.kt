@@ -1,4 +1,4 @@
-package dev.wizrad.solarfare.game.ui.routeline
+package dev.wizrad.solarfare.game.ui
 
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
@@ -31,7 +31,7 @@ class RouteLine(
     val result = FloatArray(route.points.size * 2)
 
     for(point in route.points) {
-      val local = transform(point, from = screen, to = CoordinateSpace.stage)
+      val local = transform(point, from = screen, to = CoordinateSpace.Companion.stage)
       result[i++] = local.x
       result[i++] = local.y
     }
