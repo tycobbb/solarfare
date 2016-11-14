@@ -2,7 +2,6 @@ package dev.wizrad.solarfare.game.world
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.physics.box2d.BodyDef
-import com.badlogic.gdx.physics.box2d.World
 import dev.wizrad.solarfare.game.core.Entity
 import dev.wizrad.solarfare.game.world.core.NodeEntity
 import dev.wizrad.solarfare.game.world.support.EntitySequence
@@ -15,7 +14,7 @@ import dev.wizrad.solarfare.support.debug
 class SolarSystem(
   node:   SolarSystemNode,
   parent: Entity,
-  world:  World): NodeEntity<SolarSystemNode>(node, world, parent) {
+  world:  World): NodeEntity<SolarSystemNode>(node, parent, world) {
 
   // MARK: Children
   lateinit var star:    Star

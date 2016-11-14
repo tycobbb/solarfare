@@ -1,16 +1,10 @@
 package dev.wizrad.solarfare.game.world.core
 
-import com.badlogic.gdx.physics.box2d.World
-import dev.wizrad.solarfare.game.components.controls.Controls
-import dev.wizrad.solarfare.game.ui.minimap.Minimap
 import dev.wizrad.solarfare.game.world.*
 import dev.wizrad.solarfare.generation.*
-import javax.inject.Inject
 
-class NodeEntityFactory @Inject constructor(
-  private val world:    World,
-  private val controls: Controls,
-  private val minimap: Minimap) {
+class NodeEntityFactory(
+  private val world: World) {
 
   fun entity(node: SpaceNode): Space {
     val result = Space(node, world)
@@ -31,14 +25,14 @@ class NodeEntityFactory @Inject constructor(
   }
 
   fun entity(node: ShipNode, parent: Space): Ship {
-    return Ship(node, parent, world, minimap, controls)
+    return Ship(node, parent, world)
   }
 
   fun entity(node: StarNode, parent: SolarSystem): Star {
-    return Star(node, parent, world, minimap)
+    return Star(node, parent, world)
   }
 
   fun entity(node: PlanetNode, parent: SolarSystem): Planet {
-    return Planet(node, parent, world, minimap)
+    return Planet(node, parent, world)
   }
 }

@@ -6,12 +6,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.badlogic.gdx.physics.box2d.FixtureDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
-import com.badlogic.gdx.physics.box2d.World
 import dev.wizrad.solarfare.config.Key
 import dev.wizrad.solarfare.game.core.Entity
 import dev.wizrad.solarfare.game.renderer.core.CameraTrackable
-import dev.wizrad.solarfare.game.components.controls.Controls
-import dev.wizrad.solarfare.game.ui.minimap.Minimap
 import dev.wizrad.solarfare.game.ui.minimap.MinimapNode
 import dev.wizrad.solarfare.game.world.core.NodeEntity
 import dev.wizrad.solarfare.game.world.support.limitVelocity
@@ -21,18 +18,13 @@ import dev.wizrad.solarfare.generation.ShipNode
 import dev.wizrad.solarfare.support.Maths
 
 class Ship(
-  node:     ShipNode,
-  parent:   Entity,
-  world:    World,
-  minimap: Minimap,
-  controls: Controls): NodeEntity<ShipNode>(node, world, parent), CameraTrackable {
-
-  // MARK: Dependencies
-  private val controls = controls
+  node:   ShipNode,
+  parent: Entity,
+  world:  World): NodeEntity<ShipNode>(node, parent, world), CameraTrackable {
 
   // MARK: Lifecycle
   init {
-    trackOn(minimap)
+    trackOn(world.minimap)
   }
 
   override fun defineBody(node: ShipNode): BodyDef {
@@ -68,19 +60,19 @@ class Ship(
     super.update(delta)
 
     // TODO: config movement based on ship
-    if(controls.pressed(Key.RotateLeft)) {
+    if(world.controls.pressed(Key.RotateLeft)) {
       body.rotate(-Maths.F_PI_2 / 64.0f)
     }
 
-    if(controls.pressed(Key.RotateRight)) {
+    if(world.controls.pressed(Key.RotateRight)) {
       body.rotate(Maths.F_PI_2 / 64.0f)
     }
 
-    if(controls.pressed(Key.Thrust)) {
+    if(world.controls.pressed(Key.Thrust)) {
       body.thrust(15.0f)
     }
 
-    if(controls.pressed(Key.Reverse)) {
+    if(world.controls.pressed(Key.Reverse)) {
       body.thrust(-15.0f)
     }
   }

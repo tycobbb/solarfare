@@ -1,17 +1,15 @@
 package dev.wizrad.solarfare.dagger.screen
 
-import com.badlogic.gdx.math.Vector2
-import com.badlogic.gdx.physics.box2d.World
 import dagger.Module
 import dagger.Provides
 import dev.wizrad.solarfare.config.Config
+import dev.wizrad.solarfare.game.components.Textures
+import dev.wizrad.solarfare.game.components.controls.Controls
+import dev.wizrad.solarfare.game.components.route.Routes
 import dev.wizrad.solarfare.game.renderer.core.Camera
 import dev.wizrad.solarfare.game.renderer.core.Renderer
-import dev.wizrad.solarfare.game.components.controls.Controls
-import dev.wizrad.solarfare.game.components.Textures
 import dev.wizrad.solarfare.game.ui.minimap.Minimap
-import dev.wizrad.solarfare.game.world.Entities
-import dev.wizrad.solarfare.game.world.core.NodeEntityFactory
+import dev.wizrad.solarfare.game.world.EntityWorld
 import dev.wizrad.solarfare.generation.SpaceNode
 import dev.wizrad.solarfare.generation.core.Root
 
@@ -19,24 +17,19 @@ import dev.wizrad.solarfare.generation.core.Root
 class EntityModule {
   // MARK: Model / Physics
   @Provides @ScreenScope
-  fun world(): World {
-    return World(Vector2(0.0f, 0.0f), true)
-  }
+  fun world(
+    root:     Root<SpaceNode>,
+    controls: Controls,
+    minimap:  Minimap,
+    routes:   Routes): EntityWorld {
 
-  @Provides @ScreenScope
-  fun entities(world: World, root: Root<SpaceNode>, factory: NodeEntityFactory): Entities {
-    return Entities(world, root, factory)
-  }
-
-  @Provides
-  fun factory(world: World, controls: Controls, minimap: Minimap): NodeEntityFactory {
-    return NodeEntityFactory(world, controls, minimap)
+    return EntityWorld(root, controls, minimap, routes)
   }
 
   // MARK: View
   @Provides
-  fun renderer(entities: Entities, camera: Camera, textures: Textures): Renderer {
-    return Renderer(entities, camera, textures)
+  fun renderer(world: EntityWorld, camera: Camera, textures: Textures): Renderer {
+    return Renderer(world, camera, textures)
   }
 
   @Provides

@@ -3,17 +3,17 @@ package dev.wizrad.solarfare.game.world.core
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.physics.box2d.BodyDef
-import com.badlogic.gdx.physics.box2d.World
 import dev.wizrad.solarfare.game.core.Entity
 import dev.wizrad.solarfare.game.ui.minimap.Mappable
 import dev.wizrad.solarfare.game.ui.minimap.Minimap
 import dev.wizrad.solarfare.game.ui.minimap.MinimapNode
+import dev.wizrad.solarfare.game.world.World
 import dev.wizrad.solarfare.generation.core.Node
 
 abstract class NodeEntity<N: Node>(
-  node:    N,
-  world:   World,
-  parent:  Entity? = null): Entity(parent), Mappable {
+  node:   N,
+  parent: Entity?,
+  val world: World): Entity(parent), Mappable {
 
   // MARK: Physics
   val body: Body
@@ -27,7 +27,7 @@ abstract class NodeEntity<N: Node>(
 
   // MARK: Lifecycle
   init {
-    body = world.createBody(defineBody(node))
+    body = world.physics.createBody(defineBody(node))
     createFixtures(node)
   }
 
