@@ -1,11 +1,11 @@
 package dev.wizrad.solarfare.game.components.route
 
 import com.badlogic.gdx.math.Vector2
-import dev.wizrad.solarfare.game.components.CoordinateSpace.Companion.normal
-import dev.wizrad.solarfare.game.components.CoordinateSpace.Companion.transform
-import dev.wizrad.solarfare.game.components.CoordinateSpace.Companion.worldport
-import dev.wizrad.solarfare.game.components.CoordinateSpace.Companion.world
 import dev.wizrad.solarfare.game.components.controls.Touch
+import dev.wizrad.solarfare.game.components.projection.Projections.Companion.normal
+import dev.wizrad.solarfare.game.components.projection.Projections.Companion.viewport
+import dev.wizrad.solarfare.game.components.projection.Projections.Companion.world
+import dev.wizrad.solarfare.game.components.projection.project
 import dev.wizrad.solarfare.game.core.Targetable
 import dev.wizrad.solarfare.support.unwrap
 
@@ -21,7 +21,7 @@ class Route(
 
   init {
     target.unwrap {
-      _points.add(transform(it.position, from = world, to = normal))
+      _points.add(project(it.position, from = world, to = normal))
     }
   }
 
@@ -29,7 +29,7 @@ class Route(
   fun append(touch: Touch): Route {
     _event = touch.event
 
-    val point = transform(touch.point, from = worldport, to = normal)
+    val point = project(touch.point, from = viewport, to = normal)
     if(_points.size == 0 || _points.last().dst(point) > threshold) {
       _points.add(point)
     }

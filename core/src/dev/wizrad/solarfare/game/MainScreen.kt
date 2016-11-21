@@ -3,11 +3,12 @@ package dev.wizrad.solarfare.game
 import com.badlogic.gdx.Screen
 import dev.wizrad.solarfare.dagger.game.GameComponent
 import dev.wizrad.solarfare.dagger.screen.*
-import dev.wizrad.solarfare.game.components.CoordinateSpace
+import dev.wizrad.solarfare.game.components.projection.Projection
+import dev.wizrad.solarfare.game.components.projection.Projections
+import dev.wizrad.solarfare.game.components.projection.then
 import dev.wizrad.solarfare.game.renderer.core.Renderer
 import dev.wizrad.solarfare.game.ui.MainStage
 import dev.wizrad.solarfare.game.world.EntityWorld
-import dev.wizrad.solarfare.support.extensions.Reflection.Axis
 import dev.wizrad.solarfare.support.extensions.Vector2
 import javax.inject.Inject
 
@@ -41,9 +42,11 @@ class MainScreen(
   }
 
   override fun resize(width: Int, height: Int) {
-    val size = Vector2(width, height)
-    CoordinateSpace.touch  = CoordinateSpace(scale = size)
-    CoordinateSpace.screen = CoordinateSpace(scale = size, reflecting = Axis.Y)
+    val scale   = Projection.scaling(Vector2(width, height))
+    val reflect = Projection.reflecting(y = height)
+
+    Projections.touch  = scale
+    Projections.screen = reflect then scale
 
     renderer.resize(width, height)
     stage.resize(width, height)

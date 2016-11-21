@@ -4,10 +4,10 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType
 import com.badlogic.gdx.scenes.scene2d.Group
-import dev.wizrad.solarfare.game.components.CoordinateSpace
-import dev.wizrad.solarfare.game.components.CoordinateSpace.Companion.normal
-import dev.wizrad.solarfare.game.components.CoordinateSpace.Companion.transform
 import dev.wizrad.solarfare.game.components.controls.Touch
+import dev.wizrad.solarfare.game.components.projection.Projections.Companion.normal
+import dev.wizrad.solarfare.game.components.projection.Projections.Companion.stageport
+import dev.wizrad.solarfare.game.components.projection.project
 import dev.wizrad.solarfare.game.components.route.Route
 import dev.wizrad.solarfare.game.components.route.Routes
 import dev.wizrad.solarfare.support.unwrap
@@ -32,7 +32,7 @@ class RouteLine(
     val result = FloatArray(route.points.size * 2)
 
     for(point in route.points) {
-      val local = transform(point, from = normal, to = CoordinateSpace.stageport)
+      val local = project(point, from = normal, to = stageport)
       result[i++] = local.x
       result[i++] = local.y
     }

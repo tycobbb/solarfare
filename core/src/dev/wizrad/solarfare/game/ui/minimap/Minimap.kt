@@ -1,11 +1,11 @@
 package dev.wizrad.solarfare.game.ui.minimap
 
 import com.badlogic.gdx.graphics.g2d.Batch
-import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Group
-import dev.wizrad.solarfare.game.components.CoordinateSpace
 import dev.wizrad.solarfare.game.components.Textures
-import dev.wizrad.solarfare.support.extensions.Reflection.Axis
+import dev.wizrad.solarfare.game.components.projection.Projection
+import dev.wizrad.solarfare.game.components.projection.Projections
+import dev.wizrad.solarfare.game.components.projection.then
 
 class Minimap(
   private val textures: Textures): Group() {
@@ -14,7 +14,7 @@ class Minimap(
     width  = 100.0f
     height = 100.0f
 
-    CoordinateSpace.minimap = CoordinateSpace(scale = Vector2(width, height), reflecting = Axis.Y)
+    Projections.minimap = Projection.reflecting(y = height) then Projection.scaling(width, height)
   }
 
   // MARK: Lifecycle

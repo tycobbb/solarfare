@@ -5,13 +5,11 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.viewport.ScreenViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import dev.wizrad.solarfare.config.Config
-import dev.wizrad.solarfare.game.components.CoordinateSpace
-import dev.wizrad.solarfare.game.components.CoordinateSpace.Companion.world
-import dev.wizrad.solarfare.game.components.CoordinateSpace.Companion.worldport
+import dev.wizrad.solarfare.game.components.projection.Projection
+import dev.wizrad.solarfare.game.components.projection.Projections
+import dev.wizrad.solarfare.game.components.projection.then
 import dev.wizrad.solarfare.game.core.Renderable
 import dev.wizrad.solarfare.game.core.Targetable
-import dev.wizrad.solarfare.support.extensions.update
-import dev.wizrad.solarfare.support.then
 import dev.wizrad.solarfare.support.unwrap
 import javax.inject.Inject
 
@@ -43,18 +41,13 @@ class Camera @Inject constructor(
     val p = position
     val o = Vector2(width / 2.0f, height/ 2.0f)
 
-    val normalizer   = { v: Vector2 -> v.add(p.x - o.x, p.y - o.y) }
-    val denormalizer = { v: Vector2 -> v.sub(p.x - o.x, p.y - o.y) }
-
-    CoordinateSpace.worldport = CoordinateSpace(
-      normalizer   = normalizer then world.normalizer,
-      denormalizer = world.denormalizer then denormalizer
+    val reflect = Projection.reflecting(y = height)
+    val offset  = Projection(
+      normalizer   = { it.add(p.x - o.x, p.y - o.y) },
+      denormalizer = { it.sub(p.x - o.x, p.y - o.y) }
     )
 
-    val reflect = { v: Vector2 -> v.update(y = height - v.y) }
-    CoordinateSpace.stageport = CoordinateSpace(
-      normalizer   = reflect then worldport.normalizer,
-      denormalizer = worldport.denormalizer then reflect
-    )
+    Projections.viewport  = offset  then Projections.world
+    Projections.stageport = reflect then offset then Projections.world
   }
 }
