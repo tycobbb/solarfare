@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Group
 import dev.wizrad.solarfare.game.components.CoordinateSpace
 import dev.wizrad.solarfare.game.components.Textures
+import dev.wizrad.solarfare.support.extensions.Reflection.Axis
 
 class Minimap(
   private val textures: Textures): Group() {
@@ -13,7 +14,7 @@ class Minimap(
     width  = 100.0f
     height = 100.0f
 
-    CoordinateSpace.minimap = CoordinateSpace.create(scale = Vector2(width, height), isReflected = true)
+    CoordinateSpace.minimap = CoordinateSpace(scale = Vector2(width, height), reflecting = Axis.Y)
   }
 
   // MARK: Lifecycle

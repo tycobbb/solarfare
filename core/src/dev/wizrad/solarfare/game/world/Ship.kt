@@ -91,5 +91,5 @@ class Ship(
   }
 
   // MARK: Targetable
-  override val point: Vector2 get() = center
+  override val position: Vector2 get() = center
 }

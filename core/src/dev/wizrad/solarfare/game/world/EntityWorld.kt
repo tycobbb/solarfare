@@ -40,7 +40,7 @@ class EntityWorld @Inject constructor(
     routes.target = space.ship
 
     // setup the world coordinate space
-    CoordinateSpace.world = CoordinateSpace.create(scale = space.size)
+    CoordinateSpace.world = CoordinateSpace(scale = space.size)
   }
 
   override fun update(delta: Float) {

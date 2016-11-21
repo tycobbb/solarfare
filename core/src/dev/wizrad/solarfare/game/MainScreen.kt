@@ -7,6 +7,7 @@ import dev.wizrad.solarfare.game.components.CoordinateSpace
 import dev.wizrad.solarfare.game.renderer.core.Renderer
 import dev.wizrad.solarfare.game.ui.MainStage
 import dev.wizrad.solarfare.game.world.EntityWorld
+import dev.wizrad.solarfare.support.extensions.Reflection.Axis
 import dev.wizrad.solarfare.support.extensions.Vector2
 import javax.inject.Inject
 
@@ -40,7 +41,10 @@ class MainScreen(
   }
 
   override fun resize(width: Int, height: Int) {
-    CoordinateSpace.screen = CoordinateSpace.create(Vector2(width, height))
+    val size = Vector2(width, height)
+    CoordinateSpace.touch  = CoordinateSpace(scale = size)
+    CoordinateSpace.screen = CoordinateSpace(scale = size, reflecting = Axis.Y)
+
     renderer.resize(width, height)
     stage.resize(width, height)
   }

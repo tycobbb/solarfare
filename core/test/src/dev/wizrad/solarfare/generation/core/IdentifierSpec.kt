@@ -14,7 +14,7 @@ class IdentifierSpec: Spek({
       id = Identifier.next(tag)
     }
 
-    on("#create") {
+    on("#compile") {
       it("returns an id with the tag") {
         assertThat(id?.tag, equalTo(tag))
       }

@@ -18,7 +18,7 @@ abstract class Entity(
   private val children: Array<Entity> by lazy { children(EntitySequence()).toArray() }
 
   // MARK: Geometry
-  /** Transforms a point from the local -> absolute coordinate space */
+  /** Transforms a position from the local -> absolute coordinate space */
   protected fun transform(point: Point): Vector2 {
     return transform(scratch.set(point))
   }

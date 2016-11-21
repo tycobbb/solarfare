@@ -23,7 +23,7 @@ class Textures {
   }
 
   private fun transform(region: TextureRegion): TextureRegion {
-    // orthographic camera mirrors textures over the y-axis
+    // textures have a reflected y-axis
     region.flip(false, true)
     return region
   }
