@@ -5,7 +5,7 @@ import dagger.Provides
 import dev.wizrad.solarfare.config.Config
 import dev.wizrad.solarfare.game.components.Textures
 import dev.wizrad.solarfare.game.components.controls.Controls
-import dev.wizrad.solarfare.game.components.route.Routes
+import dev.wizrad.solarfare.game.components.route.RouteProvider
 
 @Module
 class ScreenModule {
@@ -20,7 +20,7 @@ class ScreenModule {
   }
 
   @Provides @ScreenScope
-  fun routes(controls: Controls): Routes {
-    return Routes(controls)
+  fun routes(controls: Controls): RouteProvider {
+    return RouteProvider(controls)
   }
 }

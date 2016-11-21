@@ -9,11 +9,11 @@ import dev.wizrad.solarfare.game.components.projection.Projections.Companion.nor
 import dev.wizrad.solarfare.game.components.projection.Projections.Companion.stageport
 import dev.wizrad.solarfare.game.components.projection.project
 import dev.wizrad.solarfare.game.components.route.Route
-import dev.wizrad.solarfare.game.components.route.Routes
+import dev.wizrad.solarfare.game.components.route.RouteProvider
 import dev.wizrad.solarfare.support.unwrap
 
 class RouteLine(
-  routes: Routes): Group() {
+  routes: RouteProvider): Group() {
 
   private var path: FloatArray? = null
   private var shape = ShapeRenderer()

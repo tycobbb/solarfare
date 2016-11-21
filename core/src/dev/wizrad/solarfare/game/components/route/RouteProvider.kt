@@ -6,7 +6,7 @@ import dev.wizrad.solarfare.game.core.Targetable
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class Routes @Inject constructor(
+class RouteProvider @Inject constructor(
   controls: Controls) {
 
   var target: Targetable? = null

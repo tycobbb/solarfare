@@ -5,7 +5,7 @@ import dagger.Provides
 import dev.wizrad.solarfare.config.Config
 import dev.wizrad.solarfare.game.components.Textures
 import dev.wizrad.solarfare.game.components.controls.Controls
-import dev.wizrad.solarfare.game.components.route.Routes
+import dev.wizrad.solarfare.game.components.route.RouteProvider
 import dev.wizrad.solarfare.game.renderer.core.Camera
 import dev.wizrad.solarfare.game.renderer.core.Renderer
 import dev.wizrad.solarfare.game.ui.minimap.Minimap
@@ -21,7 +21,7 @@ class EntityModule {
     root:     Root<SpaceNode>,
     controls: Controls,
     minimap:  Minimap,
-    routes:   Routes): EntityWorld {
+    routes: RouteProvider): EntityWorld {
 
     return EntityWorld(root, controls, minimap, routes)
   }

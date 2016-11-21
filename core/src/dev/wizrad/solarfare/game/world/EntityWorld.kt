@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2
 import dev.wizrad.solarfare.game.components.controls.Controls
 import dev.wizrad.solarfare.game.components.projection.Projection
 import dev.wizrad.solarfare.game.components.projection.Projections
-import dev.wizrad.solarfare.game.components.route.Routes
+import dev.wizrad.solarfare.game.components.route.RouteProvider
 import dev.wizrad.solarfare.game.core.Updatable
 import dev.wizrad.solarfare.game.ui.minimap.Minimap
 import dev.wizrad.solarfare.game.world.core.NodeEntityFactory
@@ -18,7 +18,7 @@ class EntityWorld @Inject constructor(
   root: Root<SpaceNode>,
   override val controls: Controls,
   override val minimap:  Minimap,
-  override val routes:   Routes): Updatable, World {
+  override val routes: RouteProvider): Updatable, World {
 
   // MARK: World
   override val physics = PhysicsWorld(Vector2(0.0f, 0.0f), true)
