@@ -6,9 +6,15 @@ import dev.wizrad.solarfare.config.Config
 import dev.wizrad.solarfare.game.components.Textures
 import dev.wizrad.solarfare.game.components.controls.Controls
 import dev.wizrad.solarfare.game.components.route.RouteProvider
+import dev.wizrad.solarfare.game.components.session.Session
 
 @Module
 class ScreenModule {
+  @Provides @ScreenScope
+  fun session(routes: RouteProvider): Session {
+    return Session(routes)
+  }
+
   @Provides @ScreenScope
   fun textures(): Textures {
     return Textures()
@@ -19,7 +25,7 @@ class ScreenModule {
     return Controls(config)
   }
 
-  @Provides @ScreenScope
+  @Provides
   fun routes(controls: Controls): RouteProvider {
     return RouteProvider(controls)
   }

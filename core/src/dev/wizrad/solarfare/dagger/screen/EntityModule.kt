@@ -5,7 +5,7 @@ import dagger.Provides
 import dev.wizrad.solarfare.config.Config
 import dev.wizrad.solarfare.game.components.Textures
 import dev.wizrad.solarfare.game.components.controls.Controls
-import dev.wizrad.solarfare.game.components.route.RouteProvider
+import dev.wizrad.solarfare.game.components.session.Session
 import dev.wizrad.solarfare.game.renderer.core.Camera
 import dev.wizrad.solarfare.game.renderer.core.Renderer
 import dev.wizrad.solarfare.game.ui.minimap.Minimap
@@ -15,18 +15,18 @@ import dev.wizrad.solarfare.generation.core.Root
 
 @Module
 class EntityModule {
-  // MARK: Model / Physics
+  // MARK: Simulation
   @Provides @ScreenScope
   fun world(
     root:     Root<SpaceNode>,
+    session:  Session,
     controls: Controls,
-    minimap:  Minimap,
-    routes: RouteProvider): EntityWorld {
+    minimap:  Minimap): EntityWorld {
 
-    return EntityWorld(root, controls, minimap, routes)
+    return EntityWorld(root, session, controls, minimap)
   }
 
-  // MARK: View
+  // MARK: Rendering
   @Provides
   fun renderer(world: EntityWorld, camera: Camera, textures: Textures): Renderer {
     return Renderer(world, camera, textures)

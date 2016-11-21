@@ -4,27 +4,26 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType
 import com.badlogic.gdx.scenes.scene2d.Group
-import dev.wizrad.solarfare.game.components.controls.Touch
 import dev.wizrad.solarfare.game.components.projection.Projections.Companion.normal
 import dev.wizrad.solarfare.game.components.projection.Projections.Companion.stageport
 import dev.wizrad.solarfare.game.components.projection.project
 import dev.wizrad.solarfare.game.components.route.Route
-import dev.wizrad.solarfare.game.components.route.RouteProvider
+import dev.wizrad.solarfare.game.components.session.Session
 import dev.wizrad.solarfare.support.unwrap
 
 class RouteLine(
-  routes: RouteProvider): Group() {
+  session: Session): Group() {
 
   private var path: FloatArray? = null
   private var shape = ShapeRenderer()
 
   init {
-    routes.stream
+    session.currentRoute
       .subscribe { path = buildPath(route = it) }
   }
 
   private fun buildPath(route: Route): FloatArray? {
-    if(route.event == Touch.Event.Ended || route.points.size < 2) {
+    if(route.points.size < 2) {
       return null
     }
 
