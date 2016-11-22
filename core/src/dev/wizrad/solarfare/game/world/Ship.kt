@@ -106,13 +106,24 @@ class Ship(
   private fun resolveWayfinding() {
     val point = route.getOrNull(routeIndex)?.let { it } ?: return
 
+    // move towards wayfinding point
     val angle    = position.angleTo(point)
     val position = position.lerp(point, 0.5f)
     body.setTransform(position, angle)
 
+    // if the ship is close enough, advance to the next point
     if(body.position.dst2(point) < 0.01) {
       routeIndex++
+
+      // once every point has been hit, finish
+      if(routeIndex >= route.size) {
+        didFinishWayfinding()
+      }
     }
+  }
+
+  private fun didFinishWayfinding() {
+    world.session.advance()
   }
 
   // MARK: Minimap
