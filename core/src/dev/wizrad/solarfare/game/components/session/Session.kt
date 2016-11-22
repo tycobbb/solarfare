@@ -2,26 +2,24 @@ package dev.wizrad.solarfare.game.components.session
 
 import dev.wizrad.solarfare.game.components.route.Route
 import dev.wizrad.solarfare.game.components.route.RouteProvider
-import io.reactivex.Observable
-import io.reactivex.subjects.BehaviorSubject
 
 class Session(
   val routes: RouteProvider) {
 
   // MARK: Properties
-  private val turns = BehaviorSubject.create<Turn>()
-  private val turn: Turn get() = turns.value
+  private var turns = mutableListOf<Turn>()
 
   // MARK: Accessors
-  val isRunning: Boolean get() = turn.isRunning
+  val turn:  Turn   get() = turns.last()
+  val route: Route? get() = turn.route
 
-  // MARK: Observables
-  val currentRoute: Observable<Route> get() = turns
-    .switchMap { it.routes }
+  // MARK: Lifecycle
+  init {
+    advance()
+  }
 
-  // MARK: Operations
   fun advance() {
-    val turn = Turn(routes = routes.stream)
-    turns.onNext(turn)
+    turns.lastOrNull()?.finish()
+    turns.add(Turn(routes = routes.stream))
   }
 }

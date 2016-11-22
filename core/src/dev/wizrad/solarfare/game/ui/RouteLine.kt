@@ -7,19 +7,14 @@ import com.badlogic.gdx.scenes.scene2d.Group
 import dev.wizrad.solarfare.game.components.projection.Projections.Companion.normal
 import dev.wizrad.solarfare.game.components.projection.Projections.Companion.stageport
 import dev.wizrad.solarfare.game.components.projection.project
-import dev.wizrad.solarfare.game.components.route.Route
 import dev.wizrad.solarfare.game.components.session.Session
 import dev.wizrad.solarfare.support.unwrap
 
 class RouteLine(
-  session: Session): Group() {
+  private val session: Session): Group() {
 
-  private var route: Route? = null
+  // MARK: Properties
   private var shape = ShapeRenderer()
-
-  init {
-    session.currentRoute.subscribe { route = it }
-  }
 
   // MARK: Drawing
   override fun draw(batch: Batch?, parentAlpha: Float) {
@@ -39,7 +34,7 @@ class RouteLine(
   }
 
   private fun buildPath(): FloatArray? {
-    val route = route?.let { it } ?: return null
+    val route = session.turn.route?.let { it } ?: return null
 
     if(route.points.size < 2) {
       return null

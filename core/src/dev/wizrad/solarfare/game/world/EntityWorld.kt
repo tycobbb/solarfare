@@ -40,13 +40,12 @@ class EntityWorld @Inject constructor(
     // setup the world projection
     Projections.world = Projection.scaling(space.size)
 
-    // start the first turn
+    // point the routes at the ship
     session.routes.target = space.ship
-    session.advance()
   }
 
   override fun update(delta: Float) {
-    if(!session.isRunning) {
+    if(!session.turn.isRunning) {
       return
     }
 

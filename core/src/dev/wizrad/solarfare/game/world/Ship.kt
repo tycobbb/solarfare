@@ -11,6 +11,7 @@ import dev.wizrad.solarfare.game.components.controls.Touch
 import dev.wizrad.solarfare.game.components.projection.Projections
 import dev.wizrad.solarfare.game.components.projection.Projections.Companion.normal
 import dev.wizrad.solarfare.game.components.projection.projector
+import dev.wizrad.solarfare.game.components.route.Route
 import dev.wizrad.solarfare.game.core.Entity
 import dev.wizrad.solarfare.game.core.Targetable
 import dev.wizrad.solarfare.game.ui.minimap.MinimapNode
@@ -28,20 +29,13 @@ class Ship(
   world:  World): NodeEntity<ShipNode>(node, parent, world), Targetable {
 
   // MARK: Properties
-  private var route: List<Vector2> = emptyList()
+  private var wayfindingRoute: Route? = null
+  private var route: List<Vector2>? = null
   private var routeIndex = 0
 
   // MARK: Lifecycle
   init {
     trackOn(world.minimap)
-
-    world.session.currentRoute
-      .filter { it.event == Touch.Event.Ended }
-      .map { it.points.map(projector(from = normal, to = Projections.world)) }
-      .subscribe {
-        route = it
-        routeIndex = 0
-      }
   }
 
   override fun defineBody(node: ShipNode): BodyDef {
@@ -104,7 +98,13 @@ class Ship(
   }
 
   private fun resolveWayfinding() {
-    val point = route.getOrNull(routeIndex)?.let { it } ?: return
+    val candidate = world.session.route
+    if(candidate != null && candidate != wayfindingRoute) {
+      beginWayfinding(candidate)
+    }
+
+    val route = route?.let { it } ?: return
+    val point = route[routeIndex]
 
     // move towards wayfinding point
     val angle    = position.angleTo(point)
@@ -117,12 +117,20 @@ class Ship(
 
       // once every point has been hit, finish
       if(routeIndex >= route.size) {
-        didFinishWayfinding()
+        finishWayfinding()
       }
     }
   }
 
-  private fun didFinishWayfinding() {
+  private fun beginWayfinding(currentRoute: Route) {
+    wayfindingRoute = currentRoute
+    route = currentRoute.points.map(projector(from = normal, to = Projections.world))
+    routeIndex = 0
+  }
+
+  private fun finishWayfinding() {
+    wayfindingRoute = null
+    route = emptyList()
     world.session.advance()
   }
 
