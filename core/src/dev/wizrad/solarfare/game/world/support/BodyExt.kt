@@ -6,8 +6,8 @@ import dev.wizrad.solarfare.support.*
 // MARK: Thrust
 fun Body.thrust(magnitude: Float, wake: Boolean = true) {
   applyForceToCenter(
-    cosf(angle) * magnitude, // x
-    sinf(angle) * magnitude, // y
+    cos(angle) * magnitude, // x
+    sin(angle) * magnitude, // y
     wake)
 }
 
@@ -17,18 +17,9 @@ fun Body.rotate(radians: Float) {
   setTransform(position, angle)
 }
 
-// MARK: Velocity
-fun Body.limitVelocity(minimum: Float = 0.0f, maximum: Float = Float.MAX_VALUE) {
-  val magnitude = linearVelocity.len()
-
-  // otherwise apply the minimum velocity
-  if(magnitude < minimum) {
-    linearVelocity = Vector.polar(minimum, angle)
-  }
-  // otherwise apply the maximum velocity
-  else if(magnitude > maximum) {
-    linearVelocity = Vector.polar(maximum, angle)
-  }
+// MOVE: Movement
+fun Body.clampSpeed(min: Float = 0.0f, max: Float = Float.MAX_VALUE) {
+  linearVelocity = linearVelocity.clamp(min, max)
 }
 
 // MARK: Orbit
@@ -38,7 +29,7 @@ fun Body.beginOrbiting(orbited: Body) {
 
   // calculate speed using simplified equation when orbited body's mass far exceeds
   // the orbiting body's mass: v = √(GM / r)
-  val speed = sqrtf(Physics.GRAV_CONSTANT * orbited.mass / delta.len())
+  val speed = sqrt(Physics.GRAV_CONSTANT * orbited.mass / delta.len())
   // velocity is perpendicular to the distance vector
   val angle = delta.angleRad() + Maths.F_PI_2
 

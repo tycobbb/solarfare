@@ -1,7 +1,7 @@
 package dev.wizrad.solarfare.game.components.projection
 
 import com.badlogic.gdx.math.Vector2
-import dev.wizrad.solarfare.support.extensions.minv
+import dev.wizrad.solarfare.support.extensions.invert
 
 data class Projection(
   val normalizer:   (Vector2) -> Vector2,
@@ -18,7 +18,7 @@ data class Projection(
 
     fun scaling(scale: Vector2): Projection {
       val scale   = scale.cpy()
-      val inverse = scale.cpy().minv()
+      val inverse = scale.cpy().invert()
 
       return Projection(
         normalizer   = { it.scl(inverse) },

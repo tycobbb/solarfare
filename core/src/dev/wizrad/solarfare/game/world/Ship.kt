@@ -7,24 +7,41 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.badlogic.gdx.physics.box2d.FixtureDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
 import dev.wizrad.solarfare.config.Key
+import dev.wizrad.solarfare.game.components.controls.Touch
+import dev.wizrad.solarfare.game.components.projection.Projections
+import dev.wizrad.solarfare.game.components.projection.Projections.Companion.normal
+import dev.wizrad.solarfare.game.components.projection.projector
 import dev.wizrad.solarfare.game.core.Entity
 import dev.wizrad.solarfare.game.core.Targetable
 import dev.wizrad.solarfare.game.ui.minimap.MinimapNode
 import dev.wizrad.solarfare.game.world.core.NodeEntity
-import dev.wizrad.solarfare.game.world.support.limitVelocity
+import dev.wizrad.solarfare.game.world.support.clampSpeed
 import dev.wizrad.solarfare.game.world.support.rotate
 import dev.wizrad.solarfare.game.world.support.thrust
 import dev.wizrad.solarfare.generation.ShipNode
 import dev.wizrad.solarfare.support.Maths
+import dev.wizrad.solarfare.support.extensions.angleTo
 
 class Ship(
   node:   ShipNode,
   parent: Entity,
   world:  World): NodeEntity<ShipNode>(node, parent, world), Targetable {
 
+  // MARK: Properties
+  private var route: List<Vector2> = emptyList()
+  private var routeIndex = 0
+
   // MARK: Lifecycle
   init {
     trackOn(world.minimap)
+
+    world.session.currentRoute
+      .filter { it.event == Touch.Event.Ended }
+      .map { it.points.map(projector(from = normal, to = Projections.world)) }
+      .subscribe {
+        route = it
+        routeIndex = 0
+      }
   }
 
   override fun defineBody(node: ShipNode): BodyDef {
@@ -59,6 +76,8 @@ class Ship(
   override fun update(delta: Float) {
     super.update(delta)
 
+    resolveWayfinding()
+
     // TODO: config movement based on ship
     if(world.controls.pressed(Key.RotateLeft)) {
       body.rotate(-Maths.F_PI_2 / 64.0f)
@@ -81,7 +100,19 @@ class Ship(
     super.afterStep(delta)
 
     // TODO: config max speed based on ship
-    body.limitVelocity(maximum = 80.0f)
+    body.clampSpeed(max = 80.0f)
+  }
+
+  private fun resolveWayfinding() {
+    val point = route.getOrNull(routeIndex)?.let { it } ?: return
+
+    val angle    = position.angleTo(point)
+    val position = position.lerp(point, 0.5f)
+    body.setTransform(position, angle)
+
+    if(body.position.dst2(point) < 0.01) {
+      routeIndex++
+    }
   }
 
   // MARK: Minimap

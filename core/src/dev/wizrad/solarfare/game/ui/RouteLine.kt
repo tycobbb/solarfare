@@ -14,15 +14,33 @@ import dev.wizrad.solarfare.support.unwrap
 class RouteLine(
   session: Session): Group() {
 
-  private var path: FloatArray? = null
+  private var route: Route? = null
   private var shape = ShapeRenderer()
 
   init {
-    session.currentRoute
-      .subscribe { path = buildPath(route = it) }
+    session.currentRoute.subscribe { route = it }
   }
 
-  private fun buildPath(route: Route): FloatArray? {
+  // MARK: Drawing
+  override fun draw(batch: Batch?, parentAlpha: Float) {
+    super.draw(batch, parentAlpha)
+
+    buildPath().unwrap {
+      batch?.end()
+      drawPath(it)
+      batch?.begin()
+    }
+  }
+
+  private fun drawPath(path: FloatArray) {
+    shape.begin(ShapeType.Line)
+    shape.polyline(path)
+    shape.end()
+  }
+
+  private fun buildPath(): FloatArray? {
+    val route = route?.let { it } ?: return null
+
     if(route.points.size < 2) {
       return null
     }
@@ -37,22 +55,5 @@ class RouteLine(
     }
 
     return result
-  }
-
-  // MARK: Drawing
-  override fun draw(batch: Batch?, parentAlpha: Float) {
-    super.draw(batch, parentAlpha)
-
-    path.unwrap {
-      batch?.end()
-      drawPath(it)
-      batch?.begin()
-    }
-  }
-
-  private fun drawPath(path: FloatArray) {
-    shape.begin(ShapeType.Line)
-    shape.polyline(path)
-    shape.end()
   }
 }

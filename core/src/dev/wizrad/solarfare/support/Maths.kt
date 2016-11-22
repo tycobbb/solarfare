@@ -3,18 +3,21 @@ package dev.wizrad.solarfare.support
 import com.badlogic.gdx.math.MathUtils
 
 // MARK: Trigonometry
-val cosd: (Double) -> Double = Math::cos
-val cosf: (Float)  -> Float  = MathUtils::cos
+val cos:    (Float)  -> Float  = MathUtils::cos
+val cosd:   (Double) -> Double = Math::cos
 
-val sind: (Double) -> Double = Math::sin
-val sinf: (Float)  -> Float  = MathUtils::sin
+val sin:    (Float)  -> Float  = MathUtils::sin
+val sind:   (Double) -> Double = Math::sin
+
+val atan2:  (Float,  Float)  -> Float  = MathUtils::atan2
+val atan2d: (Double, Double) -> Double = Math::atan2
 
 // MARK: Utilities
+val sqrt:  (Float)  -> Float  = { sqrtd(it.toDouble()).toFloat() }
 val sqrtd: (Double) -> Double = Math::sqrt
-val sqrtf: (Float)  -> Float  = { sqrtd(it.toDouble()).toFloat() }
 
+val abs:   (Float)  -> Float  = Math::abs
 val absd:  (Double) -> Double = Math::abs
-val absf:  (Float)  -> Float  = Math::abs
 
 // MARK: Constants
 class Maths {

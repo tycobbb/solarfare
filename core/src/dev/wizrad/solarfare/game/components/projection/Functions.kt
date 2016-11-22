@@ -9,6 +9,10 @@ fun project(point: Vector2, from: Projection, to: Projection): Vector2 {
   return result
 }
 
+fun projector(from: Projection, to: Projection): (Vector2) -> Vector2 {
+  return { project(it, from, to) }
+}
+
 infix fun Projection.then(other: Projection): Projection {
   return Projection(
     normalizer   = normalizer then other.normalizer,
